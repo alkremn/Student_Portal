@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Student_Portal"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core" 
+             x:Class="Student_Portal.MainPage"
+             ios:Page.UseSafeArea="True">
+    <ContentPage.Padding>
+        <OnPlatform x:TypeArguments="Thickness"
+                    iOS="0,20,0,0"
+                    />
+    </ContentPage.Padding>
+    <StackLayout>
+        <Label Text="Degree Plan"
+               VerticalTextAlignment="Center"
+               HorizontalTextAlignment="Center"
+               FontSize="24"
+               FontAttributes="Bold"
+               TextColor="#ECF0F1"
+               HeightRequest="57"
+               BackgroundColor="#2980B9"/>
+        <ListView />
+        <StackLayout 
+            Orientation="Horizontal"
+            HeightRequest="50">
+            <StackLayout>
+                
+            <Label Text="Home"/>
+            </StackLayout>
+        </StackLayout>
+    </StackLayout>
+
+</ContentPage>
