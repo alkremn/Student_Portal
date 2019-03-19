@@ -24,8 +24,8 @@
             Orientation="Horizontal"
             HeightRequest="50">
             <StackLayout>
-                
-            <Label Text="Home"/>
+                <Image x:Name="image" />
+                <Label Text="Home"/>
             </StackLayout>
         </StackLayout>
     </StackLayout>
