@@ -12,7 +12,6 @@ namespace Student_Portal
         public MainPage()
         {
             InitializeComponent();
-            image.Source = ImageSource.FromResource("Student_Portal.Images.DegreeIcon.png");
         }
     }
 }
