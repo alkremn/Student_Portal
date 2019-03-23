@@ -3,8 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:Student_Portal"
              xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core" 
-             x:Class="Student_Portal.MainPage"
-             ios:Page.UseSafeArea="True">
+             x:Class="Student_Portal.Views.MainPage"
+             ios:Page.UseSafeArea="True"
+             NavigationPage.HasNavigationBar="False">
 
     <StackLayout BackgroundColor="#ECF0F1">
         <Label 
@@ -28,24 +29,9 @@
                 BackgroundColor="#2980B9"
                 WidthRequest="50"
                 HorizontalOptions="End"
-                Margin="0,0,20,0"
+                Margin="0,0,20,60"
+                Command="{Binding AddNewTermCommand}"
                 />
-            
-        </StackLayout>
-        <StackLayout 
-            Padding="20,0,0,0"
-            Orientation="Horizontal"
-            HeightRequest="50">
-            <StackLayout>
-                <Image 
-                    Source="{local:EmbeddedImage Student_Portal.Images.DegreeIcon.png}" 
-                    x:Name="image" 
-                    WidthRequest="30"/>
-                <Label 
-                    Text="Degree Plan"
-                    FontSize="14"/>
-            </StackLayout>
         </StackLayout>
     </StackLayout>
-
 </ContentPage>

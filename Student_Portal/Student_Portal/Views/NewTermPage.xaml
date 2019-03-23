@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Student_Portal"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core" 
+             ios:Page.UseSafeArea="True"
+             NavigationPage.HasNavigationBar="False"
+             x:Class="Student_Portal.Views.NewTermPage">
+    <StackLayout BackgroundColor="#ECF0F1">
+        <Label 
+            Text="New Term"
+            VerticalTextAlignment="Center"
+            HorizontalTextAlignment="Center"
+            FontSize="24"
+            FontAttributes="Bold"
+            TextColor="#ECF0F1"
+            HeightRequest="57"
+            BackgroundColor="#2980B9"/>
+        <StackLayout
+                    Spacing="20"
+                    Padding="20"
+                    VerticalOptions="StartAndExpand">
+
+           
+            <Entry Placeholder="Term" PlaceholderColor="#696969" FontSize="Medium" HeightRequest="50" />
+            
+            <!--Start date label and DatePicker-->
+            <Label Text="Start Date" TextColor="#696969" FontSize="Medium"/>
+            <DatePicker TextColor="#696969" HeightRequest="50" FontSize="Medium" />
+
+            <!--End date label and DatePicker-->
+            <Label Text="End Date" TextColor="#696969" FontSize="Medium"/>
+            <DatePicker TextColor="#696969" HeightRequest="50" FontSize="Medium"/>
+
+            <Button Text="Save"
+                    TextColor="#ECF0F1"
+                    FontSize="Medium"
+                    FontAttributes="Bold"
+                    BackgroundColor="#2980B9"
+                    WidthRequest="50"
+                    Margin="0,30,0,0"
+                    Command="{Binding SaveCommand}"/>
+
+            <Button Text="Cancel"
+                    TextColor="#ECF0F1"
+                    FontSize="Medium"
+                    FontAttributes="Bold"
+                    BackgroundColor="#E74C3C"
+                    WidthRequest="50"
+                    
+                    Command="{Binding CancelCommand}"/>
+
+
+
+        </StackLayout>
+    </StackLayout>
+</ContentPage>
