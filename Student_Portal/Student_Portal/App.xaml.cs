@@ -11,7 +11,7 @@ namespace Student_Portal
         public App()
         {
             InitializeComponent();
-
+            
             MainPage = new NavigationPage(new MainPage());
         }
 
