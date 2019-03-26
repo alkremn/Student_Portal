@@ -1,12 +1,12 @@
-﻿using Student_Portal.Models;
-using Student_Portal.Views;
+﻿using Student_Portal.Model;
+using Student_Portal.View;
 using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 
-namespace Student_Portal.ViewModels
+namespace Student_Portal.ViewModel
 {
     public class MainViewModel : BaseViewModel
     {

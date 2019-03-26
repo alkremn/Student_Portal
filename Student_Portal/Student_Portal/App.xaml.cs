@@ -1,4 +1,4 @@
-﻿using Student_Portal.Views;
+﻿using Student_Portal.View;
 using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;

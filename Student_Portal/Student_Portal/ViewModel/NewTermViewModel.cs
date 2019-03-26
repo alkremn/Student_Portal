@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 
-namespace Student_Portal.ViewModels
+namespace Student_Portal.ViewModel
 {
     class NewTermViewModel
     {

@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:Student_Portal"
              xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core" 
-             x:Class="Student_Portal.Views.MainPage"
+             x:Class="Student_Portal.View.MainPage"
              ios:Page.UseSafeArea="True"
              NavigationPage.HasNavigationBar="False">
 

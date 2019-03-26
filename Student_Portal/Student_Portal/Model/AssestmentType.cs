@@ -1,4 +1,4 @@
-﻿namespace Student_Portal.Models
+﻿namespace Student_Portal.Model
 {
     public enum AssestmentType
     {

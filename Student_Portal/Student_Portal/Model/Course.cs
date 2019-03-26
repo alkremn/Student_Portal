@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 
-namespace Student_Portal.Models
+namespace Student_Portal.Model
 {
     public class Course
     {

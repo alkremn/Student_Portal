@@ -5,7 +5,7 @@
              xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core" 
              ios:Page.UseSafeArea="True"
              NavigationPage.HasNavigationBar="False"
-             x:Class="Student_Portal.Views.NewTermPage">
+             x:Class="Student_Portal.View.NewTermPage">
     <StackLayout BackgroundColor="#ECF0F1">
         <Label 
             Text="New Term"
