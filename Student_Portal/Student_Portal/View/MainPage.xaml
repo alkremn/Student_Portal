@@ -19,7 +19,8 @@
             BackgroundColor="#2980B9"/>
         <ListView
             SeparatorColor="#707070"
-            BackgroundColor="Transparent" />
+            BackgroundColor="Transparent"
+            ItemsSource="{Binding Terms}"/>
         <StackLayout>
             <Button 
                 Text="+"

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Student_Portal.Model;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,8 +25,15 @@ namespace Student_Portal.ViewModel
 
         private async Task OnNewTermSave()
         {
-            throw new NotImplementedException();
+            Term term = new Term();
+            term.Title = Title;
+            term.StartDate = StartDate;
+            term.EndDate = EndDate;
+
+            await App.Database.SaveTermAsync(term);
+            await Application.Current.MainPage.Navigation.PopAsync();
         }
+
         private async Task OnCancelClicked()
         {
             await Application.Current.MainPage.Navigation.PopAsync();

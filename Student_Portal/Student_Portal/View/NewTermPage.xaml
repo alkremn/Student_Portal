@@ -22,15 +22,28 @@
                     VerticalOptions="StartAndExpand">
 
            
-            <Entry Placeholder="Term" PlaceholderColor="#696969" FontSize="Medium" HeightRequest="50" />
+            <Entry 
+                Placeholder="Term" 
+                PlaceholderColor="#696969" 
+                FontSize="Medium" 
+                HeightRequest="50" 
+                Text="{Binding Title}"/>
             
             <!--Start date label and DatePicker-->
             <Label Text="Start Date" TextColor="#696969" FontSize="Medium"/>
-            <DatePicker TextColor="#696969" HeightRequest="50" FontSize="Medium" />
+            <DatePicker 
+                TextColor="#696969" 
+                HeightRequest="50" 
+                Date="{Binding StartDate}"
+                FontSize="Medium" />
 
             <!--End date label and DatePicker-->
             <Label Text="End Date" TextColor="#696969" FontSize="Medium"/>
-            <DatePicker TextColor="#696969" HeightRequest="50" FontSize="Medium"/>
+            <DatePicker 
+                TextColor="#696969" 
+                HeightRequest="50" 
+                Date="{Binding EndDate}"
+                FontSize="Medium"/>
 
             <Button Text="Save"
                     TextColor="#ECF0F1"

@@ -1,4 +1,5 @@
-﻿using Student_Portal.View;
+﻿using Student_Portal.Data;
+using Student_Portal.View;
 using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -8,6 +9,9 @@ namespace Student_Portal
 {
     public partial class App : Application
     {
+        private const string DatabaseName = "PortalSQLite.db3";
+        static PortalDataBase database;
+
         public App()
         {
             InitializeComponent();
@@ -28,6 +32,19 @@ namespace Student_Portal
         protected override void OnResume()
         {
             // Handle when your app resumes
+        }
+        
+        public static PortalDataBase Database
+        {
+            get
+            {
+                if(database == null)
+                {
+                    database = new PortalDataBase(
+                        DependencyService.Get<IFileHelper>().GetLocalFilePath(DatabaseName));
+                }
+                return database;
+            }
         }
     }
 }

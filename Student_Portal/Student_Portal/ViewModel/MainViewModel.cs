@@ -10,17 +10,28 @@ namespace Student_Portal.ViewModel
 {
     public class MainViewModel : BaseViewModel
     {
-        public ObservableCollection<Term> Terms { get; private set; } = new ObservableCollection<Term>();
+        public ObservableCollection<Term> Terms { get; private set; }
         public ICommand AddNewTermCommand { get; private set; }
 
         public MainViewModel()
         {
+            Terms = new ObservableCollection<Term>();
+            LoadTerms();
             AddNewTermCommand = new Command(async () => await OnTermCreate());
         }
 
         private async Task OnTermCreate()
         {
             await Application.Current.MainPage.Navigation.PushAsync(new NewTermPage());
+        }
+
+        private async void LoadTerms()
+        {
+            var terms = await App.Database.GetTermsAsync();
+            foreach(Term term in terms)
+            {
+                Terms.Add(term);
+            }
         }
     }
 }
