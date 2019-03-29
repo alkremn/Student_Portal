@@ -1,0 +1,30 @@
+﻿using System;
+using System.Globalization;
+using Xamarin.Forms;
+
+namespace Student_Portal
+{
+    public class DateToStringConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value == null)
+                return "";
+
+            var date = (DateTime)value;
+            if (date.Year == 1)
+            {
+                return null;
+            }
+            else
+            {
+                return date.ToString();
+            }
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return value;
+        }
+    }
+}

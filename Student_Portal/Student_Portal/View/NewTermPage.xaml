@@ -3,9 +3,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:Student_Portal"
              xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core" 
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
              ios:Page.UseSafeArea="True"
              NavigationPage.HasNavigationBar="False"
              x:Class="Student_Portal.View.NewTermPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:DateToStringConverter x:Key="DateToString" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <StackLayout BackgroundColor="#ECF0F1">
         <Label 
             Text="New Term"
@@ -20,7 +26,6 @@
                     Spacing="20"
                     Padding="20"
                     VerticalOptions="StartAndExpand">
-
            
             <Entry 
                 Placeholder="Term" 
@@ -34,7 +39,8 @@
             <DatePicker 
                 TextColor="#696969" 
                 HeightRequest="50" 
-                Date="{Binding StartDate}"
+                Date="{Binding StartDate, Mode=OneWayToSource}"
+                
                 FontSize="Medium" />
 
             <!--End date label and DatePicker-->
@@ -42,7 +48,7 @@
             <DatePicker 
                 TextColor="#696969" 
                 HeightRequest="50" 
-                Date="{Binding EndDate}"
+                Date="{Binding EndDate ,Mode=OneWayToSource}"
                 FontSize="Medium"/>
 
             <Button Text="Save"

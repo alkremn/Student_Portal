@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 
 namespace Student_Portal.Model
 {
+    [Table("Term")]
     public class Term
     {
         [PrimaryKey, AutoIncrement]
