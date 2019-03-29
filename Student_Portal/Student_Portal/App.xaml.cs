@@ -10,6 +10,8 @@ namespace Student_Portal
     public partial class App : Application
     {
         private const string DatabaseName = "PortalSQLite.db3";
+        public static string saved = "saved;";
+        public static string updated = "updated";
         static PortalDataBase database;
 
         public App()

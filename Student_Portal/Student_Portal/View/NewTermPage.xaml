@@ -39,7 +39,7 @@
             <DatePicker 
                 TextColor="#696969" 
                 HeightRequest="50" 
-                Date="{Binding StartDate, Mode=OneWayToSource}"
+                Date="{Binding StartDate}"
                 
                 FontSize="Medium" />
 
@@ -48,7 +48,7 @@
             <DatePicker 
                 TextColor="#696969" 
                 HeightRequest="50" 
-                Date="{Binding EndDate ,Mode=OneWayToSource}"
+                Date="{Binding EndDate}"
                 FontSize="Medium"/>
 
             <Button Text="Save"

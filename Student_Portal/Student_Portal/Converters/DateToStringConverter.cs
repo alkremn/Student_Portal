@@ -12,14 +12,7 @@ namespace Student_Portal
                 return "";
 
             var date = (DateTime)value;
-            if (date.Year == 1)
-            {
-                return null;
-            }
-            else
-            {
-                return date.ToString();
-            }
+            return date.ToShortDateString();
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

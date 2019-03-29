@@ -12,12 +12,12 @@ using Xamarin.Forms.Xaml;
 namespace Student_Portal.View
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class NewTermPage : ContentPage
+	public partial class TermDetailPage : ContentPage
 	{
-		public NewTermPage (Term term)
+		public TermDetailPage (Term term)
 		{
 			InitializeComponent ();
-            BindingContext = new NewTermViewModel(term);
+            BindingContext = new TermDetailViewModel(term);
 		}
 	}
 }

@@ -1,20 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:Student_Portal"
-             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core" 
-             x:Class="Student_Portal.View.MainPage"
-             ios:Page.UseSafeArea="True"
-             NavigationPage.HasNavigationBar="False">
-    <ContentPage.Resources>
-        <ResourceDictionary>
-            <local:DateToStringConverter x:Key="DateToString" />
-        </ResourceDictionary>
-    </ContentPage.Resources>
-
+             x:Class="Student_Portal.View.TermDetailPage">
     <StackLayout BackgroundColor="#ECF0F1">
         <Label 
-            Text="Degree Plan"
+            Text="{Binding Title}"
             VerticalTextAlignment="Center"
             HorizontalTextAlignment="Center"
             FontSize="24"
@@ -26,7 +16,7 @@
             x:Name="TermListView"
             HasUnevenRows="True"
             SeparatorColor="#707070"
-            SelectedItem="{Binding SelectedTerm, Mode=TwoWay}"
+            SelectedItem="{Binding SelectedTerm}"
             SelectionMode="Single"
             BackgroundColor="Transparent"
             ItemsSource="{Binding Terms}">
