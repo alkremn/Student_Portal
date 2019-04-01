@@ -19,5 +19,12 @@ namespace Student_Portal.View
 			InitializeComponent ();
             BindingContext = new TermDetailViewModel(term);
 		}
-	}
+
+        //disables back button on Android
+        protected override bool OnBackButtonPressed()
+        {
+            return true;
+        }
+
+    }
 }

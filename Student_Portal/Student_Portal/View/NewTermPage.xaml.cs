@@ -14,10 +14,17 @@ namespace Student_Portal.View
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class NewTermPage : ContentPage
 	{
+
 		public NewTermPage (Term term)
 		{
 			InitializeComponent ();
             BindingContext = new NewTermViewModel(term);
 		}
-	}
+
+        //disables back button on Android
+        protected override bool OnBackButtonPressed()
+        {
+            return true;
+        }
+    }
 }

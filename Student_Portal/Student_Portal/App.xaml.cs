@@ -12,12 +12,11 @@ namespace Student_Portal
         private const string DatabaseName = "PortalSQLite.db3";
         public static string saved = "saved;";
         public static string updated = "updated";
-        static PortalDataBase database;
+        static TermDataService database;
 
         public App()
         {
             InitializeComponent();
-            
             MainPage = new NavigationPage(new MainPage());
         }
 
@@ -36,13 +35,13 @@ namespace Student_Portal
             // Handle when your app resumes
         }
         
-        public static PortalDataBase Database
+        public static TermDataService Database
         {
             get
             {
                 if(database == null)
                 {
-                    database = new PortalDataBase(
+                    database = new TermDataService(
                         DependencyService.Get<IFileHelper>().GetLocalFilePath(DatabaseName));
                 }
                 return database;

@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace Student_Portal.Data
 {
-    public class PortalDataBase
+    public class TermDataService
     {
         readonly SQLiteAsyncConnection database;
 
-        public PortalDataBase(string dbPath)
+        public TermDataService(string dbPath)
         {
             database = new SQLiteAsyncConnection(dbPath);
             database.CreateTableAsync<Term>().Wait();
