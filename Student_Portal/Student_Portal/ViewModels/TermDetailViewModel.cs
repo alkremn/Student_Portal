@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Student_Portal.ViewModel
+namespace Student_Portal.ViewModels
 {
     public class TermDetailViewModel : BaseViewModel
     {

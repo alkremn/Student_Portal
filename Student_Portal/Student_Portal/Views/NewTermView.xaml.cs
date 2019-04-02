@@ -1,5 +1,5 @@
 ﻿using Student_Portal.Model;
-using Student_Portal.ViewModel;
+using Student_Portal.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,19 +12,12 @@ using Xamarin.Forms.Xaml;
 namespace Student_Portal.View
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class NewTermPage : ContentPage
+	public partial class NewTermView : ContentPage
 	{
-
-		public NewTermPage (Term term)
+		public NewTermView (Term term)
 		{
 			InitializeComponent ();
             BindingContext = new NewTermViewModel(term);
 		}
-
-        //disables back button on Android
-        protected override bool OnBackButtonPressed()
-        {
-            return true;
-        }
     }
 }

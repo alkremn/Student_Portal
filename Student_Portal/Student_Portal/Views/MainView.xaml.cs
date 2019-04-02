@@ -1,11 +1,11 @@
-﻿using Student_Portal.ViewModel;
+﻿using Student_Portal.ViewModels;
 using Xamarin.Forms;
 
 namespace Student_Portal.View
 {
-    public partial class MainPage : ContentPage
+    public partial class MainView : ContentPage
     {
-        public MainPage()
+        public MainView()
         {
             InitializeComponent();
             BindingContext = new MainViewModel();

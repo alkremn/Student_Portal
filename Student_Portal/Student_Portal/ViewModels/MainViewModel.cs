@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 
-namespace Student_Portal.ViewModel
+namespace Student_Portal.ViewModels
 {
     public class MainViewModel : BaseViewModel
     {
@@ -50,7 +50,7 @@ namespace Student_Portal.ViewModel
 
         private async Task OnTermCreate()
         {
-            await Application.Current.MainPage.Navigation.PushAsync(new NewTermPage(null));
+            await Application.Current.MainPage.Navigation.PushAsync(new NewTermView(null));
         }
 
         private async void LoadTerms()
@@ -74,7 +74,7 @@ namespace Student_Portal.ViewModel
                 return;
             Term term = (Term)obj;
 
-            await Application.Current.MainPage.Navigation.PushAsync(new NewTermPage(term));
+            await Application.Current.MainPage.Navigation.PushAsync(new NewTermView(term));
         }
 
         private async Task OnDeleteClicked(object obj)

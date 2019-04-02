@@ -25,10 +25,22 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="View\NewTermPage.xaml">
+    <Compile Update="Views\MainView.xaml.cs">
+      <DependentUpon>MainView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\NewTermView.xaml.cs">
+      <DependentUpon>NewTermView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\TermDetailView.xaml.cs">
+      <DependentUpon>TermDetailView.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Views\NewTermView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="View\TermDetailPage.xaml">
+    <EmbeddedResource Update="Views\TermDetailView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>

@@ -17,7 +17,7 @@ namespace Student_Portal
         public App()
         {
             InitializeComponent();
-            MainPage = new NavigationPage(new MainPage());
+            MainPage = new NavigationPage(new MainView());
         }
 
         protected override void OnStart()

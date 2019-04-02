@@ -22,11 +22,11 @@ namespace Student_Portal.Data
         }
         public Task<Term> GetTermAsync(int id)
         {
-            return database.Table<Term>().Where(t => t.Id == id).FirstOrDefaultAsync();
+            return database.Table<Term>().Where(t => t.TermId == id).FirstOrDefaultAsync();
         }
         public Task<int> SaveTermAsync(Term term)
         {
-            if (term.Id == 0)
+            if (term.TermId == 0)
                 return database.InsertAsync(term);
             else
                 return database.UpdateAsync(term);

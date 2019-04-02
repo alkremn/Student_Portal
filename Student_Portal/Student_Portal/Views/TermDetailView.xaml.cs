@@ -1,5 +1,5 @@
 ﻿using Student_Portal.Model;
-using Student_Portal.ViewModel;
+using Student_Portal.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,12 +19,5 @@ namespace Student_Portal.View
 			InitializeComponent ();
             BindingContext = new TermDetailViewModel(term);
 		}
-
-        //disables back button on Android
-        protected override bool OnBackButtonPressed()
-        {
-            return true;
-        }
-
     }
 }
