@@ -1,4 +1,5 @@
 ﻿using Student_Portal.Data;
+using Student_Portal.ViewModels;
 using Student_Portal.Views;
 using System;
 using Xamarin.Forms;
@@ -17,7 +18,7 @@ namespace Student_Portal
         public App()
         {
             InitializeComponent();
-            MainPage = new NavigationPage(new MainView());
+            MainPage = new NavigationPage(new MainView(new MainViewModel()));
         }
 
         protected override void OnStart()

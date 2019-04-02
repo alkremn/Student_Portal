@@ -17,10 +17,11 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="60"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="60"/>
+            <RowDefinition Height="100"/>
         </Grid.RowDefinitions>
 
         <Label 
+            x:Name="MainLabel"
             Grid.ColumnSpan="2" 
             Text="Degree Plan"
             VerticalOptions="FillAndExpand"
@@ -33,12 +34,15 @@
             BackgroundColor="{StaticResource MainColor}"/>
 
         <ListView 
+            ItemsSource="{Binding Terms}"
+            CachingStrategy="RecycleElement"
             Grid.Row="1"
             Grid.ColumnSpan="2"
-            SeparatorColor="#707070"
+            SeparatorVisibility="Default"
             HasUnevenRows="True"/>
 
-        <Grid 
+        
+        <Grid BackgroundColor="CadetBlue"
             Grid.Row="2"
             Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
@@ -46,15 +50,31 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            
-            <StackLayout>
-                    <Label 
-                        Text="Degree plan"
-                        VerticalTextAlignment="Center"
-                        HorizontalTextAlignment="Center"
-                        FontSize="24"
-                        FontAttributes="Bold"
-                        BackgroundColor="{StaticResource MainColor}" />
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/> 
+            </Grid.RowDefinitions>
+            <ImageButton 
+                Grid.Column="2"
+                Scale="1.3"
+                BackgroundColor="Transparent"
+                Source="{local:EmbeddedImage ResourceId=Student_Portal.Images.PlusIcon.png}" />
+
+            <StackLayout
+                Grid.Row="1"
+                BackgroundColor="{StaticResource MainColor}">
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer />
+                </StackLayout.GestureRecognizers>
+                <Label 
+                    Text="Degree plan"
+                    VerticalTextAlignment="Center"
+                    HorizontalTextAlignment="Center"
+                    FontAttributes="Bold"
+                    BackgroundColor="{StaticResource MainColor}" />
+                <Image 
+                    Scale="1.5"
+                    Source="{local:EmbeddedImage ResourceId=Student_Portal.Images.DegreeIcon.png}" />
             </StackLayout>
         </Grid>
         

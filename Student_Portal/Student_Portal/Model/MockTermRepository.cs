@@ -3,14 +3,14 @@ using System.Collections.Generic;
 
 namespace Student_Portal.Model
 {
-    public class MockTermRepository
+    public static class MockTermRepository
     {
-        public Term GetSingleTerm()
+        public static Term GetSingleTerm()
         {
             return new Term { TermId = 1, Title = "Summer Term", StartDate = DateTime.Now, EndDate = DateTime.Now };
         }
 
-        public IEnumerable<Term> GetTermList()
+        public static IEnumerable<Term> GetTermList()
         {
             return new List<Term>
             {

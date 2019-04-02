@@ -2,13 +2,14 @@
 using Student_Portal.Views;
 using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace Student_Portal.ViewModels
 {
-    public class MainViewModel : BaseViewModel
+    public class MainViewModel : BaseViewModel, IMainViewModel
     {
         private Term _selectedTerm;
         public ObservableCollection<Term> Terms { get; private set; }
@@ -33,7 +34,7 @@ namespace Student_Portal.ViewModels
             LoadTerms();
 
             AddNewTermCommand = new Command(OnTermCreate);
-            RefreshingCommand = new Command(() => LoadTerms());
+            RefreshingCommand = new Command(LoadTerms);
             ModifyCommand = new Command(async (obj) => await OnModifyClicked(obj));
             DeleteCommand = new Command(async (obj) => await OnDeleteClicked(obj));
 
@@ -45,14 +46,11 @@ namespace Student_Portal.ViewModels
             await Application.Current.MainPage.Navigation.PushAsync(new NewTermView(null));
         }
 
-        private async void LoadTerms()
+        private void LoadTerms()
         {
-            var terms = await App.Database.GetTermsAsync();
+            var terms = MockTermRepository.GetTermList(); 
             Terms.Clear();
-            foreach(Term term in terms)
-            {
-                Terms.Add(term);
-            }
+            terms.ToList().ForEach(t => Terms.Add(t));
         }
 
         private void OnSaveClicked(NewTermViewModel obj)
