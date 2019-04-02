@@ -6,7 +6,7 @@
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              ios:Page.UseSafeArea="True"
              NavigationPage.HasNavigationBar="False"
-             x:Class="Student_Portal.View.NewTermPage">
+             x:Class="Student_Portal.Views.NewTermView">
     <ContentPage.Resources>
         <ResourceDictionary>
             <local:DateToStringConverter x:Key="DateToString" />

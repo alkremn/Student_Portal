@@ -3,19 +3,60 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:Student_Portal"
              xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core" 
-             x:Class="Student_Portal.View.MainView"
+             x:Class="Student_Portal.Views.MainView"
              ios:Page.UseSafeArea="True"
              NavigationPage.HasNavigationBar="False">
         
-    <Grid>
+    <Grid 
+        RowSpacing="0"
+        BackgroundColor="{StaticResource BackgroundColor}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
+            <RowDefinition Height="60"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="50"/>
+            <RowDefinition Height="60"/>
         </Grid.RowDefinitions>
+
+        <Label 
+            Grid.ColumnSpan="2" 
+            Text="Degree Plan"
+            VerticalOptions="FillAndExpand"
+            HorizontalOptions="FillAndExpand"
+            VerticalTextAlignment="Center"
+            HorizontalTextAlignment="Center"
+            FontSize="24"
+            FontAttributes="Bold"
+            TextColor="{StaticResource LabelTextColor}"
+            BackgroundColor="{StaticResource MainColor}"/>
+
+        <ListView 
+            Grid.Row="1"
+            Grid.ColumnSpan="2"
+            SeparatorColor="#707070"
+            HasUnevenRows="True"/>
+
+        <Grid 
+            Grid.Row="2"
+            Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            
+            <StackLayout>
+                    <Label 
+                        Text="Degree plan"
+                        VerticalTextAlignment="Center"
+                        HorizontalTextAlignment="Center"
+                        FontSize="24"
+                        FontAttributes="Bold"
+                        BackgroundColor="{StaticResource MainColor}" />
+            </StackLayout>
+        </Grid>
+        
     </Grid>
 </ContentPage>

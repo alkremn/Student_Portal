@@ -1,5 +1,5 @@
 ﻿using Student_Portal.Data;
-using Student_Portal.View;
+using Student_Portal.Views;
 using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;

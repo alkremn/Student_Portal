@@ -1,5 +1,5 @@
 ﻿using Student_Portal.Model;
-using Student_Portal.View;
+using Student_Portal.Views;
 using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
@@ -19,20 +19,11 @@ namespace Student_Portal.ViewModels
 
         public Term SelectedTerm
         {
-            get
-            {
-                return _selectedTerm;
-            }
+            get => _selectedTerm;
             set
             {
-                if(value != null)
-                {
-                    if(_selectedTerm != value)
-                    {
-                        _selectedTerm = value;
-                        LoadDetailPage(value);
-                    }
-                }
+                _selectedTerm = value;
+                OnPropertyChanged();
             }
         }
 
@@ -40,7 +31,8 @@ namespace Student_Portal.ViewModels
         {
             Terms = new ObservableCollection<Term>();
             LoadTerms();
-            AddNewTermCommand = new Command(async () => await OnTermCreate());
+
+            AddNewTermCommand = new Command(OnTermCreate);
             RefreshingCommand = new Command(() => LoadTerms());
             ModifyCommand = new Command(async (obj) => await OnModifyClicked(obj));
             DeleteCommand = new Command(async (obj) => await OnDeleteClicked(obj));
@@ -48,7 +40,7 @@ namespace Student_Portal.ViewModels
             MessagingCenter.Subscribe<NewTermViewModel>(this, App.saved, OnSaveClicked);
         }
 
-        private async Task OnTermCreate()
+        private async void OnTermCreate()
         {
             await Application.Current.MainPage.Navigation.PushAsync(new NewTermView(null));
         }
@@ -89,7 +81,7 @@ namespace Student_Portal.ViewModels
         }
         private async void LoadDetailPage(Term selectedTerm)
         {
-            await Application.Current.MainPage.Navigation.PushAsync(new TermDetailPage(selectedTerm));
+            await Application.Current.MainPage.Navigation.PushAsync(new TermDetailView(selectedTerm));
         }
     }
 }

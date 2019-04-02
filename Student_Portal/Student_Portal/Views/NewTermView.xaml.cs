@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace Student_Portal.View
+namespace Student_Portal.Views
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class NewTermView : ContentPage

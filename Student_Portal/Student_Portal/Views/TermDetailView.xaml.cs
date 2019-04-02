@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace Student_Portal.View
+namespace Student_Portal.Views
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class TermDetailPage : ContentPage
+	public partial class TermDetailView : ContentPage
 	{
-		public TermDetailPage (Term term)
+		public TermDetailView (Term term)
 		{
 			InitializeComponent ();
             BindingContext = new TermDetailViewModel(term);
