@@ -4,9 +4,17 @@
              xmlns:local="clr-namespace:Student_Portal"
              xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core" 
              x:Class="Student_Portal.Views.MainView"
+             xmlns:converters="clr-namespace:Student_Portal.Converters"
              ios:Page.UseSafeArea="True"
              NavigationPage.HasNavigationBar="False">
-        
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:DateToShortConverter x:Key="DateToShort" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+
     <Grid 
         RowSpacing="0"
         BackgroundColor="{StaticResource BackgroundColor}">
@@ -39,10 +47,29 @@
             Grid.Row="1"
             Grid.ColumnSpan="2"
             SeparatorVisibility="Default"
-            HasUnevenRows="True"/>
+            HasUnevenRows="True">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Label 
+                                Text="{Binding Title}" />
+                            <Label 
+                                Grid.Column="1"
+                                Text="{Binding StartDate, Converter={StaticResource DateToShort}}" />
+                            
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
 
-        
-        <Grid BackgroundColor="CadetBlue"
+
+        <Grid
             Grid.Row="2"
             Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>

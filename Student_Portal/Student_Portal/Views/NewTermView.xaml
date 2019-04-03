@@ -7,11 +7,7 @@
              ios:Page.UseSafeArea="True"
              NavigationPage.HasNavigationBar="False"
              x:Class="Student_Portal.Views.NewTermView">
-    <ContentPage.Resources>
-        <ResourceDictionary>
-            <local:DateToStringConverter x:Key="DateToString" />
-        </ResourceDictionary>
-    </ContentPage.Resources>
+   
     <StackLayout BackgroundColor="#ECF0F1">
         <Label 
             Text="New Term"

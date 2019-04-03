@@ -5,10 +5,10 @@ namespace Student_Portal.Views
 {
     public partial class MainView : ContentPage
     {
-        public MainView(IMainViewModel mainVM)
+        public MainView()
         {
             InitializeComponent();
-            BindingContext = mainVM;
+            BindingContext = new MainViewModel();
         }
     }
 }
