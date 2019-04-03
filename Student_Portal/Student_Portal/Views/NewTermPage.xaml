@@ -6,7 +6,7 @@
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              ios:Page.UseSafeArea="True"
              NavigationPage.HasNavigationBar="False"
-             x:Class="Student_Portal.Views.NewTermView">
+             x:Class="Student_Portal.Views.NewTermPage">
    
     <StackLayout BackgroundColor="#ECF0F1">
         <Label 

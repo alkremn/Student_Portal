@@ -1,4 +1,4 @@
-﻿namespace Student_Portal.Model
+﻿namespace Student_Portal.Models
 {
     public enum CourseStatus
     {

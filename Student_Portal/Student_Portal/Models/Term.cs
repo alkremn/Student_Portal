@@ -1,28 +1,23 @@
 ﻿using SQLite;
+using SQLiteNetExtensions.Attributes;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace Student_Portal.Model
+namespace Student_Portal.Models
 {
     [Table("Terms")]
     public class Term : INotifyPropertyChanged
     {
         [PrimaryKey, AutoIncrement]
-        private int _termId { get; set; }
-        private string _title { get; set; }
-        private DateTime _startDate { get; set; }
-        private DateTime _endDate { get; set; }
+        public int Id { get; set; }
+        private string _title;
+        private DateTime _startDate;
+        private DateTime _endDate;
 
-        public int TermId
-        {
-            get => _termId;
-            set
-            {
-                _termId = value;
-                OnPropertyChanged();
-            }
-        }
+        [OneToMany]
+        public List<Course> Courses { get; set; }
 
         public string Title
         {

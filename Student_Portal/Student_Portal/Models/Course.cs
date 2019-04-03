@@ -1,17 +1,23 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using SQLite;
+using SQLiteNetExtensions.Attributes;
+using System;
 
-namespace Student_Portal.Model
+namespace Student_Portal.Models
 {
+    [Table("Courses")]
     public class Course
     {
+        [PrimaryKey, AutoIncrement]
+        public int Id { get; set; }
+
+        [ForeignKey(typeof(Term))]
+        public int TermId { get; set; }
+
         public string Title { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public CourseStatus Status { get; set; }
         public CourseInstructor Insructor { get; set; }
         public string Notes { get; set; }
-        public ObservableCollection<AssestmentType> Assestments { get; private set; } = new ObservableCollection<AssestmentType>();
-
     }
 }

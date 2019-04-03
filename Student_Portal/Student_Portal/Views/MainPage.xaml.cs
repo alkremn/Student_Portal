@@ -3,9 +3,9 @@ using Xamarin.Forms;
 
 namespace Student_Portal.Views
 {
-    public partial class MainView : ContentPage
+    public partial class MainPage : ContentPage
     {
-        public MainView()
+        public MainPage()
         {
             InitializeComponent();
             BindingContext = new MainViewModel();

@@ -1,4 +1,4 @@
-﻿using Student_Portal.Model;
+﻿using Student_Portal.Models;
 using Student_Portal.Views;
 using System;
 using System.Collections.ObjectModel;
@@ -43,7 +43,7 @@ namespace Student_Portal.ViewModels
 
         private async void OnTermCreate()
         {
-            await Application.Current.MainPage.Navigation.PushAsync(new NewTermView(null));
+            await Application.Current.MainPage.Navigation.PushAsync(new NewTermPage(null));
         }
 
         private void LoadTerms()
@@ -64,7 +64,7 @@ namespace Student_Portal.ViewModels
                 return;
             Term term = (Term)obj;
 
-            await Application.Current.MainPage.Navigation.PushAsync(new NewTermView(term));
+            await Application.Current.MainPage.Navigation.PushAsync(new NewTermPage(term));
         }
 
         private async Task OnDeleteClicked(object obj)
@@ -79,7 +79,7 @@ namespace Student_Portal.ViewModels
         }
         private async void LoadDetailPage(Term selectedTerm)
         {
-            await Application.Current.MainPage.Navigation.PushAsync(new TermDetailView(selectedTerm));
+            await Application.Current.MainPage.Navigation.PushAsync(new TermDetailPage(selectedTerm));
         }
     }
 }

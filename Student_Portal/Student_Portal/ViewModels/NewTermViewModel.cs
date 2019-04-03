@@ -1,4 +1,4 @@
-﻿using Student_Portal.Model;
+﻿using Student_Portal.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;

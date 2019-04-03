@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:Student_Portal"
              xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core" 
-             x:Class="Student_Portal.Views.MainView"
+             x:Class="Student_Portal.Views.MainPage"
              xmlns:converters="clr-namespace:Student_Portal.Converters"
              ios:Page.UseSafeArea="True"
              NavigationPage.HasNavigationBar="False">
@@ -13,7 +13,6 @@
             <converters:DateToShortConverter x:Key="DateToShort" />
         </ResourceDictionary>
     </ContentPage.Resources>
-
 
     <Grid 
         RowSpacing="0"
@@ -51,7 +50,7 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <Grid>
+                        <Grid HeightRequest="40">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="*" />
@@ -67,7 +66,6 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-
 
         <Grid
             Grid.Row="2"
@@ -104,6 +102,5 @@
                     Source="{local:EmbeddedImage ResourceId=Student_Portal.Images.DegreeIcon.png}" />
             </StackLayout>
         </Grid>
-        
     </Grid>
 </ContentPage>
