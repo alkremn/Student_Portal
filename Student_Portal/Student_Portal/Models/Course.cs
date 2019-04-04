@@ -1,5 +1,4 @@
 ﻿using SQLite;
-using SQLiteNetExtensions.Attributes;
 using System;
 
 namespace Student_Portal.Models
@@ -9,10 +8,6 @@ namespace Student_Portal.Models
     {
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
-
-        [ForeignKey(typeof(Term))]
-        public int TermId { get; set; }
-
         public string Title { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }

@@ -1,5 +1,4 @@
 ﻿using SQLite;
-using SQLiteNetExtensions.Attributes;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,10 +14,6 @@ namespace Student_Portal.Models
         private string _title;
         private DateTime _startDate;
         private DateTime _endDate;
-
-        [OneToMany]
-        public List<Course> Courses { get; set; }
-
         public string Title
         {
             get => _title;
