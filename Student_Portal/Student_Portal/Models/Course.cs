@@ -8,6 +8,8 @@ namespace Student_Portal.Models
     {
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
+        [NotNull]
+        public int TermId { get; set; }
         public string Title { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }

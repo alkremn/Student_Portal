@@ -1,4 +1,5 @@
-﻿using Student_Portal.Data;
+﻿using SQLite;
+using Student_Portal.Data;
 using Student_Portal.ViewModels;
 using Student_Portal.Views;
 using System;
@@ -13,7 +14,7 @@ namespace Student_Portal
         private const string DatabaseName = "PortalSQLite.db3";
         public static string saved = "saved;";
         public static string updated = "updated";
-        static TermDataService database;
+        static SQLiteAsyncConnection database;
 
         public App()
         {
@@ -36,13 +37,13 @@ namespace Student_Portal
             // Handle when your app resumes
         }
         
-        public static TermDataService Database
+        public static SQLiteAsyncConnection Database
         {
             get
             {
                 if(database == null)
                 {
-                    database = new TermDataService(
+                    database = new SQLiteAsyncConnection(
                         DependencyService.Get<IFileHelper>().GetLocalFilePath(DatabaseName));
                 }
                 return database;

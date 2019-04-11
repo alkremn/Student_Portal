@@ -11,9 +11,9 @@ namespace Student_Portal.Data
     {
         readonly SQLiteAsyncConnection database;
 
-        public TermDataService(string dbPath)
+        public TermDataService(SQLiteAsyncConnection database)
         {
-            database = new SQLiteAsyncConnection(dbPath);
+            this.database = database;
             database.CreateTableAsync<Term>().Wait();
         }
         public Task<List<Term>> GetTermsAsync()
