@@ -1,4 +1,5 @@
 ﻿using Student_Portal.Models;
+using Student_Portal.Services;
 using Student_Portal.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -14,10 +15,10 @@ namespace Student_Portal.Views
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class NewTermPage : ContentPage
 	{
-		public NewTermPage (Term term)
+		public NewTermPage (TermDataService termData, Term term)
 		{
 			InitializeComponent ();
-            BindingContext = new NewTermViewModel(term);
+            BindingContext = new NewTermViewModel(termData, term);
 		}
     }
 }

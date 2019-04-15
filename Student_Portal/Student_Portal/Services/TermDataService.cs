@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Student_Portal.Data
+namespace Student_Portal.Services
 {
     public class TermDataService
     {

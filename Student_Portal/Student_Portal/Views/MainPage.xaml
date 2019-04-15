@@ -83,6 +83,7 @@
                 Grid.Column="2"
                 Scale="1.3"
                 BackgroundColor="Transparent"
+                Command="{Binding AddNewTermCommand}"
                 Source="{local:EmbeddedImage ResourceId=Student_Portal.Images.PlusIcon.png}" />
 
             <StackLayout

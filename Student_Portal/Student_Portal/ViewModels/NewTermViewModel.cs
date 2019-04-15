@@ -1,7 +1,6 @@
 ﻿using Student_Portal.Models;
+using Student_Portal.Services;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -11,6 +10,7 @@ namespace Student_Portal.ViewModels
     class NewTermViewModel : BaseViewModel
     {
         private Term _term;
+        private TermDataService _termData;
         private DateTime _startDate;
         private DateTime _endDate;
         public string Title { get; set; }
@@ -44,9 +44,10 @@ namespace Student_Portal.ViewModels
             }
         }
 
-        public NewTermViewModel(Term term)
+        public NewTermViewModel(TermDataService termData, Term term)
         {
             _term = term;
+            _termData = termData;
             if (term != null)
             {
                 Title = term.Title;
@@ -67,7 +68,7 @@ namespace Student_Portal.ViewModels
             _term.StartDate = StartDate;
             _term.EndDate = EndDate;
 
-            await App.Database.SaveTermAsync(_term);
+            await _termData.SaveTermAsync(_term);
 
             MessagingCenter.Send(this, App.saved);
 
