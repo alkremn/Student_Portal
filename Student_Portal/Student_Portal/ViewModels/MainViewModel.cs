@@ -48,7 +48,7 @@ namespace Student_Portal.ViewModels
 
         private async void OnTermCreate()
         {
-            await Application.Current.MainPage.Navigation.PushAsync(new NewTermPage(termData, null));
+            await Application.Current.MainPage.Navigation.PushAsync(new NewTermPage());
         }
 
         private void LoadTerms()
@@ -69,7 +69,7 @@ namespace Student_Portal.ViewModels
                 return;
             Term term = (Term)obj;
 
-            await Application.Current.MainPage.Navigation.PushAsync(new NewTermPage(termData, term));
+            await Application.Current.MainPage.Navigation.PushAsync(new NewTermPage());
         }
 
         private async Task OnDeleteClicked(object obj)

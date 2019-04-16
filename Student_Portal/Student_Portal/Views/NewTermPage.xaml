@@ -21,7 +21,6 @@
                     Spacing="20"
                     Padding="20"
                     VerticalOptions="StartAndExpand">
-           
             <Entry 
                 Placeholder="Term" 
                 PlaceholderColor="#696969" 
@@ -63,9 +62,6 @@
                     WidthRequest="50"
                     
                     Command="{Binding CancelCommand}"/>
-
-
-
         </StackLayout>
     </StackLayout>
 </ContentPage>

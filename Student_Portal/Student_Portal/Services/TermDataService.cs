@@ -14,7 +14,7 @@ namespace Student_Portal.Services
         public TermDataService(SQLiteAsyncConnection database)
         {
             this.database = database;
-            database.CreateTableAsync<Term>().Wait();
+            database.CreateTableAsync<Term>();
         }
         public Task<List<Term>> GetTermsAsync()
         {
