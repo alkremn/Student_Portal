@@ -46,6 +46,7 @@
             Grid.Row="1"
             Grid.ColumnSpan="2"
             SeparatorVisibility="Default"
+            
             HasUnevenRows="True">
             <ListView.ItemTemplate>
                 <DataTemplate>

@@ -15,10 +15,10 @@ namespace Student_Portal.Views
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class NewTermPage : ContentPage
 	{
-		public NewTermPage ()
+		public NewTermPage (TermDataService termData, Term term)
 		{
 			InitializeComponent();
-            //BindingContext = new NewTermViewModel(termData, term);
+            BindingContext = new NewTermViewModel(termData, term);
 		}
     }
 }

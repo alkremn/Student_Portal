@@ -28,6 +28,7 @@ namespace Student_Portal.ViewModels
             {
                 _selectedTerm = value;
                 OnPropertyChanged();
+                LoadDetailPage(value);
             }
         }
 
@@ -48,7 +49,7 @@ namespace Student_Portal.ViewModels
 
         private async void OnTermCreate()
         {
-            await Application.Current.MainPage.Navigation.PushAsync(new NewTermPage());
+            await Application.Current.MainPage.Navigation.PushAsync(new NewTermPage(termData, _selectedTerm));
         }
 
         private void LoadTerms()
@@ -69,7 +70,7 @@ namespace Student_Portal.ViewModels
                 return;
             Term term = (Term)obj;
 
-            await Application.Current.MainPage.Navigation.PushAsync(new NewTermPage());
+            await Application.Current.MainPage.Navigation.PushAsync(new NewTermPage(termData, _selectedTerm));
         }
 
         private async Task OnDeleteClicked(object obj)
