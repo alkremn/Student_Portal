@@ -20,5 +20,6 @@ namespace Student_Portal.Views
 			InitializeComponent();
             BindingContext = new NewTermViewModel(termData, term);
 		}
+        public NewTermPage() { }
     }
 }

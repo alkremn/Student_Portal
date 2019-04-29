@@ -26,21 +26,24 @@ namespace Student_Portal.ViewModels
             get => _selectedTerm;
             set
             {
-                _selectedTerm = value;
-                OnPropertyChanged();
-                LoadDetailPage(value);
+                if (value != null)
+                {
+                    _selectedTerm = value;
+                    OnPropertyChanged();
+                    LoadDetailPage(value);
+                }
             }
         }
 
         public MainViewModel()
         {
             Terms = new ObservableCollection<Term>();
-            LoadTerms();
-            courseData = new CourseDataService(App.Database);
             termData = new TermDataService(App.Database);
+            courseData = new CourseDataService(App.Database);
+            LoadTermData();
 
             AddNewTermCommand = new Command(OnTermCreate);
-            RefreshingCommand = new Command(LoadTerms);
+            RefreshingCommand = new Command(LoadTermData);
             ModifyCommand = new Command(async (obj) => await OnModifyClicked(obj));
             DeleteCommand = new Command(async (obj) => await OnDeleteClicked(obj));
 
@@ -49,19 +52,19 @@ namespace Student_Portal.ViewModels
 
         private async void OnTermCreate()
         {
-            await Application.Current.MainPage.Navigation.PushAsync(new NewTermPage(termData, _selectedTerm));
+            await Application.Current.MainPage.Navigation.PushAsync(new NewTermPage(termData, null));
         }
 
-        private void LoadTerms()
+        private async void LoadTermData()
         {
-            var terms = MockTermRepository.GetTermList(); 
+            var terms = await termData.GetTermsAsync();
             Terms.Clear();
             terms.ToList().ForEach(t => Terms.Add(t));
         }
 
         private void OnSaveClicked(NewTermViewModel obj)
         {
-            LoadTerms();
+            LoadTermData();
         }
 
         private async Task OnModifyClicked(object obj)
@@ -70,7 +73,7 @@ namespace Student_Portal.ViewModels
                 return;
             Term term = (Term)obj;
 
-            await Application.Current.MainPage.Navigation.PushAsync(new NewTermPage(termData, _selectedTerm));
+            await Application.Current.MainPage.Navigation.PushAsync(new NewTermPage(termData,term));
         }
 
         private async Task OnDeleteClicked(object obj)
@@ -80,7 +83,7 @@ namespace Student_Portal.ViewModels
 
             Term term = (Term)obj;
             await termData.DeleteTermAsync(term);
-            LoadTerms();
+            LoadTermData();
         }
         private async void LoadDetailPage(Term selectedTerm)
         {

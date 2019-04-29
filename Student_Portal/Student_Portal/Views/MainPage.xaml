@@ -6,6 +6,7 @@
              x:Class="Student_Portal.Views.MainPage"
              xmlns:converters="clr-namespace:Student_Portal.Converters"
              ios:Page.UseSafeArea="True"
+             x:Name="MainView"
              NavigationPage.HasNavigationBar="False">
 
     <ContentPage.Resources>
@@ -46,7 +47,7 @@
             Grid.Row="1"
             Grid.ColumnSpan="2"
             SeparatorVisibility="Default"
-            
+            SelectedItem="{Binding SelectedTerm}"
             HasUnevenRows="True">
             <ListView.ItemTemplate>
                 <DataTemplate>
@@ -56,13 +57,29 @@
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <Label 
+                            <Label
+                                VerticalTextAlignment="Center"
+                                HorizontalTextAlignment="Center"
                                 Text="{Binding Title}" />
-                            <Label 
+                            <StackLayout 
                                 Grid.Column="1"
-                                Text="{Binding StartDate, Converter={StaticResource DateToShort}}" />
-                            
+                                VerticalOptions="Center"
+                                HorizontalOptions="Center"
+                                Orientation="Horizontal">
+                                
+                                <Label 
+                                    Text="{Binding StartDate, Converter={StaticResource DateToShort}}" />
+                                <Label 
+                                    Text="-"/>
+                                <Label
+                                    Text="{Binding EndDate, Converter={StaticResource DateToShort}}"/>
+                            </StackLayout>
                         </Grid>
+                        
+                        <ViewCell.ContextActions>
+                            <MenuItem Text="Modify" Command="{Binding Path=BindingContext.ModifyCommand, Source={x:Reference MainView}}" CommandParameter="{Binding .}"/>
+                            <MenuItem Text="Delete" Command="{Binding Path=BindingContext.DeleteCommand, Source={x:Reference MainView}}" CommandParameter="{Binding .}" IsDestructive="True" />
+                        </ViewCell.ContextActions>
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
