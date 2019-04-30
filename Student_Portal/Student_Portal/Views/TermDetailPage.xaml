@@ -29,12 +29,12 @@
                 <DataTemplate>
                     <ViewCell>
                         <StackLayout Orientation="Horizontal" Padding="20">
-                            <Label Text="{Binding Title}" FontAttributes="Bold"/>
+                            <Label Text="{Binding Title, FallbackValue=Term1}" FontAttributes="Bold"/>
                             <StackLayout Margin="40,0,0,0" Orientation="Horizontal">
-                                <Label Text="{Binding StartDate, Mode=TwoWay, 
+                                <Label Text="{Binding StartDate, Mode=TwoWay, FallbackValue=01/01/2010, 
                                     Converter= {StaticResource DateToString}}" />
                                 <Label Text="-" />
-                                <Label Text="{Binding EndDate, Mode=TwoWay, 
+                                <Label Text="{Binding EndDate, Mode=TwoWay, FallbackValue=01/01/2010, 
                                     Converter={StaticResource DateToString}}" />
                             </StackLayout>
                         </StackLayout>
