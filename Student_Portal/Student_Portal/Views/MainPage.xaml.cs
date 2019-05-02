@@ -8,7 +8,7 @@ namespace Student_Portal.Views
         public MainPage()
         {
             InitializeComponent();
-            BindingContext = new MainViewModel();
+            //BindingContext = new MainViewModel();
         }
     }
 }
