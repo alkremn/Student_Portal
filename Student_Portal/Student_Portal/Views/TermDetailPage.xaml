@@ -2,67 +2,126 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:Student_Portal"
+             xmlns:converters="clr-namespace:Student_Portal.Converters"
              xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core" 
              ios:Page.UseSafeArea="True"
+             x:Name="TermView"
              NavigationPage.HasNavigationBar="False"
              x:Class="Student_Portal.Views.TermDetailPage">
-    <StackLayout BackgroundColor="#ECF0F1">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:DateToShortConverter x:Key="DateToShort" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid 
+        RowSpacing="0"
+        BackgroundColor="{StaticResource BackgroundColor}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="100"/>
+        </Grid.RowDefinitions>
+
         <Label 
-            Text="{Binding Title, FallbackValue=Term1}"
+            x:Name="MainLabel"
+            Grid.ColumnSpan="2" 
+            Text="{Binding Title}"
+            VerticalOptions="FillAndExpand"
+            HorizontalOptions="FillAndExpand"
             VerticalTextAlignment="Center"
             HorizontalTextAlignment="Center"
             FontSize="24"
             FontAttributes="Bold"
-            TextColor="#ECF0F1"
-            HeightRequest="57"
-            BackgroundColor="#2980B9"/>
-        <ListView
-            x:Name="TermListView"
-            HasUnevenRows="True"
-            SeparatorColor="#707070"
-            SelectedItem="{Binding SelectedTerm}"
-            SelectionMode="Single"
-            BackgroundColor="Transparent"
-            ItemsSource="{Binding Terms}">
+            TextColor="{StaticResource LabelTextColor}"
+            BackgroundColor="{StaticResource MainColor}"/>
+
+        <ListView 
+            ItemsSource="{Binding Courses}"
+            CachingStrategy="RecycleElement"
+            Grid.Row="1"
+            Grid.ColumnSpan="2"
+            SeparatorVisibility="Default"
+            SelectedItem="{Binding SelectedCourses}"
+            HasUnevenRows="True">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <StackLayout Orientation="Horizontal" Padding="20">
-                            <Label Text="{Binding Title, FallbackValue=Term1}" FontAttributes="Bold"/>
-                            <StackLayout Margin="40,0,0,0" Orientation="Horizontal">
-                                <Label Text="{Binding StartDate, Mode=TwoWay, FallbackValue=01/01/2010, 
-                                    Converter= {StaticResource DateToString}}" />
-                                <Label Text="-" />
-                                <Label Text="{Binding EndDate, Mode=TwoWay, FallbackValue=01/01/2010, 
-                                    Converter={StaticResource DateToString}}" />
+                        <Grid HeightRequest="40">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Label
+                                VerticalTextAlignment="Center"
+                                HorizontalTextAlignment="Center"
+                                Text="{Binding Title}" />
+                            <StackLayout 
+                                Grid.Column="1"
+                                VerticalOptions="Center"
+                                HorizontalOptions="Center"
+                                Orientation="Horizontal">
+
+                                <Label 
+                                    Text="{Binding StartDate, Converter={StaticResource DateToShort}}" />
+                                <Label 
+                                    Text="-"/>
+                                <Label
+                                    Text="{Binding EndDate, Converter={StaticResource DateToShort}}"/>
                             </StackLayout>
-                        </StackLayout>
+                        </Grid>
+
                         <ViewCell.ContextActions>
-                            <MenuItem Text="Modify" 
-                                      Command="{Binding Path=BindingContext.ModifyCommand, 
-                                        Source={x:Reference Name=TermListView}}" 
-                                      CommandParameter="{Binding .}"/>
-                            <MenuItem Text="Delete" IsDestructive="True" 
-                                      Command="{Binding Path=BindingContext.DeleteCommand, 
-                                        Source={x:Reference Name=TermListView}}" 
-                                      CommandParameter="{Binding .}" />
+                            <MenuItem Text="Modify" Command="{Binding Path=BindingContext.ModifyCommand, Source={x:Reference TermView}}" CommandParameter="{Binding .}"/>
+                            <MenuItem Text="Delete" Command="{Binding Path=BindingContext.DeleteCommand, Source={x:Reference TermView}}" CommandParameter="{Binding .}" IsDestructive="True" />
                         </ViewCell.ContextActions>
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <StackLayout>
-            <Button 
-                Text="+"
-                TextColor="#ECF0F1"
-                FontSize="30"
-                FontAttributes="Bold"
-                BackgroundColor="#2980B9"
-                WidthRequest="50"
-                HorizontalOptions="End"
-                Margin="0,0,20,60"
-                Command="{Binding AddNewTermCommand}"
-                />
-        </StackLayout>
-    </StackLayout>
+
+        <Grid
+            Grid.Row="2"
+            Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            
+            <ImageButton 
+                Grid.Column="2"
+                Scale="1.3"
+                BackgroundColor="Transparent"
+                Command="{Binding AddNewCourseCommand}"
+                Source="{local:EmbeddedImage ResourceId=Student_Portal.Images.PlusIcon.png}" />
+
+            <StackLayout
+                Grid.Row="1"
+                BackgroundColor="{StaticResource MainColor}">
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer />
+                </StackLayout.GestureRecognizers>
+                <Label 
+                    Text="Degree plan"
+                    VerticalTextAlignment="Center"
+                    HorizontalTextAlignment="Center"
+                    FontAttributes="Bold"
+                    BackgroundColor="{StaticResource MainColor}" />
+                <Image 
+                    Scale="1.5"
+                    Source="{local:EmbeddedImage ResourceId=Student_Portal.Images.DegreeIcon.png}" />
+            </StackLayout>
+        </Grid>
+    </Grid>
+    
 </ContentPage>

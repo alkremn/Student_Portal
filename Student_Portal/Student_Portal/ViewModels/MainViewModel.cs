@@ -1,7 +1,6 @@
 ﻿using Student_Portal.Models;
 using Student_Portal.Services;
 using Student_Portal.Views;
-using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -87,7 +86,7 @@ namespace Student_Portal.ViewModels
         }
         private async void LoadDetailPage(Term selectedTerm)
         {
-            //await Application.Current.MainPage.Navigation.PushAsync(new TermDetailPage(courseData, selectedTerm));
+            await Application.Current.MainPage.Navigation.PushAsync(new TermDetailPage(courseData, selectedTerm));
         }
     }
 }

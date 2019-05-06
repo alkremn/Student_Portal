@@ -15,10 +15,15 @@ namespace Student_Portal.Views
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class TermDetailPage : ContentPage
 	{
-		public TermDetailPage ()
+		public TermDetailPage (CourseDataService courseData, Term selectedTerm)
 		{
 			InitializeComponent ();
+            BindingContext = new TermDetailViewModel(courseData, selectedTerm);
 		}
+        public TermDetailPage()
+        {
+
+        }
         
     }
 }
