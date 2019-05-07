@@ -9,6 +9,11 @@ namespace Student_Portal.Views
         {
             InitializeComponent();
             BindingContext = new MainViewModel();
+
+            TermList.ItemSelected += (sender, e) =>
+            {
+                ((ListView)sender).SelectedItem = null;
+            };
         }
     }
 }

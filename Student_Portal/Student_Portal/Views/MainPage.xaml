@@ -42,6 +42,7 @@
             BackgroundColor="{StaticResource MainColor}"/>
 
         <ListView 
+            x:Name="TermList"
             ItemsSource="{Binding Terms}"
             CachingStrategy="RecycleElement"
             Grid.Row="1"

@@ -6,7 +6,7 @@
              xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core" 
              ios:Page.UseSafeArea="True"
              x:Name="TermView"
-             NavigationPage.HasNavigationBar="False"
+             NavigationPage.HasNavigationBar="True"
              x:Class="Student_Portal.Views.TermDetailPage">
 
     <ContentPage.Resources>
@@ -42,6 +42,7 @@
             BackgroundColor="{StaticResource MainColor}"/>
 
         <ListView 
+            x:Name="CourseList"
             ItemsSource="{Binding Courses}"
             CachingStrategy="RecycleElement"
             Grid.Row="1"

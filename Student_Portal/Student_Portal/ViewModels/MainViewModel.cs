@@ -25,12 +25,11 @@ namespace Student_Portal.ViewModels
             get => _selectedTerm;
             set
             {
+                 _selectedTerm = value;
+                 OnPropertyChanged();
+
                 if (value != null)
-                {
-                    _selectedTerm = value;
-                    OnPropertyChanged();
                     LoadDetailPage(value);
-                }
             }
         }
 
@@ -86,6 +85,7 @@ namespace Student_Portal.ViewModels
         }
         private async void LoadDetailPage(Term selectedTerm)
         {
+            SelectedTerm = null;
             await Application.Current.MainPage.Navigation.PushAsync(new TermDetailPage(courseData, selectedTerm));
         }
     }
