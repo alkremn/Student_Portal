@@ -1,10 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Student_Portal.Views.NewCoursePage1"
-             xmlns:local="clr-namespace:Student_Portal">
+             x:Class="Student_Portal.Views.NewCoursePage2">
     <ContentPage.Content>
-
         <Grid BackgroundColor="#ECF0F1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="60"/>
@@ -12,9 +10,9 @@
                 <RowDefinition Height="70"/>
                 <RowDefinition Height="60"/>
             </Grid.RowDefinitions>
-            
+
             <Label 
-                Text="Create Course"
+                Text="Course Instructor"
                 VerticalTextAlignment="Center"
                 HorizontalTextAlignment="Center"
                 FontSize="24"
@@ -27,38 +25,33 @@
                 Spacing="20"
                 Padding="20"
                 VerticalOptions="StartAndExpand">
-                
-                <Label Text="Title" TextColor="#696969" FontSize="Medium"/>
+
+                <Label Text="Name" TextColor="#696969" FontSize="Medium"/>
                 <Entry 
-                    Placeholder="Course Title" 
+                    Placeholder="Instructor Name" 
                     PlaceholderColor="#696969" 
                     FontSize="Medium" 
                     HeightRequest="50" 
-                    Text="{Binding Title}"/>
+                    Text="{Binding InstructorName}"/>
 
-                <!--Start date label and DatePicker-->
-                <Label Text="Start Date" TextColor="#696969" FontSize="Medium"/>
-                <DatePicker 
-                    MinimumDate="1/1/2016"
-                    TextColor="#696969" 
+                <!--Phone label and Entry-->
+                <Label Text="Phone" TextColor="#696969" FontSize="Medium"/>
+                <Entry 
+                    Placeholder="Phone Number" 
+                    PlaceholderColor="#696969" 
+                    FontSize="Medium" 
                     HeightRequest="50" 
-                    Date="{Binding StartDate}"
-                    FontSize="Medium" />
+                    Text="{Binding Phone}"/>
 
-                <!--End date label and DatePicker-->
-                <Label Text="End Date" TextColor="#696969" FontSize="Medium"/>
-                <DatePicker 
-                    TextColor="#696969" 
+                <!--Email label and Entry-->
+                <Label Text="Email" TextColor="#696969" FontSize="Medium"/>
+                <Entry 
+                    Placeholder="Email Address" 
+                    PlaceholderColor="#696969" 
+                    FontSize="Medium" 
                     HeightRequest="50" 
-                    MinimumDate="1/1/2016"
-                    Date="{Binding EndDate}"
-                    FontSize="Medium"/>
+                    Text="{Binding Email}"/>
 
-                <Label Text="Status" TextColor="#696969" FontSize="Medium"/>
-                <Picker
-                    ItemsSource="{Binding StatusOptions}"
-                    SelectedItem="{Binding SelectedItem}"/>
-                    
             </StackLayout>
             <Grid
                 Grid.Row="2">
@@ -68,8 +61,8 @@
                 </Grid.ColumnDefinitions>
 
                 <Button 
-                    Text="Cancel"
-                    TextColor="{StaticResource RedColor}"
+                    Text="Prev"
+                    TextColor="{StaticResource LabelTextColor}"
                     Margin="10,0"
                     CornerRadius="10"
                     FontSize="Medium"
@@ -77,8 +70,8 @@
                     BackgroundColor="{StaticResource MainColor}"
                     HorizontalOptions="Fill"
                     VerticalOptions="Center"
-                    Command="{Binding CancelCommand}"/>
-                
+                    Command="{Binding PrevCommand}"/>
+
                 <Button 
                     Grid.Column="1"
                     Margin="10,0"

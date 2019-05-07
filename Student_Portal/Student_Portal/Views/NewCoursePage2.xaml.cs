@@ -11,18 +11,12 @@ using Xamarin.Forms.Xaml;
 namespace Student_Portal.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class NewCoursePage1 : ContentPage
+    public partial class NewCoursePage2 : ContentPage
     {
-        public NewCoursePage1()
+        public NewCoursePage2()
         {
             InitializeComponent();
-            BindingContext = new NewCoursePage1ViewModel();
+            BindingContext = new NewCoursePage2ViewModel();
         }
-
-        protected override bool OnBackButtonPressed()
-        {
-            return true;
-        }
-
     }
 }
