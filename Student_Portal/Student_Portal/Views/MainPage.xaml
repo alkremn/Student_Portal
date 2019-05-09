@@ -105,22 +105,6 @@
                 Command="{Binding AddNewTermCommand}"
                 Source="{local:EmbeddedImage ResourceId=Student_Portal.Images.PlusIcon.png}" />
 
-            <StackLayout
-                Grid.Row="1"
-                BackgroundColor="{StaticResource MainColor}">
-                <StackLayout.GestureRecognizers>
-                    <TapGestureRecognizer />
-                </StackLayout.GestureRecognizers>
-                <Label 
-                    Text="Degree plan"
-                    VerticalTextAlignment="Center"
-                    HorizontalTextAlignment="Center"
-                    FontAttributes="Bold"
-                    BackgroundColor="{StaticResource MainColor}" />
-                <Image 
-                    Scale="1.5"
-                    Source="{local:EmbeddedImage ResourceId=Student_Portal.Images.DegreeIcon.png}" />
-            </StackLayout>
         </Grid>
     </Grid>
 </ContentPage>

@@ -8,6 +8,7 @@
             <Color x:Key="MainColor">#2980B9</Color>
             <Color x:Key="LabelTextColor">#ECF0F1</Color>
             <Color x:Key="RedColor">#ECF0F1</Color>
+            <Color x:Key="GrayColor">#696969</Color>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

@@ -14,11 +14,12 @@ namespace Student_Portal.ViewModels
     {
         private CourseDataService _courseData;
         public string Title { get; set; }
-        public ObservableCollection<Course> Courses { get; private set; } 
-        public ICommand AddNewCourseCommand { get; private set; }
-        public ICommand ModifyCommand { get; private set; }
-        public ICommand DeleteCommand { get; private set; }
-        public Course SelectedCourse { get; private set; }
+        public ObservableCollection<Course> Courses { get; } 
+        public ICommand AddNewCourseCommand { get; }
+        public ICommand ModifyCommand { get; }
+        public ICommand DeleteCommand { get; }
+        public ICommand BackCommand { get; }
+        public Course SelectedCourse { get; }
 
         public TermDetailViewModel(CourseDataService courseData, Term term)
         {
@@ -29,6 +30,12 @@ namespace Student_Portal.ViewModels
             AddNewCourseCommand = new Command(OnNewCourseCreate);
             ModifyCommand = new Command(async (obj) => await OnModifyClicked(obj));
             DeleteCommand = new Command(async (obj) => await OnDeleteClicked(obj));
+            BackCommand = new Command(OnBackClicked);
+        }
+
+        private async void OnBackClicked(object obj)
+        {
+            await App.Current.MainPage.Navigation.PopAsync();
         }
 
         private Task OnDeleteClicked(object obj)

@@ -74,7 +74,7 @@
                     CornerRadius="10"
                     FontSize="Medium"
                     FontAttributes="Bold"
-                    BackgroundColor="{StaticResource MainColor}"
+                    BackgroundColor="{StaticResource GrayColor}"
                     HorizontalOptions="Fill"
                     VerticalOptions="Center"
                     Command="{Binding CancelCommand}"/>

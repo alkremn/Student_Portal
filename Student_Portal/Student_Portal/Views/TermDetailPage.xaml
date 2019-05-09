@@ -6,7 +6,7 @@
              xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core" 
              ios:Page.UseSafeArea="True"
              x:Name="TermView"
-             NavigationPage.HasNavigationBar="True"
+             NavigationPage.HasNavigationBar="False"
              x:Class="Student_Portal.Views.TermDetailPage">
 
     <ContentPage.Resources>
@@ -98,31 +98,25 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            
-            <ImageButton 
+
+            <Button 
+                Text="Back"
+                TextColor="{StaticResource LabelTextColor}"
+                Margin="10,0"
+                CornerRadius="10"
+                FontSize="Medium"
+                FontAttributes="Bold"
+                BackgroundColor="{StaticResource  GrayColor}"
+                HorizontalOptions="Fill"
+                VerticalOptions="Center"
+                Command="{Binding BackCommand}"/>
+
+                <ImageButton 
                 Grid.Column="2"
                 Scale="1.3"
                 BackgroundColor="Transparent"
                 Command="{Binding AddNewCourseCommand}"
                 Source="{local:EmbeddedImage ResourceId=Student_Portal.Images.PlusIcon.png}" />
-
-            <StackLayout
-                Grid.Row="1"
-                BackgroundColor="{StaticResource MainColor}">
-                <StackLayout.GestureRecognizers>
-                    <TapGestureRecognizer />
-                </StackLayout.GestureRecognizers>
-                <Label 
-                    Text="Degree plan"
-                    VerticalTextAlignment="Center"
-                    HorizontalTextAlignment="Center"
-                    FontAttributes="Bold"
-                    BackgroundColor="{StaticResource MainColor}" />
-                <Image 
-                    Scale="1.5"
-                    Source="{local:EmbeddedImage ResourceId=Student_Portal.Images.DegreeIcon.png}" />
-            </StackLayout>
         </Grid>
     </Grid>
-    
 </ContentPage>
