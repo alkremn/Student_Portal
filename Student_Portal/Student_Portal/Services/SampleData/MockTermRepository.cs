@@ -5,11 +5,7 @@ namespace Student_Portal.Models
 {
     public static class MockTermRepository
     {
-        public static Term GetSingleTerm()
-        {
-            return new Term { Id = 1, Title = "Summer Term", StartDate = DateTime.Now, EndDate = DateTime.Now };
-        }
-
+       
         public static IEnumerable<Term> GetTermList()
         {
             return new List<Term>

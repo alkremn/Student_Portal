@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:Student_Portal.Converters"
+             x:Class="Student_Portal.Views.NewCoursePage4">
+
+        <ContentPage.Resources>
+            <ResourceDictionary>
+                <converters:DateToShortConverter x:Key="DateToShort" />
+            </ResourceDictionary>
+        </ContentPage.Resources>
+
+        <Grid BackgroundColor="#ECF0F1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="70"/>
+                <RowDefinition Height="60"/>
+            </Grid.RowDefinitions>
+
+            <Label 
+                Text="Course Assessments"
+                VerticalTextAlignment="Center"
+                HorizontalTextAlignment="Center"
+                FontSize="24"
+                FontAttributes="Bold"
+                TextColor="#ECF0F1"
+                HeightRequest="57"
+                BackgroundColor="#2980B9"/>
+            <StackLayout
+                Grid.Row="1"
+                Spacing="20"
+                Padding="20"
+                VerticalOptions="StartAndExpand">
+
+            <ListView 
+            x:Name="CourseList"
+            ItemsSource="{Binding Assessments}"
+            CachingStrategy="RecycleElement"
+            Grid.Row="1"
+            Grid.ColumnSpan="2"
+            SeparatorVisibility="Default"
+            SelectedItem="{Binding SelectedCourses}"
+            HasUnevenRows="True">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid HeightRequest="40">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Label
+                                VerticalTextAlignment="Center"
+                                HorizontalTextAlignment="Center"
+                                Text="{Binding Title}" />
+                                <StackLayout 
+                                Grid.Column="1"
+                                VerticalOptions="Center"
+                                HorizontalOptions="Center"
+                                Orientation="Horizontal">
+
+                                    <Label 
+                                    Text="{Binding StartDate, Converter={StaticResource DateToShort}}" />
+                                    <Label 
+                                    Text="-"/>
+                                    <Label
+                                    Text="{Binding EndDate, Converter={StaticResource DateToShort}}"/>
+                                </StackLayout>
+                            </Grid>
+
+                            <ViewCell.ContextActions>
+                                <MenuItem Text="Modify" Command="{Binding Path=BindingContext.ModifyCommand, Source={x:Reference TermView}}" CommandParameter="{Binding .}"/>
+                                <MenuItem Text="Delete" Command="{Binding Path=BindingContext.DeleteCommand, Source={x:Reference TermView}}" CommandParameter="{Binding .}" IsDestructive="True" />
+                            </ViewCell.ContextActions>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+
+        </StackLayout>
+            <Grid
+                Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Button 
+                    Text="Prev"
+                    TextColor="{StaticResource LabelTextColor}"
+                    Margin="10,0"
+                    CornerRadius="10"
+                    FontSize="Medium"
+                    FontAttributes="Bold"
+                    BackgroundColor="{StaticResource GrayColor}"
+                    HorizontalOptions="Fill"
+                    VerticalOptions="Center"
+                    Command="{Binding PrevCommand}"/>
+
+                <Button 
+                    Grid.Column="1"
+                    Margin="10,0"
+                    Text="Next"
+                    TextColor="{StaticResource LabelTextColor}"
+                    CornerRadius="10"
+                    FontSize="Medium"
+                    FontAttributes="Bold"
+                    BackgroundColor="{StaticResource MainColor}"
+                    HorizontalOptions="Fill"
+                    VerticalOptions="Center"
+                    Command="{Binding NextCommand}"/>
+            </Grid>
+        </Grid>
+</ContentPage>
