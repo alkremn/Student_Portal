@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Student_Portal.Views.AddNewAssessmentPage">
+    <ContentPage.Content>
+        <Grid BackgroundColor="#ECF0F1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="70"/>
+                <RowDefinition Height="60"/>
+            </Grid.RowDefinitions>
+
+            <Label 
+                Text="New Assessment"
+                VerticalTextAlignment="Center"
+                HorizontalTextAlignment="Center"
+                FontSize="24"
+                FontAttributes="Bold"
+                TextColor="#ECF0F1"
+                HeightRequest="57"
+                BackgroundColor="#2980B9"/>
+            <StackLayout
+                Grid.Row="1"
+                Spacing="20"
+                Padding="20"
+                VerticalOptions="StartAndExpand">
+
+                <Label Text="Title" TextColor="#696969" FontSize="Medium"/>
+                <Entry 
+                    Placeholder="Course Title" 
+                    PlaceholderColor="#696969" 
+                    FontSize="Medium" 
+                    HeightRequest="50" 
+                    Text="{Binding Title}"/>
+
+                <!--Start date label and DatePicker-->
+                <Label Text="Start Date" TextColor="#696969" FontSize="Medium"/>
+                <DatePicker 
+                    MinimumDate="1/1/2016"
+                    TextColor="#696969" 
+                    HeightRequest="50" 
+                    Date="{Binding StartDate}"
+                    FontSize="Medium" />
+
+                <!--End date label and DatePicker-->
+                <Label Text="End Date" TextColor="#696969" FontSize="Medium"/>
+                <DatePicker 
+                    TextColor="#696969" 
+                    HeightRequest="50" 
+                    MinimumDate="1/1/2016"
+                    Date="{Binding EndDate}"
+                    FontSize="Medium"/>
+
+                <Label Text="Status" TextColor="#696969" FontSize="Medium"/>
+                <Picker
+                    ItemsSource="{Binding StatusOptions}"
+                    SelectedItem="{Binding SelectedItem}"/>
+
+            </StackLayout>
+            <Grid
+                Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Button 
+                    Text="Cancel"
+                    TextColor="{StaticResource RedColor}"
+                    Margin="10,0"
+                    CornerRadius="10"
+                    FontSize="Medium"
+                    FontAttributes="Bold"
+                    BackgroundColor="{StaticResource GrayColor}"
+                    HorizontalOptions="Fill"
+                    VerticalOptions="Center"
+                    Command="{Binding CancelCommand}"/>
+
+                <Button 
+                    Grid.Column="1"
+                    Margin="10,0"
+                    Text="Next"
+                    TextColor="{StaticResource LabelTextColor}"
+                    CornerRadius="10"
+                    FontSize="Medium"
+                    FontAttributes="Bold"
+                    BackgroundColor="{StaticResource MainColor}"
+                    HorizontalOptions="Fill"
+                    VerticalOptions="Center"
+                    Command="{Binding NextCommand}"/>
+            </Grid>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

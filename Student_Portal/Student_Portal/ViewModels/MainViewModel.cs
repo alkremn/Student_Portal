@@ -14,11 +14,11 @@ namespace Student_Portal.ViewModels
         private Term _selectedTerm;
         private TermDataService termData;
         private CourseDataService courseData;
-        public ObservableCollection<Term> Terms { get; private set; }
-        public ICommand AddNewTermCommand { get; private set; }
-        public ICommand RefreshingCommand { get; private set; }
-        public ICommand ModifyCommand { get; private set; }
-        public ICommand DeleteCommand { get; private set; }
+        public ObservableCollection<Term> Terms { get; }
+        public ICommand AddNewTermCommand { get; }
+        public ICommand RefreshingCommand { get; }
+        public ICommand ModifyCommand { get; }
+        public ICommand DeleteCommand { get; }
 
         public Term SelectedTerm
         {

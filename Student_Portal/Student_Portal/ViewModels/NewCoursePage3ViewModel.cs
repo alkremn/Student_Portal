@@ -9,11 +9,18 @@ namespace Student_Portal.ViewModels
 {
     public class NewCoursePage3ViewModel
     {
+        public ICommand PrevCommand { get; }
         public ICommand NextCommand { get; }
 
         public NewCoursePage3ViewModel()
         {
+            PrevCommand = new Command(OnPrevClicked);
             NextCommand = new Command(OnNextClicked);
+        }
+
+        private async void OnPrevClicked(object obj)
+        {
+            await App.Current.MainPage.Navigation.PopModalAsync();
         }
 
         private async void OnNextClicked(object obj)

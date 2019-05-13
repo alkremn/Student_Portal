@@ -11,17 +11,12 @@ using Xamarin.Forms.Xaml;
 namespace Student_Portal.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class NewCoursePage4 : ContentPage
+    public partial class AddNewAssessmentPage : ContentPage
     {
-        public NewCoursePage4()
+        public AddNewAssessmentPage()
         {
             InitializeComponent();
-            BindingContext = new NewCoursePage4ViewModel();
-            AssessmentList.ItemSelected += (sender, e) =>
-            {
-                ((ListView)sender).SelectedItem = null;
-            };
+            BindingContext = new AddNewAssessmentViewModel();
         }
-
     }
 }
