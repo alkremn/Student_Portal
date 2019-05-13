@@ -10,7 +10,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="60"/>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="100"/>
+                <RowDefinition Height="120"/>
                 <RowDefinition Height="60"/>
             </Grid.RowDefinitions>
 
@@ -74,8 +74,10 @@
 
         </StackLayout>
        
-        <Grid
-                Grid.Row="2">
+            <Grid
+                Grid.Row="2"
+                RowSpacing="30">
+                
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
@@ -90,12 +92,18 @@
                 Grid.Column="2"
                 Scale="1.3"
                 BackgroundColor="Transparent"
-                Command="{Binding AddNewTermCommand}"
+                Command="{Binding AddNewAssessmentCommand}"
                 Source="{local:EmbeddedImage ResourceId=Student_Portal.Images.PlusIcon.png}" />
-
-            <Button 
+            
+            <Grid 
+                Grid.ColumnSpan="3"
+                Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Button 
                     Text="Prev"
-                Grid.Row="1"
                     TextColor="{StaticResource LabelTextColor}"
                     Margin="10,0"
                     CornerRadius="10"
@@ -107,8 +115,7 @@
                     Command="{Binding PrevCommand}"/>
 
                 <Button 
-                    Grid.Row="1"
-                    Grid.Column="2"
+                    Grid.Column="1"
                     Margin="10,0"
                     Text="Next"
                     TextColor="{StaticResource LabelTextColor}"
@@ -120,5 +127,6 @@
                     VerticalOptions="Center"
                     Command="{Binding NextCommand}"/>
             </Grid>
+        </Grid>
         </Grid>
 </ContentPage>

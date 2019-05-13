@@ -34,7 +34,7 @@
                     PlaceholderColor="#696969" 
                     FontSize="Medium" 
                     HeightRequest="50" 
-                    Text="{Binding Title}"/>
+                    Text="{Binding Title, Mode=OneWayToSource, UpdateSourceEventName=PropertyChanged}"/>
 
                 <!--Start date label and DatePicker-->
                 <Label Text="Start Date" TextColor="#696969" FontSize="Medium"/>
