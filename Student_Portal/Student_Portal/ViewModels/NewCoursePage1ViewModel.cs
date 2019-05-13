@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Windows.Input;
 using Xamarin.Forms;
+using Plugin.LocalNotifications;
 
 namespace Student_Portal.ViewModels
 {
@@ -47,12 +48,12 @@ namespace Student_Portal.ViewModels
 
         private bool CanNextClicked(object arg)
         {
-            return Title != null;
+            return true;
         }
 
         private async void OnCancelClicked(object obj)
         {
-           await App.Current.MainPage.Navigation.PopModalAsync();
+            await App.Current.MainPage.Navigation.PopModalAsync();
         }
     }
 }
