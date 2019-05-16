@@ -125,7 +125,7 @@
                     BackgroundColor="{StaticResource MainColor}"
                     HorizontalOptions="Fill"
                     VerticalOptions="Center"
-                    Command="{Binding NextCommand}"/>
+                    Command="{Binding SaveCommand}"/>
             </Grid>
         </Grid>
         </Grid>
