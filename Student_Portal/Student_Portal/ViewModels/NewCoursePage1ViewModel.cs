@@ -5,25 +5,27 @@ using System.Collections.Generic;
 using System.Windows.Input;
 using Xamarin.Forms;
 using Plugin.LocalNotifications;
+using Student_Portal.Models;
 
 namespace Student_Portal.ViewModels
 {
     public class NewCoursePage1ViewModel:BaseViewModel
     {
-        public string _title;
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
+        private string title;
+        public DateTime StartDate { get; private set; }
+        public DateTime EndDate { get; private set; }
+        public string SelectedStatus { get; private set; }
         public List<string> StatusOptions { get; }
-        public string SelectedStatus { get; set; }
+
         public ICommand CancelCommand { get; }
         public ICommand NextCommand { get; }
 
         public string Title
         {
-            get => _title;
+            get => title;
             set
             {
-                _title = value;
+                title = value;
                 OnPropertyChanged();
             }
         }
@@ -46,9 +48,12 @@ namespace Student_Portal.ViewModels
             await App.Current.MainPage.Navigation.PushModalAsync(new NewCoursePage2());
         }
 
-        private bool CanNextClicked(object arg)
+        private bool CanNextClicked(object obj)
         {
-            return true;
+            if (title != null)
+                return title.Length != 0;
+            else
+                return false;
         }
 
         private async void OnCancelClicked(object obj)
