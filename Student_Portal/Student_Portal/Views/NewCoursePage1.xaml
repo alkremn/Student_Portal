@@ -32,29 +32,33 @@
                     Placeholder="Course Title" 
                     PlaceholderColor="#696969" 
                     FontSize="Medium" 
-                    HeightRequest="50" 
-                    Text="{Binding Title, Mode=TwoWay, UpdateSourceEventName=PropertyChanged}"/>
+                    HeightRequest="50"
+                    TextChanged="Title_TextChanged"
+                    Text="{Binding Title, Mode=OneWayToSource}"/>
 
                 <!--Start date label and DatePicker-->
                 <Label Text="Start Date" TextColor="#696969" FontSize="Medium"/>
                 <DatePicker 
-                    MinimumDate="1/1/2016"
+                    x:Name="StartDate"
+                    DateSelected="StartDate_Selected"
                     TextColor="#696969" 
                     HeightRequest="50" 
-                    Date="{Binding StartDate}"
+                    Date="{Binding StartDateSelected, Mode=OneWayToSource}"
                     FontSize="Medium" />
 
                 <!--End date label and DatePicker-->
                 <Label Text="End Date" TextColor="#696969" FontSize="Medium"/>
                 <DatePicker 
+                    x:Name="EndDate"
+                    DateSelected="EndDate_Selected"
                     TextColor="#696969" 
                     HeightRequest="50" 
-                    MinimumDate="1/1/2016"
-                    Date="{Binding EndDate}"
+                    Date="{Binding EndDateSelected, Mode=OneWayToSource}"
                     FontSize="Medium"/>
 
                 <Label Text="Status" TextColor="#696969" FontSize="Medium"/>
                 <Picker
+                    SelectedIndexChanged="StatusIndexChanged"
                     ItemsSource="{Binding StatusOptions}"
                     SelectedItem="{Binding SelectedItem}"/>
                     
@@ -79,6 +83,7 @@
                     Command="{Binding CancelCommand}"/>
                 
                 <Button 
+                    x:Name="NextButton"
                     Grid.Column="1"
                     Margin="10,0"
                     Text="Next"

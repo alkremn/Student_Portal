@@ -12,8 +12,9 @@ namespace Student_Portal.ViewModels
     public class NewCoursePage1ViewModel:BaseViewModel
     {
         private string title;
-        public DateTime StartDate { get; private set; }
-        public DateTime EndDate { get; private set; }
+        private int termNumber;
+        public DateTime StartDateSelected { get; private set; }
+        public DateTime EndDateSelected { get; private set; }
         public string SelectedStatus { get; private set; }
         public List<string> StatusOptions { get; }
 
@@ -30,8 +31,9 @@ namespace Student_Portal.ViewModels
             }
         }
 
-        public NewCoursePage1ViewModel()
+        public NewCoursePage1ViewModel(int termId)
         {
+            this.termNumber = termId;
             StatusOptions = new List<string>()
             {
                 "In Progress",
@@ -39,21 +41,22 @@ namespace Student_Portal.ViewModels
                 "Dropped",
                 "Plan To Take"
             };
+
             CancelCommand = new Command(OnCancelClicked);
-            NextCommand = new Command(OnNextClicked, CanNextClicked);
+            NextCommand = new Command(OnNextClicked);
         }
 
         private async void OnNextClicked(object obj)
         {
-            await App.Current.MainPage.Navigation.PushModalAsync(new NewCoursePage2());
-        }
-
-        private bool CanNextClicked(object obj)
-        {
-            if (title != null)
-                return title.Length != 0;
-            else
-                return false;
+            await App.Current.MainPage.Navigation.PushModalAsync(
+                new NewCoursePage2(new Course()
+                {
+                    Title = title,
+                    TermId = termNumber,
+                    StartDate = StartDateSelected,
+                    EndDate = EndDateSelected,
+                    Status = SelectedStatus
+                }));
         }
 
         private async void OnCancelClicked(object obj)

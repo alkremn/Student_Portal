@@ -26,29 +26,37 @@
                 Padding="20"
                 VerticalOptions="StartAndExpand">
 
-                <Label Text="Name" TextColor="#696969" FontSize="Medium"/>
-                <Entry 
-                    Placeholder="Instructor Name" 
+                <Label Text="Instructor Name" TextColor="#696969" FontSize="Medium"/>
+                <Entry  
+                    x:Name="InsName"
+                    Placeholder="Name" 
                     PlaceholderColor="#696969" 
                     FontSize="Medium" 
                     HeightRequest="50" 
+                    TextChanged="Entry_TextChanged"
                     Text="{Binding InstructorName}"/>
 
                 <!--Phone label and Entry-->
                 <Label Text="Phone" TextColor="#696969" FontSize="Medium"/>
                 <Entry 
-                    Placeholder="Phone Number" 
+                    x:Name="Phone"
+                    Keyboard="Telephone"
+                    Placeholder="Phone" 
                     PlaceholderColor="#696969" 
                     FontSize="Medium" 
+                    TextChanged="Entry_TextChanged"
                     HeightRequest="50" 
                     Text="{Binding Phone}"/>
 
                 <!--Email label and Entry-->
                 <Label Text="Email" TextColor="#696969" FontSize="Medium"/>
                 <Entry 
-                    Placeholder="Email Address" 
+                    x:Name="Email"
+                    Keyboard="Email"
+                    Placeholder="Email" 
                     PlaceholderColor="#696969" 
                     FontSize="Medium" 
+                    TextChanged="Entry_TextChanged"
                     HeightRequest="50" 
                     Text="{Binding Email}"/>
 
@@ -73,6 +81,7 @@
                     Command="{Binding PrevCommand}"/>
 
                 <Button 
+                    x:Name="NextButton"
                     Grid.Column="1"
                     Margin="10,0"
                     Text="Next"

@@ -1,4 +1,5 @@
-﻿using Student_Portal.ViewModels;
+﻿using Student_Portal.Models;
+using Student_Portal.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,10 +14,10 @@ namespace Student_Portal.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class NewCoursePage3 : ContentPage
     {
-        public NewCoursePage3()
+        public NewCoursePage3(Course course)
         {
             InitializeComponent();
-            BindingContext = new NewCoursePage3ViewModel();
+            BindingContext = new NewCoursePage3ViewModel(course);
         }
     }
 }

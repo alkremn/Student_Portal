@@ -14,6 +14,7 @@ namespace Student_Portal.ViewModels
     {
         private CourseDataService _courseData;
         public string Title { get; set; }
+        private int termId;
         public ObservableCollection<Course> Courses { get; } 
         public ICommand AddNewCourseCommand { get; }
         public ICommand ModifyCommand { get; }
@@ -25,6 +26,7 @@ namespace Student_Portal.ViewModels
         {
             _courseData = courseData;
             Title = term.Title;
+            termId = term.Id;
             Courses = new ObservableCollection<Course>();
             LoadCourseData();
             AddNewCourseCommand = new Command(OnNewCourseCreate);
@@ -57,7 +59,7 @@ namespace Student_Portal.ViewModels
 
         private async void OnNewCourseCreate()
         {
-            await App.Current.MainPage.Navigation.PushModalAsync(new NewCoursePage1());
+            await App.Current.MainPage.Navigation.PushModalAsync(new NewCoursePage1(termId));
         }
     }
 }

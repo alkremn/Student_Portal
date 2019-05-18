@@ -32,7 +32,7 @@
                     PlaceholderColor="#696969"
                     HeightRequest="200"
                     FontSize="Medium" 
-                    Text="{Binding InstructorName}"/>
+                    Text="{Binding Notes}"/>
 
             </StackLayout>
             <Grid

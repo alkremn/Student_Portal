@@ -13,12 +13,14 @@ namespace Student_Portal.ViewModels
 {
     public class NewCoursePage4ViewModel
     {
+        private Course course;
         public ObservableCollection<Assessment> Assessments { get; }
         public ICommand AddNewAssessmentCommand { get; }
         public ICommand PrevCommand { get; }
         public ICommand SaveCommand { get; }
-        public NewCoursePage4ViewModel()
+        public NewCoursePage4ViewModel(Course newCourse)
         {
+            course = newCourse;
             Assessments = new ObservableCollection<Assessment>();
             AddNewAssessmentCommand = new Command(OnAddNewAssessment);
             PrevCommand = new Command(OnPrevClicked);

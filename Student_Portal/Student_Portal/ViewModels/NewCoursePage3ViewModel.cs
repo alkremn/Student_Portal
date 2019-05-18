@@ -1,4 +1,5 @@
-﻿using Student_Portal.Views;
+﻿using Student_Portal.Models;
+using Student_Portal.Views;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,23 +10,28 @@ namespace Student_Portal.ViewModels
 {
     public class NewCoursePage3ViewModel
     {
+        private Course course;
+        public string Notes { get; set; }
         public ICommand PrevCommand { get; }
         public ICommand NextCommand { get; }
 
-        public NewCoursePage3ViewModel()
+        public NewCoursePage3ViewModel(Course newCourse)
         {
+            course = newCourse;
             PrevCommand = new Command(OnPrevClicked);
             NextCommand = new Command(OnNextClicked);
         }
 
         private async void OnPrevClicked(object obj)
         {
+            
             await App.Current.MainPage.Navigation.PopModalAsync();
         }
 
         private async void OnNextClicked(object obj)
         {
-            await App.Current.MainPage.Navigation.PushModalAsync(new NewCoursePage4());
+            course.Notes = Notes;
+            await App.Current.MainPage.Navigation.PushModalAsync(new NewCoursePage4(course));
         }
     }
 }
