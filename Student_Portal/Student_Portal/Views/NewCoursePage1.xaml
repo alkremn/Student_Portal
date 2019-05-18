@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Student_Portal.Views.NewCoursePage1"
+             xmlns:behaviors="clr-namespace:Student_Portal.Behaviors"
              xmlns:local="clr-namespace:Student_Portal">
     <ContentPage.Content>
 
@@ -27,14 +28,18 @@
                 Spacing="20"
                 Padding="20"
                 VerticalOptions="StartAndExpand">
-                
+
                 <Entry 
                     Placeholder="Course Title" 
                     PlaceholderColor="#696969" 
                     FontSize="Medium" 
                     HeightRequest="50"
                     TextChanged="Title_TextChanged"
-                    Text="{Binding Title, Mode=OneWayToSource}"/>
+                    Text="{Binding Title, Mode=OneWayToSource}">
+                    <Entry.Behaviors>
+                        <behaviors:EmptyValidationBehavior />
+                    </Entry.Behaviors>
+                </Entry>
 
                 <!--Start date label and DatePicker-->
                 <Label Text="Start Date" TextColor="#696969" FontSize="Medium"/>
