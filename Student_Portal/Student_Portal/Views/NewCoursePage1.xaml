@@ -61,12 +61,22 @@
                     Date="{Binding EndDateSelected, Mode=OneWayToSource}"
                     FontSize="Medium"/>
 
+                <!--Status Picker-->
                 <Label Text="Status" TextColor="#696969" FontSize="Medium"/>
                 <Picker
+                    Title="Select Status"
                     SelectedIndexChanged="StatusIndexChanged"
-                    ItemsSource="{Binding StatusOptions}"
-                    SelectedItem="{Binding SelectedItem}"/>
-                    
+                    SelectedItem="{Binding SelectedItem}">
+                    <Picker.ItemsSource>
+                        <x:Array Type="{x:Type x:String}">
+                            <x:String>In Progress</x:String>
+                            <x:String>Completed</x:String>
+                            <x:String>Dropped</x:String>
+                            <x:String>Plan To Take</x:String>
+                        </x:Array>
+                    </Picker.ItemsSource>
+                </Picker>
+
             </StackLayout>
             <Grid
                 Grid.Row="2">

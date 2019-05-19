@@ -23,6 +23,5 @@ namespace Student_Portal.Views
                 ((ListView)sender).SelectedItem = null;
             };
         }
-
     }
 }

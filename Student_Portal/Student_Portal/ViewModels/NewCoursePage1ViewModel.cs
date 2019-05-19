@@ -16,7 +16,6 @@ namespace Student_Portal.ViewModels
         public DateTime StartDateSelected { get; private set; }
         public DateTime EndDateSelected { get; private set; }
         public string SelectedStatus { get; private set; }
-        public List<string> StatusOptions { get; }
 
         public ICommand CancelCommand { get; }
         public ICommand NextCommand { get; }
@@ -34,13 +33,6 @@ namespace Student_Portal.ViewModels
         public NewCoursePage1ViewModel(int termId)
         {
             this.termNumber = termId;
-            StatusOptions = new List<string>()
-            {
-                "In Progress",
-                "Completed",
-                "Dropped",
-                "Plan To Take"
-            };
 
             CancelCommand = new Command(OnCancelClicked);
             NextCommand = new Command(OnNextClicked);

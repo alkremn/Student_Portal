@@ -26,9 +26,8 @@
                 Padding="20"
                 VerticalOptions="StartAndExpand">
 
-                <Label Text="Notes (optional)" TextColor="#696969" FontSize="Medium"/>
                 <Editor 
-                    Placeholder="Notes" 
+                    Placeholder="Notes (optional)" 
                     PlaceholderColor="#696969"
                     HeightRequest="200"
                     FontSize="Medium" 

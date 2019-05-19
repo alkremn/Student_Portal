@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:behaviors="clr-namespace:Student_Portal.Behaviors"
              x:Class="Student_Portal.Views.NewCoursePage2">
     <ContentPage.Content>
         <Grid BackgroundColor="#ECF0F1">
@@ -26,7 +27,6 @@
                 Padding="20"
                 VerticalOptions="StartAndExpand">
 
-                <Label Text="Instructor Name" TextColor="#696969" FontSize="Medium"/>
                 <Entry  
                     x:Name="InsName"
                     Placeholder="Name" 
@@ -37,7 +37,6 @@
                     Text="{Binding InstructorName}"/>
 
                 <!--Phone label and Entry-->
-                <Label Text="Phone" TextColor="#696969" FontSize="Medium"/>
                 <Entry 
                     x:Name="Phone"
                     Keyboard="Telephone"
@@ -49,7 +48,6 @@
                     Text="{Binding Phone}"/>
 
                 <!--Email label and Entry-->
-                <Label Text="Email" TextColor="#696969" FontSize="Medium"/>
                 <Entry 
                     x:Name="Email"
                     Keyboard="Email"
@@ -58,7 +56,11 @@
                     FontSize="Medium" 
                     TextChanged="Entry_TextChanged"
                     HeightRequest="50" 
-                    Text="{Binding Email}"/>
+                    Text="{Binding Email}">
+                    <Entry.Behaviors>
+                        <behaviors:EmailValidationBehavior />
+                    </Entry.Behaviors>
+                </Entry>
 
             </StackLayout>
             <Grid
