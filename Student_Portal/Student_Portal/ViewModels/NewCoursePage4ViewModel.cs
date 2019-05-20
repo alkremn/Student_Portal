@@ -60,6 +60,15 @@ namespace Student_Portal.ViewModels
 
             PrevCommand = new Command(OnPrevClicked);
             SaveCommand = new Command(OnSaveClicked);
+            MessagingCenter.Subscribe<Assessment>(this, "Created", async(obj) => await OnAssessmentSave(obj));
+            LoadData();
+        }
+
+        private async Task OnAssessmentSave(Assessment assessment)
+        {
+            if(assessment != null)
+                await assessmentDS.SaveAssessmentAsync(assessment);
+
             LoadData();
         }
 
@@ -109,6 +118,7 @@ namespace Student_Portal.ViewModels
         private async void LoadData()
         {
             var assessments = await assessmentDS.GetAllAssessmentsByCourseIdAsync(course.Id);
+            assessments.Clear();
             assessments.ToList().ForEach(a => Assessments.Add(a));
         }
     }

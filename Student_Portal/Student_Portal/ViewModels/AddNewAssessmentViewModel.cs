@@ -74,8 +74,8 @@ namespace Student_Portal.ViewModels
                 EndDate = endDate,
                 CourseId = courseId
             };
-            await assessmentDS.SaveAssessmentAsync(assessment);
-            await App.Current.MainPage.Navigation.PopModalAsync();
+            MessagingCenter.Send(assessment, "Created");
+            await Application.Current.MainPage.Navigation.PopModalAsync();
         }
 
         private async void OnCancelClicked(object obj)
