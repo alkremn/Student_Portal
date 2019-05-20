@@ -8,29 +8,86 @@ using System.Linq;
 using System.Windows.Input;
 using Xamarin.Forms;
 using Student_Portal.Views;
+using System.Threading.Tasks;
+using Student_Portal.Services;
 
 namespace Student_Portal.ViewModels
 {
-    public class NewCoursePage4ViewModel
+    public class NewCoursePage4ViewModel : BaseViewModel
     {
         private Course course;
+        private AssessmentDataService assessmentDS;
+        private string title;
+        private Assessment selectedAssessment;
+
         public ObservableCollection<Assessment> Assessments { get; }
         public ICommand AddNewAssessmentCommand { get; }
+        public ICommand ModifyAssessmentCommand { get; }
+        public ICommand DeleteAssessmentCommand { get; }
         public ICommand PrevCommand { get; }
         public ICommand SaveCommand { get; }
+
+        public string Title
+        {
+            get => title;
+            set
+            {
+                title = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public Assessment SelectedAssessment
+        {
+            get => selectedAssessment;
+            set
+            {
+                selectedAssessment = value;
+                OnPropertyChanged();
+                if (value != null)
+                    LoadDetailPage(value);
+            }
+        }
+
         public NewCoursePage4ViewModel(Course newCourse)
         {
             course = newCourse;
+            assessmentDS = new AssessmentDataService(App.Database);
             Assessments = new ObservableCollection<Assessment>();
-            AddNewAssessmentCommand = new Command(OnAddNewAssessment);
+            AddNewAssessmentCommand = new Command(OnAddNewAssessment, CanAddNewAssessment);
+            ModifyAssessmentCommand = new Command(async (obj) => await OnModifyAssessmentClicked(obj));
+            DeleteAssessmentCommand = new Command(async (obj) => await OnDeleteAssessmentClicked(obj));
+
             PrevCommand = new Command(OnPrevClicked);
             SaveCommand = new Command(OnSaveClicked);
             LoadData();
         }
 
+        private async Task OnModifyAssessmentClicked(object obj)
+        {
+            if (obj == null)
+                return;
+            Assessment assessment = obj as Assessment;
+            await App.Current.MainPage.Navigation.PushModalAsync(new AddNewAssessmentPage(assessmentDS, assessment, course.Id));
+        }
+
+        private async Task OnDeleteAssessmentClicked(object obj)
+        {
+            if (obj == null)
+                return;
+            Assessment assessment = obj as Assessment;
+            await assessmentDS.DeleteAssessmentAsync(assessment);
+            Assessments.Remove(assessment);
+        }
+
+        private bool CanAddNewAssessment(object arg)
+        {
+            return Assessments.Count < 2;
+        }
+
         private async void OnAddNewAssessment(object obj)
         {
-            await App.Current.MainPage.Navigation.PushModalAsync(new AddNewAssessmentPage());
+            await App.Current.MainPage.Navigation.PushModalAsync(new AddNewAssessmentPage(assessmentDS, null, course.Id));
         }
 
         private async void OnPrevClicked(object obj)
@@ -43,9 +100,15 @@ namespace Student_Portal.ViewModels
 
         }
 
-        private void LoadData()
+        private async void LoadDetailPage(Assessment assessment)
         {
-            var assessments = MockAssessmentRepository.GetSampleAssessmentList();
+            selectedAssessment = null;
+            await App.Current.MainPage.Navigation.PushModalAsync(new AddNewAssessmentPage(assessmentDS, assessment, course.Id));
+        }
+
+        private async void LoadData()
+        {
+            var assessments = await assessmentDS.GetAllAssessmentsByCourseIdAsync(course.Id);
             assessments.ToList().ForEach(a => Assessments.Add(a));
         }
     }

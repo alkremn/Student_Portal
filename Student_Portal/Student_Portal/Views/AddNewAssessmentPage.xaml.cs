@@ -1,4 +1,6 @@
-﻿using Student_Portal.ViewModels;
+﻿using Student_Portal.Models;
+using Student_Portal.Services;
+using Student_Portal.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,10 +15,10 @@ namespace Student_Portal.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class AddNewAssessmentPage : ContentPage
     {
-        public AddNewAssessmentPage()
+        public AddNewAssessmentPage(AssessmentDataService assessmentDS, Assessment assessment, int courseId)
         {
             InitializeComponent();
-            BindingContext = new AddNewAssessmentViewModel();
+            BindingContext = new AddNewAssessmentViewModel(assessmentDS, assessment, courseId);
         }
     }
 }

@@ -11,8 +11,8 @@ namespace Student_Portal.Services.SampleData
         {
             return new List<Assessment>
             {
-                new Assessment { Id = 1, Name = "Performance assessment", Type = AssessmentType.Performance, CourseId = 1},
-                new Assessment { Id = 2, Name = "Objective assessment", Type = AssessmentType.Objective, CourseId = 1},
+                new Assessment { Id = 1, Name = "Performance assessment", StartDate = DateTime.Now - TimeSpan.FromDays(4), EndDate = DateTime.Now + TimeSpan.FromDays(6) , CourseId = 1},
+                new Assessment { Id = 2, Name = "Objective assessment",StartDate = DateTime.Now - TimeSpan.FromDays(10), EndDate = DateTime.Now + TimeSpan.FromDays(10), CourseId = 1},
             };
         }
     }

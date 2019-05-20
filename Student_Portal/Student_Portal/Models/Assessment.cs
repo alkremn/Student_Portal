@@ -1,4 +1,5 @@
 ﻿using SQLite;
+using System;
 
 namespace Student_Portal.Models
 {
@@ -10,6 +11,7 @@ namespace Student_Portal.Models
         [NotNull]
         public int CourseId { get; set; }
         public string Name { get; set; }
-        public AssessmentType Type { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
     }
 }

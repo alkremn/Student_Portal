@@ -36,7 +36,7 @@
             Grid.Row="1"
             Grid.ColumnSpan="2"
             SeparatorVisibility="Default"
-            SelectedItem="{Binding SelectedCourses}"
+            SelectedItem="{Binding SelectedAssessment}"
             HasUnevenRows="True">
                 <ListView.ItemTemplate>
                     <DataTemplate>
@@ -63,8 +63,8 @@
                             </Grid>
 
                             <ViewCell.ContextActions>
-                                <MenuItem Text="Modify" Command="{Binding Path=BindingContext.ModifyCommand, Source={x:Reference AssessmentView}}" CommandParameter="{Binding .}"/>
-                                <MenuItem Text="Delete" Command="{Binding Path=BindingContext.DeleteCommand, Source={x:Reference AssessmentView}}" CommandParameter="{Binding .}" IsDestructive="True" />
+                                <MenuItem Text="Modify" Command="{Binding Path=BindingContext.ModifyAssessmentCommand, Source={x:Reference AssessmentView}}" CommandParameter="{Binding .}"/>
+                                <MenuItem Text="Delete" Command="{Binding Path=BindingContext.DeleteAssessmentCommand, Source={x:Reference AssessmentView}}" CommandParameter="{Binding .}" IsDestructive="True" />
                             </ViewCell.ContextActions>
                         </ViewCell>
                     </DataTemplate>

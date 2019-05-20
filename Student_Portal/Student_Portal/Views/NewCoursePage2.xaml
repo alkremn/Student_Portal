@@ -45,7 +45,11 @@
                     FontSize="Medium" 
                     TextChanged="Entry_TextChanged"
                     HeightRequest="50" 
-                    Text="{Binding Phone}"/>
+                    Text="{Binding Phone}">
+                    <Entry.Behaviors>
+                        <behaviors:IntValidationBehavior />
+                    </Entry.Behaviors>
+                </Entry>
 
                 <!--Email label and Entry-->
                 <Entry 
