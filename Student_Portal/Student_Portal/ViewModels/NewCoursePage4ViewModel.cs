@@ -1,9 +1,5 @@
 ﻿using Student_Portal.Models;
-using System;
-using Student_Portal.Services.SampleData;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Text;
 using System.Linq;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -16,6 +12,9 @@ namespace Student_Portal.ViewModels
     public class NewCoursePage4ViewModel : BaseViewModel
     {
         private Course course;
+        private const string COUNT_LESS_TWO = "count<2";
+        private const string COUNT_EQ_TWO = "count=2";
+        private const string NEW_COURSE_SAVED = "new_course_saved";
         private AssessmentDataService assessmentDS;
         private string title;
         private Assessment selectedAssessment;
@@ -87,6 +86,7 @@ namespace Student_Portal.ViewModels
             Assessment assessment = obj as Assessment;
             await assessmentDS.DeleteAssessmentAsync(assessment);
             Assessments.Remove(assessment);
+            CheckAssessmentListCount(Assessments);
         }
 
         private bool CanAddNewAssessment(object arg)
@@ -106,7 +106,8 @@ namespace Student_Portal.ViewModels
 
         private async void OnSaveClicked(object obj)
         {
-
+            MessagingCenter.Send(course, NEW_COURSE_SAVED);
+            await App.Current.MainPage.Navigation.PopToRootAsync();
         }
 
         private async void LoadDetailPage(Assessment assessment)
@@ -118,8 +119,22 @@ namespace Student_Portal.ViewModels
         private async void LoadData()
         {
             var assessments = await assessmentDS.GetAllAssessmentsByCourseIdAsync(course.Id);
-            assessments.Clear();
+            Assessments.Clear();
             assessments.ToList().ForEach(a => Assessments.Add(a));
+            CheckAssessmentListCount(Assessments);
+
+        }
+
+        private void CheckAssessmentListCount(ObservableCollection<Assessment> list)
+        {
+            if (list.Count < 2)
+            {
+                MessagingCenter.Send(this, COUNT_LESS_TWO);
+            }
+            else
+            {
+                MessagingCenter.Send(this, COUNT_EQ_TWO);
+            }
         }
     }
 }

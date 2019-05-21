@@ -35,7 +35,7 @@
                     FontSize="Medium" 
                     HeightRequest="50"
                     TextChanged="Title_TextChanged"
-                    Text="{Binding Title, Mode=OneWayToSource}">
+                    Text="{Binding Title}">
                     <Entry.Behaviors>
                         <behaviors:EmptyValidationBehavior />
                     </Entry.Behaviors>
@@ -48,7 +48,7 @@
                     DateSelected="StartDate_Selected"
                     TextColor="#696969" 
                     HeightRequest="50" 
-                    Date="{Binding StartDateSelected, Mode=OneWayToSource}"
+                    Date="{Binding StartDateSelected}"
                     FontSize="Medium" />
 
                 <!--End date label and DatePicker-->
@@ -58,7 +58,7 @@
                     DateSelected="EndDate_Selected"
                     TextColor="#696969" 
                     HeightRequest="50" 
-                    Date="{Binding EndDateSelected, Mode=OneWayToSource}"
+                    Date="{Binding EndDateSelected}"
                     FontSize="Medium"/>
 
                 <!--Status Picker-->

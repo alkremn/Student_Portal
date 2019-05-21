@@ -12,9 +12,11 @@ namespace Student_Portal.ViewModels
 {
     public class TermDetailViewModel : BaseViewModel
     {
-        private CourseDataService _courseData;
-        public string Title { get; set; }
+        private CourseDataService _courseDS;
         private int termId;
+        private const string NEW_COURSE_SAVED = "new_course_saved";
+
+        public string Title { get; set; }
         public ObservableCollection<Course> Courses { get; } 
         public ICommand AddNewCourseCommand { get; }
         public ICommand ModifyCommand { get; }
@@ -22,9 +24,9 @@ namespace Student_Portal.ViewModels
         public ICommand BackCommand { get; }
         public Course SelectedCourse { get; }
 
-        public TermDetailViewModel(CourseDataService courseData, Term term)
+        public TermDetailViewModel(CourseDataService courseDS, Term term)
         {
-            _courseData = courseData;
+            _courseDS = courseDS;
             Title = term.Title;
             termId = term.Id;
             Courses = new ObservableCollection<Course>();
@@ -33,6 +35,16 @@ namespace Student_Portal.ViewModels
             ModifyCommand = new Command(async (obj) => await OnModifyClicked(obj));
             DeleteCommand = new Command(async (obj) => await OnDeleteClicked(obj));
             BackCommand = new Command(OnBackClicked);
+            MessagingCenter.Subscribe<Course>(this, NEW_COURSE_SAVED, async (course) => await NewCourseSaved(course));
+        }
+
+        private async Task NewCourseSaved(Course course)
+        {
+            if (course == null)
+                return;
+
+            await _courseDS.SaveCourseAsync(course);
+            LoadCourseData();
         }
 
         private async void OnBackClicked(object obj)
@@ -40,19 +52,24 @@ namespace Student_Portal.ViewModels
             await App.Current.MainPage.Navigation.PopAsync();
         }
 
-        private Task OnDeleteClicked(object obj)
+        private async Task OnDeleteClicked(object obj)
         {
-            throw new NotImplementedException();
+            if (obj == null)
+                return;
+            Course course = obj as Course;
+            await _courseDS.DeleteCourseAsync(course);
+            LoadCourseData();
         }
 
         private Task OnModifyClicked(object obj)
         {
+            //TODO: Implement this method
             throw new NotImplementedException();
         }
 
-        private void LoadCourseData()
+        private async void LoadCourseData()
         {
-            var courses = MockCourseRepository.GetCourseList();
+            var courses =  await _courseDS.GetAllCoursesByTermIdAsync(termId);
             Courses.Clear();
             courses.ToList().ForEach(c => Courses.Add(c));
         }

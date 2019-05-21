@@ -14,6 +14,10 @@ namespace Student_Portal.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class NewCoursePage4 : ContentPage
     {
+
+        private const string COUNT_LESS_TWO = "count<2";
+        private const string COUNT_EQ_TWO = "count=2";
+
         public NewCoursePage4(Course course)
         {
             InitializeComponent();
@@ -22,6 +26,16 @@ namespace Student_Portal.Views
             {
                 ((ListView)sender).SelectedItem = null;
             };
+            MessagingCenter.Subscribe<NewCoursePage4ViewModel>(this, COUNT_LESS_TWO, (sender) => 
+            {
+                AddAssessmentButton.IsVisible = true;
+            });
+            MessagingCenter.Subscribe<NewCoursePage4ViewModel>(this, COUNT_EQ_TWO, (sender) =>
+            {
+                AddAssessmentButton.IsVisible = false;
+            });
+
         }
+
     }
 }
