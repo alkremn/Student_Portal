@@ -43,5 +43,15 @@ namespace Student_Portal.Services
         {
             return database.DeleteAsync(assessment);
         }
+
+        public async Task DeleteAssessmentsByCourseIdAsync(int courseId)
+        {
+            var assessmentList = await database.Table<Assessment>().Where(a => a.CourseId == courseId).ToListAsync();
+
+            foreach (Assessment assessment in assessmentList)
+            {
+                await database.DeleteAsync(assessment);
+            }
+        }
     }
 }

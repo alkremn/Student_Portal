@@ -15,6 +15,7 @@ namespace Student_Portal.ViewModels
         private CourseDataService _courseDS;
         private int termId;
         private const string NEW_COURSE_SAVED = "new_course_saved";
+        private AssessmentDataService assessmentDS;
 
         public string Title { get; set; }
         public ObservableCollection<Course> Courses { get; } 
@@ -30,6 +31,7 @@ namespace Student_Portal.ViewModels
             Title = term.Title;
             termId = term.Id;
             Courses = new ObservableCollection<Course>();
+            assessmentDS = new AssessmentDataService(App.Database);
             LoadCourseData();
             AddNewCourseCommand = new Command(OnNewCourseCreate);
             ModifyCommand = new Command(async (obj) => await OnModifyClicked(obj));
@@ -57,6 +59,7 @@ namespace Student_Portal.ViewModels
             if (obj == null)
                 return;
             Course course = obj as Course;
+            await assessmentDS.DeleteAssessmentsByCourseIdAsync(course.Id);
             await _courseDS.DeleteCourseAsync(course);
             LoadCourseData();
         }

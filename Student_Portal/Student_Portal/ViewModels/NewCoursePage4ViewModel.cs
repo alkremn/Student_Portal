@@ -15,6 +15,7 @@ namespace Student_Portal.ViewModels
         private const string COUNT_LESS_TWO = "count<2";
         private const string COUNT_EQ_TWO = "count=2";
         private const string NEW_COURSE_SAVED = "new_course_saved";
+        private const string CREATED = "created";
         private AssessmentDataService assessmentDS;
         private string title;
         private Assessment selectedAssessment;
@@ -55,20 +56,18 @@ namespace Student_Portal.ViewModels
             Assessments = new ObservableCollection<Assessment>();
             AddNewAssessmentCommand = new Command(OnAddNewAssessment, CanAddNewAssessment);
             ModifyAssessmentCommand = new Command(async (obj) => await OnModifyAssessmentClicked(obj));
-            DeleteAssessmentCommand = new Command(async (obj) => await OnDeleteAssessmentClicked(obj));
+            DeleteAssessmentCommand = new Command((obj) => OnDeleteAssessmentClicked(obj));
 
             PrevCommand = new Command(OnPrevClicked);
             SaveCommand = new Command(OnSaveClicked);
-            MessagingCenter.Subscribe<Assessment>(this, "Created", async(obj) => await OnAssessmentSave(obj));
+            MessagingCenter.Subscribe<Assessment>(this, CREATED, (obj) => OnAssessmentSave(obj));
             LoadData();
         }
 
-        private async Task OnAssessmentSave(Assessment assessment)
+        private void OnAssessmentSave(Assessment assessment)
         {
-            if(assessment != null)
-                await assessmentDS.SaveAssessmentAsync(assessment);
-
-            LoadData();
+            if (assessment != null)
+                Assessments.Add(assessment);
         }
 
         private async Task OnModifyAssessmentClicked(object obj)
@@ -79,12 +78,11 @@ namespace Student_Portal.ViewModels
             await App.Current.MainPage.Navigation.PushModalAsync(new AddNewAssessmentPage(assessmentDS, assessment, course.Id));
         }
 
-        private async Task OnDeleteAssessmentClicked(object obj)
+        private void OnDeleteAssessmentClicked(object obj)
         {
             if (obj == null)
                 return;
             Assessment assessment = obj as Assessment;
-            await assessmentDS.DeleteAssessmentAsync(assessment);
             Assessments.Remove(assessment);
             CheckAssessmentListCount(Assessments);
         }
@@ -106,8 +104,17 @@ namespace Student_Portal.ViewModels
 
         private async void OnSaveClicked(object obj)
         {
+            await SaveAssesmentList(Assessments);
             MessagingCenter.Send(course, NEW_COURSE_SAVED);
             await App.Current.MainPage.Navigation.PopToRootAsync();
+        }
+
+        private async Task SaveAssesmentList(ObservableCollection<Assessment> assessmentList)
+        {
+            foreach(var assessment in assessmentList)
+            {
+                await assessmentDS.SaveAssessmentAsync(assessment);
+            }
         }
 
         private async void LoadDetailPage(Assessment assessment)
