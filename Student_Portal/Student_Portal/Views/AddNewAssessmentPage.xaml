@@ -1,7 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:Student_Portal.Converters"
              x:Class="Student_Portal.Views.AddNewAssessmentPage">
+    
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:AssessmentTypeToStringConverter x:Key="AssessmentTypeToString" />
+        </ResourceDictionary>
+
+    </ContentPage.Resources>
     <ContentPage.Content>
         <Grid BackgroundColor="#ECF0F1">
             <Grid.RowDefinitions>
@@ -27,12 +35,11 @@
                 VerticalOptions="StartAndExpand">
 
                 <Label Text="Name" TextColor="#696969" FontSize="Medium"/>
-                <Entry 
-                    Placeholder="Assessment Name" 
-                    PlaceholderColor="#696969" 
+                <Picker
+                    Title="Select Type"
                     FontSize="Medium" 
                     HeightRequest="50" 
-                    Text="{Binding AssessmentName}"/>
+                    ItemsSource="{Binding AvailableTypes, Converter={StaticResource AssessmentTypeToString}}"/>
 
                 <!--Start date label and DatePicker-->
                 <Label Text="Start Date" TextColor="#696969" FontSize="Medium"/>

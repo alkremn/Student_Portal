@@ -14,7 +14,9 @@
             <converters:DateToShortConverter x:Key="DateToShort" />
         </ResourceDictionary>
     </ContentPage.Resources>
-
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="New" />
+    </ContentPage.ToolbarItems>
     <Grid 
         RowSpacing="0"
         BackgroundColor="{StaticResource BackgroundColor}">

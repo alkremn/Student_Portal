@@ -15,10 +15,10 @@ namespace Student_Portal.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class AddNewAssessmentPage : ContentPage
     {
-        public AddNewAssessmentPage(AssessmentDataService assessmentDS, Assessment assessment, int courseId)
+        public AddNewAssessmentPage(AssessmentDataService assessmentDS, Assessment assessment, List<Assessment> assessmentList, int courseId)
         {
             InitializeComponent();
-            BindingContext = new AddNewAssessmentViewModel(assessmentDS, assessment, courseId);
+            BindingContext = new AddNewAssessmentViewModel(assessmentDS, assessment, assessmentList, courseId);
         }
     }
 }

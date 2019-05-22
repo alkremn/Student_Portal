@@ -54,7 +54,7 @@ namespace Student_Portal.ViewModels
             course = newCourse;
             assessmentDS = new AssessmentDataService(App.Database);
             Assessments = new ObservableCollection<Assessment>();
-            AddNewAssessmentCommand = new Command(OnAddNewAssessment, CanAddNewAssessment);
+            AddNewAssessmentCommand = new Command(OnAddNewAssessment);
             ModifyAssessmentCommand = new Command(async (obj) => await OnModifyAssessmentClicked(obj));
             DeleteAssessmentCommand = new Command((obj) => OnDeleteAssessmentClicked(obj));
 
@@ -75,7 +75,7 @@ namespace Student_Portal.ViewModels
             if (obj == null)
                 return;
             Assessment assessment = obj as Assessment;
-            await App.Current.MainPage.Navigation.PushModalAsync(new AddNewAssessmentPage(assessmentDS, assessment, course.Id));
+            await App.Current.MainPage.Navigation.PushModalAsync(new AddNewAssessmentPage(assessmentDS, assessment, Assessments.ToList(), course.Id));
         }
 
         private void OnDeleteAssessmentClicked(object obj)
@@ -87,14 +87,9 @@ namespace Student_Portal.ViewModels
             CheckAssessmentListCount(Assessments);
         }
 
-        private bool CanAddNewAssessment(object arg)
-        {
-            return Assessments.Count < 2;
-        }
-
         private async void OnAddNewAssessment(object obj)
         {
-            await App.Current.MainPage.Navigation.PushModalAsync(new AddNewAssessmentPage(assessmentDS, null, course.Id));
+            await App.Current.MainPage.Navigation.PushModalAsync(new AddNewAssessmentPage(assessmentDS, null, Assessments.ToList(), course.Id));
         }
 
         private async void OnPrevClicked(object obj)
@@ -120,7 +115,7 @@ namespace Student_Portal.ViewModels
         private async void LoadDetailPage(Assessment assessment)
         {
             selectedAssessment = null;
-            await App.Current.MainPage.Navigation.PushModalAsync(new AddNewAssessmentPage(assessmentDS, assessment, course.Id));
+            await App.Current.MainPage.Navigation.PushModalAsync(new AddNewAssessmentPage(assessmentDS, assessment, Assessments.ToList(), course.Id));
         }
 
         private async void LoadData()
