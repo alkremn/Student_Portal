@@ -34,7 +34,6 @@
                     PlaceholderColor="#696969" 
                     FontSize="Medium" 
                     HeightRequest="50"
-                    TextChanged="Title_TextChanged"
                     Text="{Binding Title}">
                     <Entry.Behaviors>
                         <behaviors:EmptyValidationBehavior />
@@ -45,7 +44,6 @@
                 <Label Text="Start Date" TextColor="#696969" FontSize="Medium"/>
                 <DatePicker 
                     x:Name="StartDate"
-                    DateSelected="StartDate_Selected"
                     TextColor="#696969" 
                     HeightRequest="50" 
                     Date="{Binding StartDateSelected}"
@@ -55,7 +53,6 @@
                 <Label Text="End Date" TextColor="#696969" FontSize="Medium"/>
                 <DatePicker 
                     x:Name="EndDate"
-                    DateSelected="EndDate_Selected"
                     TextColor="#696969" 
                     HeightRequest="50" 
                     Date="{Binding EndDateSelected}"
@@ -65,8 +62,7 @@
                 <Label Text="Status" TextColor="#696969" FontSize="Medium"/>
                 <Picker
                     Title="Select Status"
-                    SelectedIndexChanged="StatusIndexChanged"
-                    SelectedItem="{Binding SelectedItem}">
+                    SelectedItem="{Binding SelectedStatus}">
                     <Picker.ItemsSource>
                         <x:Array Type="{x:Type x:String}">
                             <x:String>In Progress</x:String>

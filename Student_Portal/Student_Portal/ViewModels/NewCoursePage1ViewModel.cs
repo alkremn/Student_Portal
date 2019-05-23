@@ -9,15 +9,16 @@ namespace Student_Portal.ViewModels
 {
     public class NewCoursePage1ViewModel:BaseViewModel
     {
-        private string title;
         private int termNumber;
-        public DateTime StartDateSelected { get; private set; }
-        public DateTime EndDateSelected { get; private set; }
-        public string SelectedStatus { get; private set; }
 
-        public ICommand CancelCommand { get; }
-        public ICommand NextCommand { get; }
+        private bool IsStartDateSelected = false;
+        private bool IsEndDateSelected = false;
+        private bool IsStatusSelected = false;
 
+        public Command CancelCommand { get; }
+        public Command NextCommand { get; }
+
+        private string title;
         public string Title
         {
             get => title;
@@ -25,6 +26,46 @@ namespace Student_Portal.ViewModels
             {
                 title = value;
                 OnPropertyChanged();
+                NextCommand.ChangeCanExecute();
+            }
+        }
+
+        private DateTime _startDateSelected;
+        public DateTime StartDateSelected
+        {
+            get => _startDateSelected;
+            set
+            {
+                _startDateSelected = value;
+                IsStartDateSelected = true;
+                OnPropertyChanged();
+                NextCommand.ChangeCanExecute();
+            }
+        }
+
+        private DateTime _endDateSelected;
+        public DateTime EndDateSelected
+        {
+            get => _endDateSelected;
+            set
+            {
+                _endDateSelected = value;
+                IsEndDateSelected = true;
+                OnPropertyChanged();
+                NextCommand.ChangeCanExecute();
+            }
+        }
+
+        private string _selectedStatus;
+        public string SelectedStatus
+        {
+            get => _selectedStatus;
+            set
+            {
+                _selectedStatus = value;
+                IsStatusSelected = true;
+                OnPropertyChanged();
+                NextCommand.ChangeCanExecute();
             }
         }
 
@@ -33,7 +74,12 @@ namespace Student_Portal.ViewModels
             this.termNumber = termId;
 
             CancelCommand = new Command(OnCancelClicked);
-            NextCommand = new Command(OnNextClicked);
+            NextCommand = new Command(OnNextClicked, CanNextClicked);
+        }
+
+        private bool CanNextClicked(object arg)
+        {
+            return !string.IsNullOrWhiteSpace(Title) && IsStartDateSelected && IsEndDateSelected && IsStatusSelected;
         }
 
         private async void OnNextClicked(object obj)
