@@ -2,7 +2,13 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:behaviors="clr-namespace:Student_Portal.Behaviors"
+             xmlns:converters="clr-namespace:Student_Portal.Converters"
              x:Class="Student_Portal.Views.NewCoursePage2">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:PhoneFormatConverter x:Key="PhoneFormat" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.Content>
         <Grid BackgroundColor="#ECF0F1">
             <Grid.RowDefinitions>
@@ -33,8 +39,11 @@
                     PlaceholderColor="#696969" 
                     FontSize="Medium" 
                     HeightRequest="50" 
-                    TextChanged="Entry_TextChanged"
-                    Text="{Binding InstructorName}"/>
+                    Text="{Binding InsName}">
+                    <Entry.Behaviors>
+                        <behaviors:EmptyValidationBehavior />
+                    </Entry.Behaviors>
+                </Entry>
 
                 <!--Phone label and Entry-->
                 <Entry 
@@ -43,7 +52,6 @@
                     Placeholder="Phone" 
                     PlaceholderColor="#696969" 
                     FontSize="Medium" 
-                    TextChanged="Entry_TextChanged"
                     HeightRequest="50" 
                     Text="{Binding Phone}">
                     <Entry.Behaviors>
@@ -58,9 +66,8 @@
                     Placeholder="Email" 
                     PlaceholderColor="#696969" 
                     FontSize="Medium" 
-                    TextChanged="Entry_TextChanged"
                     HeightRequest="50" 
-                    Text="{Binding Email}">
+                    Text="{Binding Email, Converter={StaticResource PhoneFormat}}">
                     <Entry.Behaviors>
                         <behaviors:EmailValidationBehavior />
                     </Entry.Behaviors>
