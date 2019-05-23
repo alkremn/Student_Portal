@@ -11,6 +11,7 @@ namespace Student_Portal.ViewModels
 {
     public class NewCoursePage2ViewModel : BaseViewModel
     {
+        private const int MAX_PHONE_NUMBER = 10;
         private Course course;
 
         // Intsructor's name
@@ -64,7 +65,10 @@ namespace Student_Portal.ViewModels
 
         private bool CanCextClicked(object arg)
         {
-            return !string.IsNullOrWhiteSpace(InsName) && long.TryParse(Phone, out long phoneNumber) && ValidateEmailString(Email);
+            return !string.IsNullOrWhiteSpace(InsName)
+                && long.TryParse(Phone, out long phoneNumber)
+                && Phone.Length <= MAX_PHONE_NUMBER
+                && ValidateEmailString(Email);
         }
 
         //checking if the string is a valid email address

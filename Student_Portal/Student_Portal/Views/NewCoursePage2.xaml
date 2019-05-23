@@ -67,7 +67,7 @@
                     PlaceholderColor="#696969" 
                     FontSize="Medium" 
                     HeightRequest="50" 
-                    Text="{Binding Email, Converter={StaticResource PhoneFormat}}">
+                    Text="{Binding Email}">
                     <Entry.Behaviors>
                         <behaviors:EmailValidationBehavior />
                     </Entry.Behaviors>

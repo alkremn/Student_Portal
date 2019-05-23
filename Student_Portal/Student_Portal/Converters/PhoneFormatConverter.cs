@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Text;
 using System.Text.RegularExpressions;
 using Xamarin.Forms;
 
@@ -16,6 +14,9 @@ namespace Student_Portal.Converters
 
             if(long.TryParse((string)value, out long result))
             {
+                if (result == 0)
+                    return "";
+
                 return string.Format("{0:(###)###-####}",result);
             }
             return "";

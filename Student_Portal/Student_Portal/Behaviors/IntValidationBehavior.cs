@@ -7,6 +7,8 @@ namespace Student_Portal.Behaviors
 {
     class IntValidationBehavior : Behavior<Entry>
     {
+        private const int MAX_NUMBER = 10;
+
         protected override void OnAttachedTo(Entry entry)
         {
             entry.TextChanged += Entry_TextChanged;
@@ -21,7 +23,7 @@ namespace Student_Portal.Behaviors
 
         private void Entry_TextChanged(object sender, TextChangedEventArgs e)
         {
-            bool isValid = int.TryParse(e.NewTextValue, out int result);
+            bool isValid = int.TryParse(e.NewTextValue, out int result) || e.NewTextValue.Length <= MAX_NUMBER;
 
             Entry entry = sender as Entry;
             entry.TextColor = isValid ? Color.Default : Color.Red;
