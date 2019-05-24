@@ -17,13 +17,26 @@ namespace Student_Portal.ViewModels
         private const string NEW_COURSE_SAVED = "new_course_saved";
         private AssessmentDataService assessmentDS;
 
+        private Course _selectedCourse;
+        public Course SelectedCourse
+        {
+            get => _selectedCourse;
+            set
+            {
+                _selectedCourse = value;
+                OnPropertyChanged();
+
+                if (value != null)
+                    LoadCourseDetailPage(value);
+            }
+        }
+
         public string Title { get; set; }
         public ObservableCollection<Course> Courses { get; } 
         public ICommand AddNewCourseCommand { get; }
         public ICommand ModifyCommand { get; }
         public ICommand DeleteCommand { get; }
         public ICommand BackCommand { get; }
-        public Course SelectedCourse { get; }
 
         public TermDetailViewModel(CourseDataService courseDS, Term term)
         {
@@ -38,6 +51,11 @@ namespace Student_Portal.ViewModels
             DeleteCommand = new Command(async (obj) => await OnDeleteClicked(obj));
             BackCommand = new Command(OnBackClicked);
             MessagingCenter.Subscribe<Course>(this, NEW_COURSE_SAVED, async (course) => await NewCourseSaved(course));
+        }
+
+        private async void LoadCourseDetailPage(Course selectedCourse)
+        {
+            await App.Current.MainPage.Navigation.PushAsync(new CourseDetailPage(selectedCourse));
         }
 
         private async Task NewCourseSaved(Course course)
@@ -79,7 +97,7 @@ namespace Student_Portal.ViewModels
 
         private async void OnNewCourseCreate()
         {
-            await App.Current.MainPage.Navigation.PushModalAsync(new NewCoursePage1(termId));
+            await App.Current.MainPage.Navigation.PushAsync(new NewCoursePage1(termId));
         }
     }
 }

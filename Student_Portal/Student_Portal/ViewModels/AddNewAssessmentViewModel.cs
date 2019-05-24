@@ -125,7 +125,7 @@ namespace Student_Portal.ViewModels
                 CourseId = courseId
             };
             MessagingCenter.Send(assessment, CREATED);
-            await Application.Current.MainPage.Navigation.PopModalAsync();
+            await Application.Current.MainPage.Navigation.PopAsync();
         }
 
         private bool CanOnSaveClicked(object arg)
@@ -135,7 +135,7 @@ namespace Student_Portal.ViewModels
 
         private async void OnCancelClicked(object obj)
         {
-            await App.Current.MainPage.Navigation.PopModalAsync();
+            await App.Current.MainPage.Navigation.PopAsync();
         }
     }
 }

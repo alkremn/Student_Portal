@@ -94,12 +94,12 @@ namespace Student_Portal.ViewModels
             course.InstructorName = InsName;
             course.InstructorPhone = Phone;
             course.InstructorEmail = Email;
-            await App.Current.MainPage.Navigation.PushModalAsync(new NewCoursePage3(course));
+            await App.Current.MainPage.Navigation.PushAsync(new NewCoursePage3(course));
         }
 
         private async void OnPrevClicked(object obj)
         {
-            await App.Current.MainPage.Navigation.PopModalAsync();
+            await App.Current.MainPage.Navigation.PopAsync();
         }
 
     }

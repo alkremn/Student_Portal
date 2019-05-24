@@ -2,6 +2,8 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:converters="clr-namespace:Student_Portal.Converters"
+             xmlns:behaviors="clr-namespace:Student_Portal.Behaviors"
+             NavigationPage.HasNavigationBar="False"
              x:Class="Student_Portal.Views.AddNewAssessmentPage">
     
     <ContentPage.Resources>
@@ -35,6 +37,15 @@
                 VerticalOptions="StartAndExpand">
 
                 <Label Text="Name" TextColor="#696969" FontSize="Medium"/>
+                <Entry Placeholder="Name"
+                        PlaceholderColor="#696969" 
+                        FontSize="Medium" 
+                        HeightRequest="50" 
+                        Text="{Binding Name}">
+                    <Entry.Behaviors>
+                        <behaviors:EmptyValidationBehavior />
+                    </Entry.Behaviors>
+                </Entry>
                 <Picker
                     Title="Select Type"
                     FontSize="Medium" 

@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Student_Portal.Views.NewCoursePage1"
              xmlns:behaviors="clr-namespace:Student_Portal.Behaviors"
+             NavigationPage.HasNavigationBar="False"
              xmlns:local="clr-namespace:Student_Portal">
     <ContentPage.Content>
 

@@ -25,13 +25,13 @@ namespace Student_Portal.ViewModels
         private async void OnPrevClicked(object obj)
         {
             
-            await App.Current.MainPage.Navigation.PopModalAsync();
+            await App.Current.MainPage.Navigation.PopAsync();
         }
 
         private async void OnNextClicked(object obj)
         {
             course.Notes = Notes;
-            await App.Current.MainPage.Navigation.PushModalAsync(new NewCoursePage4(course));
+            await App.Current.MainPage.Navigation.PushAsync(new NewCoursePage4(course));
         }
     }
 }

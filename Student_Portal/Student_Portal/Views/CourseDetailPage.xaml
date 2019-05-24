@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="Student_Portal.Views.CourseDetailPage">
+    <ContentPage.Content>
+        <Grid 
+        RowSpacing="0"
+        BackgroundColor="{StaticResource BackgroundColor}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="100"/>
+            </Grid.RowDefinitions>
+
+            <Label 
+            x:Name="MainLabel"
+            Grid.ColumnSpan="2" 
+            Text="{Binding Course.Title}"
+            VerticalOptions="FillAndExpand"
+            HorizontalOptions="FillAndExpand"
+            VerticalTextAlignment="Center"
+            HorizontalTextAlignment="Center"
+            FontSize="24"
+            FontAttributes="Bold"
+            TextColor="{StaticResource LabelTextColor}"
+            BackgroundColor="{StaticResource MainColor}"/>
+
+            <Grid
+            Grid.Row="2"
+            Grid.ColumnSpan="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Button 
+                Text="Back"
+                TextColor="{StaticResource LabelTextColor}"
+                Margin="10,0"
+                CornerRadius="10"
+                FontSize="Medium"
+                FontAttributes="Bold"
+                BackgroundColor="{StaticResource  GrayColor}"
+                HorizontalOptions="Fill"
+                VerticalOptions="Center"
+                Command="{Binding BackCommand}"/>
+               
+            </Grid>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

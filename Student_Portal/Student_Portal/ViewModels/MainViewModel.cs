@@ -29,7 +29,7 @@ namespace Student_Portal.ViewModels
                  OnPropertyChanged();
 
                 if (value != null)
-                    LoadDetailPage(value);
+                    LoadTermDetailPage(value);
             }
         }
 
@@ -83,7 +83,7 @@ namespace Student_Portal.ViewModels
             await termData.DeleteTermAsync(term);
             LoadTermData();
         }
-        private async void LoadDetailPage(Term selectedTerm)
+        private async void LoadTermDetailPage(Term selectedTerm)
         {
             SelectedTerm = null;
             await Application.Current.MainPage.Navigation.PushAsync(new TermDetailPage(courseData, selectedTerm));

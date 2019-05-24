@@ -84,7 +84,7 @@ namespace Student_Portal.ViewModels
 
         private async void OnNextClicked(object obj)
         {
-            await App.Current.MainPage.Navigation.PushModalAsync(
+            await App.Current.MainPage.Navigation.PushAsync(
                 new NewCoursePage2(new Course()
                 {
                     Title = title,
@@ -97,7 +97,7 @@ namespace Student_Portal.ViewModels
 
         private async void OnCancelClicked(object obj)
         {
-            await App.Current.MainPage.Navigation.PopModalAsync();
+            await App.Current.MainPage.Navigation.PopAsync();
         }
     }
 }

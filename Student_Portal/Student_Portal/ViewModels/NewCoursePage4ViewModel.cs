@@ -68,6 +68,7 @@ namespace Student_Portal.ViewModels
         {
             if (assessment != null)
                 Assessments.Add(assessment);
+            CheckAssessmentListCount(Assessments);
         }
 
         private async Task OnModifyAssessmentClicked(object obj)
@@ -75,7 +76,7 @@ namespace Student_Portal.ViewModels
             if (obj == null)
                 return;
             Assessment assessment = obj as Assessment;
-            await App.Current.MainPage.Navigation.PushModalAsync(new AddNewAssessmentPage(assessmentDS, assessment, Assessments.ToList(), course.Id));
+            await App.Current.MainPage.Navigation.PushAsync(new AddNewAssessmentPage(assessmentDS, assessment, Assessments.ToList(), course.Id));
         }
 
         private async void OnDeleteAssessmentClicked(object obj)
@@ -90,12 +91,12 @@ namespace Student_Portal.ViewModels
 
         private async void OnAddNewAssessment(object obj)
         {
-            await App.Current.MainPage.Navigation.PushModalAsync(new AddNewAssessmentPage(assessmentDS, null, Assessments.ToList(), course.Id));
+            await App.Current.MainPage.Navigation.PushAsync(new AddNewAssessmentPage(assessmentDS, null, Assessments.ToList(), course.Id));
         }
 
         private async void OnPrevClicked(object obj)
         {
-            await App.Current.MainPage.Navigation.PopModalAsync();
+            await App.Current.MainPage.Navigation.PopAsync();
         }
 
         private async void OnSaveClicked(object obj)
@@ -116,7 +117,7 @@ namespace Student_Portal.ViewModels
         private async void LoadDetailPage(Assessment assessment)
         {
             selectedAssessment = null;
-            await App.Current.MainPage.Navigation.PushModalAsync(new AddNewAssessmentPage(assessmentDS, assessment, Assessments.ToList(), course.Id));
+            await App.Current.MainPage.Navigation.PushAsync(new AddNewAssessmentPage(assessmentDS, assessment, Assessments.ToList(), course.Id));
         }
 
         private async void LoadData()
