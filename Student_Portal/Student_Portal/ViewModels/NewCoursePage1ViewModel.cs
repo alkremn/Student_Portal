@@ -71,7 +71,7 @@ namespace Student_Portal.ViewModels
 
         public NewCoursePage1ViewModel(int termId)
         {
-            this.termNumber = termId;
+            termNumber = termId;
 
             CancelCommand = new Command(OnCancelClicked);
             NextCommand = new Command(OnNextClicked, CanNextClicked);

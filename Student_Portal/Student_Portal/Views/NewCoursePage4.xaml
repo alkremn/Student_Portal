@@ -5,6 +5,12 @@
              xmlns:local="clr-namespace:Student_Portal"
              x:Class="Student_Portal.Views.NewCoursePage4"
              x:Name="AssessmentView">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:AssessmentTypeToStringConverter x:Key="AssessmentTypeToString" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
     
         <Grid BackgroundColor="#ECF0F1">
             <Grid.RowDefinitions>
@@ -49,7 +55,7 @@
                                 <Label
                                     VerticalTextAlignment="Center"
                                     HorizontalTextAlignment="Center"
-                                    Text="{Binding Name, FallbackValue=Test}" />
+                                    Text="{Binding Type, Converter={StaticResource AssessmentTypeToString}, FallbackValue=Test}" />
                                 <StackLayout 
                                     Grid.Column="1"
                                     VerticalOptions="Center"

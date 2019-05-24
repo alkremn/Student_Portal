@@ -1,28 +1,39 @@
 ﻿using Student_Portal.Models;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Text;
 using Xamarin.Forms;
 
 namespace Student_Portal.Converters
 {
-    public class AssessmentTypeToStringConverter : IValueConverter
+    public class AssessmentTypeListToStringConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value == null)
                 return "";
 
-            var type = (AssessmentType)value;
+            ObservableCollection<string> assessmentTypes = new ObservableCollection<string>();
+
+            var types = value as ObservableCollection<AssessmentType>;
+            foreach(var type in types)
+            {
                 switch (type)
                 {
                     case AssessmentType.Objective:
-                        return "Objective Assessment";
+                        assessmentTypes.Add("Objective Assessment");
+                        break;
                     case AssessmentType.Performance:
-                        return "Performance Assessment";
+                        assessmentTypes.Add("Performance Assessment");
+                        break;
+                    default:
+                        return null;
                 }
-            return "";
+            }
+            return assessmentTypes;
+            
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -30,15 +41,19 @@ namespace Student_Portal.Converters
             if (value == null)
                 return null;
 
-            var type = (string)value;
-            switch (type)
+
+            //TODO  finish implementation
+
+            string typeString = value as string;
+            switch (typeString)
             {
                 case "Objective Assessment":
                     return AssessmentType.Objective;
                 case "Performance Assessment":
                     return AssessmentType.Performance;
+                default:
+                    return null;
             }
-            return null;
         }
     }
 }

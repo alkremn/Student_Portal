@@ -78,11 +78,12 @@ namespace Student_Portal.ViewModels
             await App.Current.MainPage.Navigation.PushModalAsync(new AddNewAssessmentPage(assessmentDS, assessment, Assessments.ToList(), course.Id));
         }
 
-        private void OnDeleteAssessmentClicked(object obj)
+        private async void OnDeleteAssessmentClicked(object obj)
         {
             if (obj == null)
                 return;
             Assessment assessment = obj as Assessment;
+            await assessmentDS.DeleteAssessmentAsync(assessment);
             Assessments.Remove(assessment);
             CheckAssessmentListCount(Assessments);
         }

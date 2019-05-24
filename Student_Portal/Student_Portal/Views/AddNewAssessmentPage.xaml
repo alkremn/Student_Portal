@@ -6,7 +6,7 @@
     
     <ContentPage.Resources>
         <ResourceDictionary>
-            <converters:AssessmentTypeToStringConverter x:Key="AssessmentTypeToString" />
+            <converters:AssessmentTypeListToStringConverter x:Key="AssessmentTypeListToString" />
         </ResourceDictionary>
 
     </ContentPage.Resources>
@@ -39,7 +39,8 @@
                     Title="Select Type"
                     FontSize="Medium" 
                     HeightRequest="50" 
-                    ItemsSource="{Binding AvailableTypes, Converter={StaticResource AssessmentTypeToString}}"/>
+                    SelectedItem="{Binding AssessmentTypeSelected}"
+                    ItemsSource="{Binding AvailableTypes, Converter={StaticResource AssessmentTypeListToString}}"/>
 
                 <!--Start date label and DatePicker-->
                 <Label Text="Start Date" TextColor="#696969" FontSize="Medium"/>

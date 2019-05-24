@@ -18,32 +18,52 @@ namespace Student_Portal.ViewModels
         private AssessmentDataService assessmentDS;
         private const string NEW_ASSESSMENT = "New Assessment";
         private const string MODIFY_ASSESSMENT = "Modify Assessment";
-        private DateTime startDate;
-        private DateTime endDate;
+        private const string CREATED = "created";
+        private bool isStartDateSelected = false;
+        private bool isEndDateSelected = false;
 
         public string Title { get; set; }
-        public string AssessmentName { get; set; }
         public ObservableCollection<AssessmentType> AvailableTypes { get; }
-        public ICommand SaveCommand { get; }
+
+        public Command SaveCommand { get; }
         public ICommand CancelCommand { get; }
 
-        public DateTime StartDate
+        private string _assessmentType;
+        public string AssessmentTypeSelected
         {
-            get => startDate;
+            get => _assessmentType;
             set
             {
-                startDate = value;
+                _assessmentType = value;
                 OnPropertyChanged();
+                SaveCommand.ChangeCanExecute();
             }
         }
 
-        public DateTime EndDate
+        private DateTime _startDate;
+        public DateTime StartDate
         {
-            get => endDate;
+            get => _startDate;
             set
             {
-                endDate = value;
+                _startDate = value;
+                isStartDateSelected = true;
                 OnPropertyChanged();
+                SaveCommand.ChangeCanExecute();
+
+            }
+        }
+
+        private DateTime _endDate;
+        public DateTime EndDate
+        {
+            get => _endDate;
+            set
+            {
+                _endDate = value;
+                isEndDateSelected = true;
+                OnPropertyChanged();
+                SaveCommand.ChangeCanExecute();
             }
         }
 
@@ -54,20 +74,31 @@ namespace Student_Portal.ViewModels
             this.assessmentList = assessmentList;
             this.courseId = courseId;
             AvailableTypes = new ObservableCollection<AssessmentType>();
+
             if (assessment != null)
-                InitData(assessment, assessmentList);
+            {
+                InitData(assessment);
+            }
             else
+            {
                 Title = NEW_ASSESSMENT;
-            SaveCommand = new Command(async ()=> await OnSaveClicked());
+            }
+
+            InitAssessmentTypeList(assessmentList);
+            SaveCommand = new Command(OnSaveClicked, CanOnSaveClicked);
             CancelCommand = new Command(OnCancelClicked);
         }
-       
-        private void InitData(Assessment assessment, List<Assessment> assessmentList)
+
+        private void InitData(Assessment assessment)
         {
             Title = MODIFY_ASSESSMENT;
-            AssessmentName = assessment.Name;
+            AssessmentTypeSelected = assessment.Type == AssessmentType.Objective ? "Objective Assessment" : "Performance Assessment";
             StartDate = assessment.StartDate;
             EndDate = assessment.EndDate;
+        }
+
+        private void InitAssessmentTypeList(List<Assessment> assessmentList)
+        {
 
             switch (assessmentList.Count)
             {
@@ -84,17 +115,22 @@ namespace Student_Portal.ViewModels
             }
         }
 
-        private async Task OnSaveClicked()
+        private async void OnSaveClicked(object obj)
         {
             var assessment = new Assessment()
             {
-                Name = AssessmentName,
-                StartDate = startDate,
-                EndDate = endDate,
+                Type = AssessmentTypeSelected == "Objective Assessment" ? AssessmentType.Objective : AssessmentType.Performance,
+                StartDate = _startDate,
+                EndDate = _endDate,
                 CourseId = courseId
             };
-            MessagingCenter.Send(assessment, "Created");
+            MessagingCenter.Send(assessment, CREATED);
             await Application.Current.MainPage.Navigation.PopModalAsync();
+        }
+
+        private bool CanOnSaveClicked(object arg)
+        {
+            return !string.IsNullOrWhiteSpace(AssessmentTypeSelected) && isStartDateSelected && isEndDateSelected;
         }
 
         private async void OnCancelClicked(object obj)
