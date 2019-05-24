@@ -82,10 +82,12 @@ namespace Student_Portal.ViewModels
             LoadCourseData();
         }
 
-        private Task OnModifyClicked(object obj)
+        private async Task OnModifyClicked(object obj)
         {
-            //TODO: Implement this method
-            throw new NotImplementedException();
+            if (obj == null)
+                return;
+            Course selectedCourse = obj as Course;
+            await App.Current.MainPage.Navigation.PushAsync(new NewCoursePage1(selectedCourse));
         }
 
         private async void LoadCourseData()
@@ -97,7 +99,7 @@ namespace Student_Portal.ViewModels
 
         private async void OnNewCourseCreate()
         {
-            await App.Current.MainPage.Navigation.PushAsync(new NewCoursePage1(termId));
+            await App.Current.MainPage.Navigation.PushAsync(new NewCoursePage1(new Course()));
         }
     }
 }

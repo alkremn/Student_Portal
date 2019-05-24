@@ -9,22 +9,31 @@ namespace Student_Portal.ViewModels
 {
     public class NewCoursePage1ViewModel:BaseViewModel
     {
-        private int termNumber;
-
         private bool IsStartDateSelected = false;
         private bool IsEndDateSelected = false;
         private bool IsStatusSelected = false;
 
+        private Course _selectedCourse;
+        public Course SelectedCourse
+        {
+            get => _selectedCourse;
+            set
+            {
+                _selectedCourse = value;
+                OnPropertyChanged();
+            }
+        }
+
         public Command CancelCommand { get; }
         public Command NextCommand { get; }
 
-        private string title;
+        private string _title;
         public string Title
         {
-            get => title;
+            get => _title;
             set
             {
-                title = value;
+                _title = value;
                 OnPropertyChanged();
                 NextCommand.ChangeCanExecute();
             }
@@ -69,12 +78,23 @@ namespace Student_Portal.ViewModels
             }
         }
 
-        public NewCoursePage1ViewModel(int termId)
+        public NewCoursePage1ViewModel(Course selectedCourse)
         {
-            termNumber = termId;
+            SelectedCourse = selectedCourse;
+
+            if (selectedCourse.IsExisting)
+                InitCourseData(selectedCourse);
 
             CancelCommand = new Command(OnCancelClicked);
             NextCommand = new Command(OnNextClicked, CanNextClicked);
+        }
+
+        private void InitCourseData(Course selectedCourse)
+        {
+            _title = selectedCourse.Title;
+            _startDateSelected = selectedCourse.StartDate;
+            _endDateSelected = selectedCourse.EndDate;
+            _selectedStatus = selectedCourse.Status;
         }
 
         private bool CanNextClicked(object arg)
@@ -84,15 +104,7 @@ namespace Student_Portal.ViewModels
 
         private async void OnNextClicked(object obj)
         {
-            await App.Current.MainPage.Navigation.PushAsync(
-                new NewCoursePage2(new Course()
-                {
-                    Title = title,
-                    TermId = termNumber,
-                    StartDate = StartDateSelected,
-                    EndDate = EndDateSelected,
-                    Status = SelectedStatus
-                }));
+            await App.Current.MainPage.Navigation.PushAsync(new NewCoursePage2(SelectedCourse));
         }
 
         private async void OnCancelClicked(object obj)

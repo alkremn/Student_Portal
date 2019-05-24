@@ -56,9 +56,13 @@ namespace Student_Portal.ViewModels
         public Command PrevCommand { get; }
         public Command NextCommand { get; }
 
-        public NewCoursePage2ViewModel(Course newCourse)
+        public NewCoursePage2ViewModel(Course selectedCourse)
         {
-            course = newCourse;
+            course = selectedCourse;
+
+            if (selectedCourse.IsExisting)
+                InitCourseData(selectedCourse);
+
             PrevCommand = new Command(OnPrevClicked);
             NextCommand = new Command(OnNextClicked, CanCextClicked);
         }
