@@ -101,6 +101,7 @@ namespace Student_Portal.ViewModels
 
         private async void OnSaveClicked(object obj)
         {
+            course.IsExisting = true;
             await SaveAssesmentList(Assessments);
             MessagingCenter.Send(course, NEW_COURSE_SAVED);
             await App.Current.MainPage.Navigation.PopToRootAsync();

@@ -61,10 +61,17 @@ namespace Student_Portal.ViewModels
             course = selectedCourse;
 
             if (selectedCourse.IsExisting)
-                InitCourseData(selectedCourse);
+                InitCourseData(course);
 
             PrevCommand = new Command(OnPrevClicked);
             NextCommand = new Command(OnNextClicked, CanCextClicked);
+        }
+
+        private void InitCourseData(Course selectedCourse)
+        {
+            _insName = selectedCourse.InstructorName;
+            _phone = selectedCourse.InstructorPhone;
+            _email = selectedCourse.InstructorEmail;
         }
 
         private bool CanCextClicked(object arg)
