@@ -23,10 +23,10 @@ namespace Student_Portal.Converters
                 switch (type)
                 {
                     case AssessmentType.Objective:
-                        assessmentTypes.Add("Objective Assessment");
+                        assessmentTypes.Add("Objective");
                         break;
                     case AssessmentType.Performance:
-                        assessmentTypes.Add("Performance Assessment");
+                        assessmentTypes.Add("Performance");
                         break;
                     default:
                         return null;
@@ -47,9 +47,9 @@ namespace Student_Portal.Converters
             string typeString = value as string;
             switch (typeString)
             {
-                case "Objective Assessment":
+                case "Objective":
                     return AssessmentType.Objective;
-                case "Performance Assessment":
+                case "Performance":
                     return AssessmentType.Performance;
                 default:
                     return null;

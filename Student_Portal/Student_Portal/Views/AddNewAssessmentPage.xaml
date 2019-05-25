@@ -12,6 +12,7 @@
         </ResourceDictionary>
 
     </ContentPage.Resources>
+    
     <ContentPage.Content>
         <Grid BackgroundColor="#ECF0F1">
             <Grid.RowDefinitions>
@@ -41,7 +42,7 @@
                         PlaceholderColor="#696969" 
                         FontSize="Medium" 
                         HeightRequest="50" 
-                        Text="{Binding Name}">
+                        Text="{Binding NameAssessment}">
                     <Entry.Behaviors>
                         <behaviors:EmptyValidationBehavior />
                     </Entry.Behaviors>
@@ -50,7 +51,7 @@
                     Title="Select Type"
                     FontSize="Medium" 
                     HeightRequest="50" 
-                    SelectedItem="{Binding AssessmentTypeSelected}"
+                    SelectedItem="{Binding AssessmentTypeSelected, Mode=TwoWay}"
                     ItemsSource="{Binding AvailableTypes, Converter={StaticResource AssessmentTypeListToString}}"/>
 
                 <!--Start date label and DatePicker-->

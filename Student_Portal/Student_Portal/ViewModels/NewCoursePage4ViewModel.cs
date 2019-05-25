@@ -14,7 +14,6 @@ namespace Student_Portal.ViewModels
         private Course _course;
         private Term _term;
         private AssessmentDataService _assessmentDS;
-        private Assessment _selectedAssessment;
         private string _title;
 
         private const string COUNT_LESS_TWO = "count<2";
@@ -36,18 +35,6 @@ namespace Student_Portal.ViewModels
             {
                 _title = value;
                 OnPropertyChanged();
-            }
-        }
-
-        public Assessment SelectedAssessment
-        {
-            get => _selectedAssessment;
-            set
-            {
-                _selectedAssessment = value;
-                OnPropertyChanged();
-                if (value != null)
-                    LoadDetailPage(value);
             }
         }
 
@@ -123,7 +110,6 @@ namespace Student_Portal.ViewModels
 
         private async void LoadDetailPage(Assessment assessment)
         {
-            _selectedAssessment = null;
             await App.Current.MainPage.Navigation.PushAsync(new AddNewAssessmentPage(_assessmentDS, assessment, Assessments.ToList(), _course.Id));
         }
 

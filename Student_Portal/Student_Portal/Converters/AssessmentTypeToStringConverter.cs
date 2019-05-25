@@ -18,9 +18,9 @@ namespace Student_Portal.Converters
                 switch (type)
                 {
                     case AssessmentType.Objective:
-                        return "Objective Assessment";
+                        return "Objective";
                     case AssessmentType.Performance:
-                        return "Performance Assessment";
+                        return "Performance";
                 }
             return "";
         }
@@ -33,9 +33,9 @@ namespace Student_Portal.Converters
             var type = (string)value;
             switch (type)
             {
-                case "Objective Assessment":
+                case "Objective":
                     return AssessmentType.Objective;
-                case "Performance Assessment":
+                case "Performance":
                     return AssessmentType.Performance;
             }
             return null;

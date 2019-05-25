@@ -23,18 +23,19 @@ namespace Student_Portal.ViewModels
         private bool isEndDateSelected = false;
 
         public string Title { get; set; }
+        public string NameAssessment { get; set; }
         public ObservableCollection<AssessmentType> AvailableTypes { get; }
 
         public Command SaveCommand { get; }
         public ICommand CancelCommand { get; }
 
-        private string _assessmentType;
+        private string _assessmentTypeSelected;
         public string AssessmentTypeSelected
         {
-            get => _assessmentType;
+            get => _assessmentTypeSelected;
             set
             {
-                _assessmentType = value;
+                _assessmentTypeSelected = value;
                 OnPropertyChanged();
                 SaveCommand.ChangeCanExecute();
             }
@@ -92,9 +93,10 @@ namespace Student_Portal.ViewModels
         private void InitData(Assessment assessment)
         {
             Title = MODIFY_ASSESSMENT;
-            AssessmentTypeSelected = assessment.Type == AssessmentType.Objective ? "Objective Assessment" : "Performance Assessment";
-            StartDate = assessment.StartDate;
-            EndDate = assessment.EndDate;
+            NameAssessment = assessment.Name;
+            _assessmentTypeSelected = assessment.Type == AssessmentType.Objective ? "Objective" : "Performance";
+            _startDate = assessment.StartDate;
+            _endDate = assessment.EndDate;
         }
 
         private void InitAssessmentTypeList(List<Assessment> assessmentList)
@@ -119,7 +121,8 @@ namespace Student_Portal.ViewModels
         {
             var assessment = new Assessment()
             {
-                Type = AssessmentTypeSelected == "Objective Assessment" ? AssessmentType.Objective : AssessmentType.Performance,
+                Name = NameAssessment,
+                Type = AssessmentTypeSelected == "Objective" ? AssessmentType.Objective : AssessmentType.Performance,
                 StartDate = _startDate,
                 EndDate = _endDate,
                 CourseId = courseId
@@ -130,7 +133,7 @@ namespace Student_Portal.ViewModels
 
         private bool CanOnSaveClicked(object arg)
         {
-            return !string.IsNullOrWhiteSpace(AssessmentTypeSelected) && isStartDateSelected && isEndDateSelected;
+            return !string.IsNullOrWhiteSpace(_assessmentTypeSelected) && isStartDateSelected && isEndDateSelected;
         }
 
         private async void OnCancelClicked(object obj)

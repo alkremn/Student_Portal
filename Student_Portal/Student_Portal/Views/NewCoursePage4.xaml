@@ -10,6 +10,7 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <converters:AssessmentTypeToStringConverter x:Key="AssessmentTypeToString" />
+            <converters:DateToShortConverter x:Key="DateToShort" />
         </ResourceDictionary>
     </ContentPage.Resources>
     
@@ -42,9 +43,7 @@
                 CachingStrategy="RecycleElement"
                 Grid.Row="1"
                 Grid.ColumnSpan="2"
-                SeparatorVisibility="Default"
-                SelectedItem="{Binding SelectedAssessment}"
-                HasUnevenRows="True">
+                HasUnevenRows="false">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
@@ -53,19 +52,26 @@
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
-                                <Label
-                                    VerticalTextAlignment="Center"
-                                    HorizontalTextAlignment="Center"
-                                    Text="{Binding Type, Converter={StaticResource AssessmentTypeToString}, FallbackValue=Test}" />
+                                <StackLayout 
+                                        VerticalOptions="Center"
+                                        HorizontalOptions="Center">
+                                    <Label
+                                        FontAttributes="Bold"
+                                        Text="{Binding Name, FallbackValue=Name}" />
+                                    <Label
+                                        FontAttributes="Italic"
+                                        Text="{Binding Type, Converter={StaticResource AssessmentTypeToString}, FallbackValue=Type}" />
+                                </StackLayout>
+                                    
                                 <StackLayout 
                                     Grid.Column="1"
                                     VerticalOptions="Center"
                                     HorizontalOptions="Center"
                                     Orientation="Horizontal">
-
-                                    <Label Text="test" />
+                                    
+                                    <Label Text="{Binding StartDate, Converter={StaticResource DateToShort}}" />
                                     <Label Text="-"/>
-                                    <Label Text="test"/>
+                                    <Label Text="{Binding EndDate, Converter={StaticResource DateToShort}}"/>
                                 </StackLayout>
                             </Grid>
 
@@ -77,8 +83,6 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-
-
         </StackLayout>
        
             <Grid
