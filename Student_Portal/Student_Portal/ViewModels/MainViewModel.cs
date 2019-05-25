@@ -50,6 +50,7 @@ namespace Student_Portal.ViewModels
 
         private async void OnTermCreate()
         {
+
             await Application.Current.MainPage.Navigation.PushAsync(new NewTermPage(termData, null));
         }
 

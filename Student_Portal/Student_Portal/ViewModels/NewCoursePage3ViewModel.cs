@@ -11,13 +11,14 @@ namespace Student_Portal.ViewModels
     public class NewCoursePage3ViewModel
     {
         private Course course;
+
         public string Notes { get; set; }
         public ICommand PrevCommand { get; }
         public ICommand NextCommand { get; }
 
-        public NewCoursePage3ViewModel(Course newCourse)
+        public NewCoursePage3ViewModel(Course course)
         {
-            course = newCourse;
+            this.course = course;
             PrevCommand = new Command(OnPrevClicked);
             NextCommand = new Command(OnNextClicked);
         }

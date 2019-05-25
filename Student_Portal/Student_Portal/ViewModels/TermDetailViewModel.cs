@@ -99,7 +99,7 @@ namespace Student_Portal.ViewModels
 
         private async void OnNewCourseCreate()
         {
-            await App.Current.MainPage.Navigation.PushAsync(new NewCoursePage1(new Course()));
+            await App.Current.MainPage.Navigation.PushAsync(new NewCoursePage1(new Course() { TermId = termId }));
         }
     }
 }

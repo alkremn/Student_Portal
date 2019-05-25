@@ -12,17 +12,7 @@ namespace Student_Portal.ViewModels
         private bool IsStartDateSelected = false;
         private bool IsEndDateSelected = false;
         private bool IsStatusSelected = false;
-
-        private Course _selectedCourse;
-        public Course SelectedCourse
-        {
-            get => _selectedCourse;
-            set
-            {
-                _selectedCourse = value;
-                OnPropertyChanged();
-            }
-        }
+        private Course course;
 
         public Command CancelCommand { get; }
         public Command NextCommand { get; }
@@ -80,21 +70,21 @@ namespace Student_Portal.ViewModels
 
         public NewCoursePage1ViewModel(Course selectedCourse)
         {
-            SelectedCourse = selectedCourse;
+            course = selectedCourse;
 
-            if (selectedCourse.IsExisting)
-                InitCourseData(selectedCourse);
+            if (course.IsExisting)
+                InitCourseData(course);
 
             CancelCommand = new Command(OnCancelClicked);
             NextCommand = new Command(OnNextClicked, CanNextClicked);
         }
 
-        private void InitCourseData(Course selectedCourse)
+        private void InitCourseData(Course course)
         {
-            _title = selectedCourse.Title;
-            _startDateSelected = selectedCourse.StartDate;
-            _endDateSelected = selectedCourse.EndDate;
-            _selectedStatus = selectedCourse.Status;
+            _title = course.Title;
+            _startDateSelected = course.StartDate;
+            _endDateSelected = course.EndDate;
+            _selectedStatus = course.Status;
         }
 
         private bool CanNextClicked(object arg)
@@ -104,7 +94,11 @@ namespace Student_Portal.ViewModels
 
         private async void OnNextClicked(object obj)
         {
-            await App.Current.MainPage.Navigation.PushAsync(new NewCoursePage2(SelectedCourse));
+            course.Title = Title;
+            course.StartDate = StartDateSelected;
+            course.EndDate = EndDateSelected;
+            course.Status = SelectedStatus;
+            await App.Current.MainPage.Navigation.PushAsync(new NewCoursePage2(course));
         }
 
         private async void OnCancelClicked(object obj)

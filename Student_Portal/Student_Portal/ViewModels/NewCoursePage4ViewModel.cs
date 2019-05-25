@@ -49,9 +49,9 @@ namespace Student_Portal.ViewModels
             }
         }
 
-        public NewCoursePage4ViewModel(Course newCourse)
+        public NewCoursePage4ViewModel(Course course)
         {
-            course = newCourse;
+            this.course = course;
             assessmentDS = new AssessmentDataService(App.Database);
             Assessments = new ObservableCollection<Assessment>();
             AddNewAssessmentCommand = new Command(OnAddNewAssessment);
