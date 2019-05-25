@@ -12,7 +12,8 @@ namespace Student_Portal.ViewModels
     public class NewCoursePage2ViewModel : BaseViewModel
     {
         private const int MAX_PHONE_NUMBER = 10;
-        private Course course;
+        private Course _course;
+        private Term _term;
 
         // Intsructor's name
         private string _insName;
@@ -56,12 +57,13 @@ namespace Student_Portal.ViewModels
         public Command PrevCommand { get; }
         public Command NextCommand { get; }
 
-        public NewCoursePage2ViewModel(Course selectedCourse)
+        public NewCoursePage2ViewModel(Course selectedCourse, Term term)
         {
-            course = selectedCourse;
+            _course = selectedCourse;
+            _term = term;
 
             if (selectedCourse.IsExisting)
-                InitCourseData(course);
+                InitCourseData(_course);
 
             PrevCommand = new Command(OnPrevClicked);
             NextCommand = new Command(OnNextClicked, CanCextClicked);
@@ -102,10 +104,10 @@ namespace Student_Portal.ViewModels
 
         private async void OnNextClicked(object obj)
         {
-            course.InstructorName = InsName;
-            course.InstructorPhone = Phone;
-            course.InstructorEmail = Email;
-            await App.Current.MainPage.Navigation.PushAsync(new NewCoursePage3(course));
+            _course.InstructorName = InsName;
+            _course.InstructorPhone = Phone;
+            _course.InstructorEmail = Email;
+            await App.Current.MainPage.Navigation.PushAsync(new NewCoursePage3(_course, _term));
         }
 
         private async void OnPrevClicked(object obj)

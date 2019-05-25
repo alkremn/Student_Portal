@@ -14,10 +14,10 @@ namespace Student_Portal.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class NewCoursePage3 : ContentPage
     {
-        public NewCoursePage3(Course course)
+        public NewCoursePage3(Course course, Term term)
         {
             InitializeComponent();
-            BindingContext = new NewCoursePage3ViewModel(course);
+            BindingContext = new NewCoursePage3ViewModel(course, term);
         }
     }
 }

@@ -18,10 +18,10 @@ namespace Student_Portal.Views
         private const string COUNT_LESS_TWO = "count<2";
         private const string COUNT_EQ_TWO = "count=2";
 
-        public NewCoursePage4(Course course)
+        public NewCoursePage4(Course course, Term term)
         {
             InitializeComponent();
-            BindingContext = new NewCoursePage4ViewModel(course);
+            BindingContext = new NewCoursePage4ViewModel(course, term);
             AssessmentList.ItemSelected += (sender, e) =>
             {
                 ((ListView)sender).SelectedItem = null;

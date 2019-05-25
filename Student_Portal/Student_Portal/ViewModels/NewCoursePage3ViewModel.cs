@@ -10,17 +10,28 @@ namespace Student_Portal.ViewModels
 {
     public class NewCoursePage3ViewModel
     {
-        private Course course;
+        private Course _course;
+        private Term _term;
 
         public string Notes { get; set; }
         public ICommand PrevCommand { get; }
         public ICommand NextCommand { get; }
 
-        public NewCoursePage3ViewModel(Course course)
+        public NewCoursePage3ViewModel(Course course, Term term)
         {
-            this.course = course;
+            _course = course;
+            _term = term;
+            if (course.IsExisting)
+                InitCourseData(_course);
+
             PrevCommand = new Command(OnPrevClicked);
             NextCommand = new Command(OnNextClicked);
+        }
+
+        private void InitCourseData(Course course)
+        {
+            if (course.Notes != null)
+                Notes = course.Notes;
         }
 
         private async void OnPrevClicked(object obj)
@@ -31,8 +42,8 @@ namespace Student_Portal.ViewModels
 
         private async void OnNextClicked(object obj)
         {
-            course.Notes = Notes;
-            await App.Current.MainPage.Navigation.PushAsync(new NewCoursePage4(course));
+            _course.Notes = Notes;
+            await App.Current.MainPage.Navigation.PushAsync(new NewCoursePage4(_course, _term));
         }
     }
 }

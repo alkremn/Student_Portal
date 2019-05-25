@@ -13,7 +13,7 @@ namespace Student_Portal.ViewModels
     public class TermDetailViewModel : BaseViewModel
     {
         private CourseDataService _courseDS;
-        private int termId;
+        private Term _term;
         private const string NEW_COURSE_SAVED = "new_course_saved";
         private AssessmentDataService assessmentDS;
 
@@ -41,8 +41,8 @@ namespace Student_Portal.ViewModels
         public TermDetailViewModel(CourseDataService courseDS, Term term)
         {
             _courseDS = courseDS;
+            _term = term;
             Title = term.Title;
-            termId = term.Id;
             Courses = new ObservableCollection<Course>();
             assessmentDS = new AssessmentDataService(App.Database);
             LoadCourseData();
@@ -87,19 +87,19 @@ namespace Student_Portal.ViewModels
             if (obj == null)
                 return;
             Course selectedCourse = obj as Course;
-            await App.Current.MainPage.Navigation.PushAsync(new NewCoursePage1(selectedCourse));
+            await App.Current.MainPage.Navigation.PushAsync(new NewCoursePage1(selectedCourse, _term));
         }
 
         private async void LoadCourseData()
         {
-            var courses =  await _courseDS.GetAllCoursesByTermIdAsync(termId);
+            var courses =  await _courseDS.GetAllCoursesByTermIdAsync(_term.Id);
             Courses.Clear();
             courses.ToList().ForEach(c => Courses.Add(c));
         }
 
         private async void OnNewCourseCreate()
         {
-            await App.Current.MainPage.Navigation.PushAsync(new NewCoursePage1(new Course() { TermId = termId }));
+            await App.Current.MainPage.Navigation.PushAsync(new NewCoursePage1(new Course() { TermId = _term.Id }, _term));
         }
     }
 }

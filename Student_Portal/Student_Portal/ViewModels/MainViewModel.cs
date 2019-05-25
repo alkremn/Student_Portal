@@ -14,6 +14,7 @@ namespace Student_Portal.ViewModels
         private Term _selectedTerm;
         private TermDataService termData;
         private CourseDataService courseData;
+        private AssessmentDataService assessmentData;
         public ObservableCollection<Term> Terms { get; }
         public ICommand AddNewTermCommand { get; }
         public ICommand RefreshingCommand { get; }
@@ -38,6 +39,7 @@ namespace Student_Portal.ViewModels
             Terms = new ObservableCollection<Term>();
             termData = new TermDataService(App.Database);
             courseData = new CourseDataService(App.Database);
+            assessmentData = new AssessmentDataService(App.Database);
             LoadTermData();
 
             AddNewTermCommand = new Command(OnTermCreate);
@@ -52,13 +54,6 @@ namespace Student_Portal.ViewModels
         {
 
             await Application.Current.MainPage.Navigation.PushAsync(new NewTermPage(termData, null));
-        }
-
-        private async void LoadTermData()
-        {
-            var terms = await termData.GetTermsAsync();
-            Terms.Clear();
-            terms.ToList().ForEach(t => Terms.Add(t));
         }
 
         private void OnSaveClicked(NewTermViewModel obj)
@@ -81,6 +76,8 @@ namespace Student_Portal.ViewModels
                 return;
 
             Term term = (Term)obj;
+            DeleteCoursesByTermId(term.Id);
+
             await termData.DeleteTermAsync(term);
             LoadTermData();
         }
@@ -88,6 +85,22 @@ namespace Student_Portal.ViewModels
         {
             SelectedTerm = null;
             await Application.Current.MainPage.Navigation.PushAsync(new TermDetailPage(courseData, selectedTerm));
+        }
+
+        private async void LoadTermData()
+        {
+            var terms = await termData.GetTermsAsync();
+            Terms.Clear();
+            terms.ToList().ForEach(t => Terms.Add(t));
+        }
+
+        private async void DeleteCoursesByTermId(int termId)
+        {
+            var courses = await courseData.GetAllCoursesByTermIdAsync(termId);
+            foreach (var course in courses)
+                await assessmentData.DeleteAssessmentsByCourseIdAsync(course.Id);
+
+            await courseData.DeleteCoursesByTermIdAsync(termId);
         }
     }
 }

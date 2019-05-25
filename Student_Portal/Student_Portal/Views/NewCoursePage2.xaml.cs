@@ -8,10 +8,10 @@ namespace Student_Portal.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class NewCoursePage2 : ContentPage
     {
-        public NewCoursePage2(Course newCourse)
+        public NewCoursePage2(Course newCourse, Term term)
         {
             InitializeComponent();
-            BindingContext = new NewCoursePage2ViewModel(newCourse);
+            BindingContext = new NewCoursePage2ViewModel(newCourse, term);
             NextButton.IsEnabled = false;
         }
     }

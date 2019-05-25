@@ -12,7 +12,8 @@ namespace Student_Portal.ViewModels
         private bool IsStartDateSelected = false;
         private bool IsEndDateSelected = false;
         private bool IsStatusSelected = false;
-        private Course course;
+        private Course _course;
+        private Term _term;
 
         public Command CancelCommand { get; }
         public Command NextCommand { get; }
@@ -68,12 +69,13 @@ namespace Student_Portal.ViewModels
             }
         }
 
-        public NewCoursePage1ViewModel(Course selectedCourse)
+        public NewCoursePage1ViewModel(Course selectedCourse, Term term)
         {
-            course = selectedCourse;
+            _course = selectedCourse;
+            _term = term;
 
-            if (course.IsExisting)
-                InitCourseData(course);
+            if (_course.IsExisting)
+                InitCourseData(_course);
 
             CancelCommand = new Command(OnCancelClicked);
             NextCommand = new Command(OnNextClicked, CanNextClicked);
@@ -94,16 +96,16 @@ namespace Student_Portal.ViewModels
 
         private async void OnNextClicked(object obj)
         {
-            course.Title = Title;
-            course.StartDate = StartDateSelected;
-            course.EndDate = EndDateSelected;
-            course.Status = SelectedStatus;
-            await App.Current.MainPage.Navigation.PushAsync(new NewCoursePage2(course));
+            _course.Title = Title;
+            _course.StartDate = StartDateSelected;
+            _course.EndDate = EndDateSelected;
+            _course.Status = SelectedStatus;
+            await App.Current.MainPage.Navigation.PushAsync(new NewCoursePage2(_course, _term));
         }
 
         private async void OnCancelClicked(object obj)
         {
-            await App.Current.MainPage.Navigation.PopAsync();
+            await App.Current.MainPage.Navigation.PopToRootAsync();
         }
     }
 }

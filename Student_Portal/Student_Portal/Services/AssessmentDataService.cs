@@ -53,5 +53,10 @@ namespace Student_Portal.Services
                 await database.DeleteAsync(assessment);
             }
         }
+
+        public Task SaveAssessmentListAsync(List<Assessment> assessments)
+        {
+            return database.InsertAllAsync(assessments);
+        }
     }
 }

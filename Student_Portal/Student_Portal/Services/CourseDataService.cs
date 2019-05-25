@@ -33,9 +33,20 @@ namespace Student_Portal.Services
         {
             return database.Table<Course>().Where(c => c.Id == courseId).FirstOrDefaultAsync();
         }
+
         public Task<int> DeleteCourseAsync(Course course)
         {
             return database.DeleteAsync(course);
+        }
+
+        public async Task DeleteCoursesByTermIdAsync(int termId)
+        {
+            var courseList = await database.Table<Course>().Where(c => c.TermId== termId).ToListAsync();
+
+            foreach (Course course in courseList)
+            {
+                await database.DeleteAsync(course);
+            }
         }
     }
 }
