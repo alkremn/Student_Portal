@@ -12,7 +12,6 @@ namespace Student_Portal.Views
         {
             InitializeComponent();
             BindingContext = new NewCoursePage2ViewModel(newCourse, term);
-            NextButton.IsEnabled = false;
         }
     }
 }

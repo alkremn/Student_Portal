@@ -87,11 +87,17 @@ namespace Student_Portal.ViewModels
             _startDateSelected = course.StartDate;
             _endDateSelected = course.EndDate;
             _selectedStatus = course.Status;
-        }
+
+            IsStartDateSelected = true;
+            IsEndDateSelected = true;
+            IsStatusSelected = true;
+    }
 
         private bool CanNextClicked(object arg)
         {
-            return !string.IsNullOrWhiteSpace(Title) && IsStartDateSelected && IsEndDateSelected && IsStatusSelected;
+            bool titleIsValid = !string.IsNullOrWhiteSpace(_title);
+            
+            return titleIsValid && IsStartDateSelected && IsEndDateSelected && IsStatusSelected;
         }
 
         private async void OnNextClicked(object obj)
@@ -105,7 +111,7 @@ namespace Student_Portal.ViewModels
 
         private async void OnCancelClicked(object obj)
         {
-            await App.Current.MainPage.Navigation.PopToRootAsync();
+            await App.Current.MainPage.Navigation.PopAsync();
         }
     }
 }

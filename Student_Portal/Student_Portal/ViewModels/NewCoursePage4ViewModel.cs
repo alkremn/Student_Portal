@@ -13,13 +13,14 @@ namespace Student_Portal.ViewModels
     {
         private Course _course;
         private Term _term;
+        private AssessmentDataService _assessmentDS;
+        private Assessment _selectedAssessment;
+        private string _title;
+
         private const string COUNT_LESS_TWO = "count<2";
         private const string COUNT_EQ_TWO = "count=2";
         private const string NEW_COURSE_SAVED = "new_course_saved";
         private const string CREATED = "created";
-        private AssessmentDataService assessmentDS;
-        private string title;
-        private Assessment selectedAssessment;
 
         public ObservableCollection<Assessment> Assessments { get; }
         public ICommand AddNewAssessmentCommand { get; }
@@ -30,20 +31,20 @@ namespace Student_Portal.ViewModels
 
         public string Title
         {
-            get => title;
+            get => _title;
             set
             {
-                title = value;
+                _title = value;
                 OnPropertyChanged();
             }
         }
 
         public Assessment SelectedAssessment
         {
-            get => selectedAssessment;
+            get => _selectedAssessment;
             set
             {
-                selectedAssessment = value;
+                _selectedAssessment = value;
                 OnPropertyChanged();
                 if (value != null)
                     LoadDetailPage(value);
@@ -54,7 +55,7 @@ namespace Student_Portal.ViewModels
         {
             _course = course;
             _term = term;
-            assessmentDS = new AssessmentDataService(App.Database);
+            _assessmentDS = new AssessmentDataService(App.Database);
             Assessments = new ObservableCollection<Assessment>();
             AddNewAssessmentCommand = new Command(OnAddNewAssessment);
             ModifyAssessmentCommand = new Command(async (obj) => await OnModifyAssessmentClicked(obj));
@@ -70,7 +71,7 @@ namespace Student_Portal.ViewModels
 
         private async void InitCourseData(Course course)
         {
-            var assessments = await assessmentDS.GetAllAssessmentsByCourseIdAsync(course.Id);
+            var assessments = await _assessmentDS.GetAllAssessmentsByCourseIdAsync(course.Id);
             Assessments.Clear();
             assessments.ToList().ForEach(a => Assessments.Add(a));
             CheckAssessmentListCount(Assessments);
@@ -88,7 +89,7 @@ namespace Student_Portal.ViewModels
             if (obj == null)
                 return;
             Assessment assessment = obj as Assessment;
-            await App.Current.MainPage.Navigation.PushAsync(new AddNewAssessmentPage(assessmentDS, assessment, Assessments.ToList(), _course.Id));
+            await App.Current.MainPage.Navigation.PushAsync(new AddNewAssessmentPage(_assessmentDS, assessment, Assessments.ToList(), _course.Id));
         }
 
         private async void OnDeleteAssessmentClicked(object obj)
@@ -96,14 +97,14 @@ namespace Student_Portal.ViewModels
             if (obj == null)
                 return;
             Assessment assessment = obj as Assessment;
-            await assessmentDS.DeleteAssessmentAsync(assessment);
+            await _assessmentDS.DeleteAssessmentAsync(assessment);
             Assessments.Remove(assessment);
             CheckAssessmentListCount(Assessments);
         }
 
         private async void OnAddNewAssessment(object obj)
         {
-            await App.Current.MainPage.Navigation.PushAsync(new AddNewAssessmentPage(assessmentDS, null, Assessments.ToList(), _course.Id));
+            await App.Current.MainPage.Navigation.PushAsync(new AddNewAssessmentPage(_assessmentDS, null, Assessments.ToList(), _course.Id));
         }
 
         private async void OnPrevClicked(object obj)
@@ -114,7 +115,7 @@ namespace Student_Portal.ViewModels
         private async void OnSaveClicked(object obj)
         {
             _course.IsExisting = true;
-            await assessmentDS.SaveAssessmentListAsync(Assessments.ToList());
+            await _assessmentDS.SaveAssessmentListAsync(Assessments.ToList());
 
             MessagingCenter.Send(_course, NEW_COURSE_SAVED);
             await Application.Current.MainPage.Navigation.PushAsync(new TermDetailPage(new CourseDataService(App.Database), _term));
@@ -122,8 +123,8 @@ namespace Student_Portal.ViewModels
 
         private async void LoadDetailPage(Assessment assessment)
         {
-            selectedAssessment = null;
-            await App.Current.MainPage.Navigation.PushAsync(new AddNewAssessmentPage(assessmentDS, assessment, Assessments.ToList(), _course.Id));
+            _selectedAssessment = null;
+            await App.Current.MainPage.Navigation.PushAsync(new AddNewAssessmentPage(_assessmentDS, assessment, Assessments.ToList(), _course.Id));
         }
 
         private void CheckAssessmentListCount(ObservableCollection<Assessment> list)

@@ -54,9 +54,20 @@ namespace Student_Portal.Services
             }
         }
 
-        public Task SaveAssessmentListAsync(List<Assessment> assessments)
+        public async Task SaveAssessmentListAsync(List<Assessment> assessments)
         {
-            return database.InsertAllAsync(assessments);
+            foreach(var assessment in assessments)
+            {
+                if(assessment.Id == 0)
+                {
+                    await database.InsertAsync(assessment);
+                }
+                else
+                {
+                    await database.UpdateAsync(assessment);
+                }
+            }
+
         }
     }
 }

@@ -77,6 +77,7 @@ namespace Student_Portal.ViewModels
             if (obj == null)
                 return;
             Course course = obj as Course;
+
             await assessmentDS.DeleteAssessmentsByCourseIdAsync(course.Id);
             await _courseDS.DeleteCourseAsync(course);
             LoadCourseData();

@@ -19,7 +19,6 @@ namespace Student_Portal.Views
         {
             InitializeComponent();
             BindingContext = new NewCoursePage1ViewModel(course, term);
-            NextButton.IsEnabled = false;
         }
 
         protected override bool OnBackButtonPressed()

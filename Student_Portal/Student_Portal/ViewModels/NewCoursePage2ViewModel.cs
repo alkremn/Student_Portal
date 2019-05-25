@@ -78,9 +78,8 @@ namespace Student_Portal.ViewModels
 
         private bool CanCextClicked(object arg)
         {
-            
             return !string.IsNullOrWhiteSpace(InsName)
-                && long.TryParse(Phone, out long phoneNumber)
+                && long.TryParse(Phone, out long _)
                 && Phone.Length <= MAX_PHONE_NUMBER
                 && ValidateEmailString(Email);
         }

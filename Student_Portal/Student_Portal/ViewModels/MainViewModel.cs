@@ -12,9 +12,9 @@ namespace Student_Portal.ViewModels
     public class MainViewModel : BaseViewModel, IMainViewModel
     {
         private Term _selectedTerm;
-        private TermDataService termData;
-        private CourseDataService courseData;
-        private AssessmentDataService assessmentData;
+        private TermDataService _termData;
+        private CourseDataService _courseData;
+        private AssessmentDataService _assessmentData;
         public ObservableCollection<Term> Terms { get; }
         public ICommand AddNewTermCommand { get; }
         public ICommand RefreshingCommand { get; }
@@ -37,9 +37,9 @@ namespace Student_Portal.ViewModels
         public MainViewModel()
         {
             Terms = new ObservableCollection<Term>();
-            termData = new TermDataService(App.Database);
-            courseData = new CourseDataService(App.Database);
-            assessmentData = new AssessmentDataService(App.Database);
+            _termData = new TermDataService(App.Database);
+            _courseData = new CourseDataService(App.Database);
+            _assessmentData = new AssessmentDataService(App.Database);
             LoadTermData();
 
             AddNewTermCommand = new Command(OnTermCreate);
@@ -53,7 +53,7 @@ namespace Student_Portal.ViewModels
         private async void OnTermCreate()
         {
 
-            await Application.Current.MainPage.Navigation.PushAsync(new NewTermPage(termData, null));
+            await Application.Current.MainPage.Navigation.PushAsync(new NewTermPage(_termData, null));
         }
 
         private void OnSaveClicked(NewTermViewModel obj)
@@ -67,7 +67,7 @@ namespace Student_Portal.ViewModels
                 return;
             Term term = (Term)obj;
 
-            await Application.Current.MainPage.Navigation.PushAsync(new NewTermPage(termData,term));
+            await Application.Current.MainPage.Navigation.PushAsync(new NewTermPage(_termData,term));
         }
 
         private async Task OnDeleteClicked(object obj)
@@ -78,29 +78,29 @@ namespace Student_Portal.ViewModels
             Term term = (Term)obj;
             DeleteCoursesByTermId(term.Id);
 
-            await termData.DeleteTermAsync(term);
+            await _termData.DeleteTermAsync(term);
             LoadTermData();
         }
         private async void LoadTermDetailPage(Term selectedTerm)
         {
             SelectedTerm = null;
-            await Application.Current.MainPage.Navigation.PushAsync(new TermDetailPage(courseData, selectedTerm));
+            await Application.Current.MainPage.Navigation.PushAsync(new TermDetailPage(_courseData, selectedTerm));
         }
 
         private async void LoadTermData()
         {
-            var terms = await termData.GetTermsAsync();
+            var terms = await _termData.GetTermsAsync();
             Terms.Clear();
             terms.ToList().ForEach(t => Terms.Add(t));
         }
 
         private async void DeleteCoursesByTermId(int termId)
         {
-            var courses = await courseData.GetAllCoursesByTermIdAsync(termId);
+            var courses = await _courseData.GetAllCoursesByTermIdAsync(termId);
             foreach (var course in courses)
-                await assessmentData.DeleteAssessmentsByCourseIdAsync(course.Id);
+                await _assessmentData.DeleteAssessmentsByCourseIdAsync(course.Id);
 
-            await courseData.DeleteCoursesByTermIdAsync(termId);
+            await _courseData.DeleteCoursesByTermIdAsync(termId);
         }
     }
 }
