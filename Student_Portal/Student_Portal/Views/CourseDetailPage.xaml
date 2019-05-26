@@ -23,7 +23,6 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="60"/>
-            <RowDefinition Height="30"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="100"/>
         </Grid.RowDefinitions>
@@ -41,17 +40,10 @@
             TextColor="{StaticResource LabelTextColor}"
             BackgroundColor="{StaticResource MainColor}"/>
 
-        <Label
-            Grid.Row="1"
-            Text="Courses:"
-             VerticalOptions="FillAndExpand"
-            HorizontalOptions="FillAndExpand"
-            VerticalTextAlignment="Center"
-            HorizontalTextAlignment="Start"
-            Margin="15, 0"
-            FontSize="18"
-            FontAttributes="Bold"/>
-
+        <StackLayout>
+            <Label Text="Test 1"/>
+            <Label Text="Test 2" HorizontalOptions="CenterAndExpand"/>
+        </StackLayout>
         <ListView 
             x:Name="CourseList"
             ItemsSource="{Binding Assessments}"
