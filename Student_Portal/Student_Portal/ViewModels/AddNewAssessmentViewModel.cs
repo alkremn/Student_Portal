@@ -12,19 +12,23 @@ namespace Student_Portal.ViewModels
 {
     public class AddNewAssessmentViewModel : BaseViewModel
     {
-        private Assessment assessment;
-        private List<Assessment> assessmentList;
-        private int courseId;
-        private AssessmentDataService assessmentDS;
+        private Assessment _assessment;
+        private List<Assessment> _assessmentList;
+        private int _courseId;
+        private AssessmentDataService _assessmentDS;
         private const string NEW_ASSESSMENT = "New Assessment";
         private const string MODIFY_ASSESSMENT = "Modify Assessment";
-        private const string CREATED = "created";
+        private const string OBJECTIVE = "Objective";
+        private const string PERFORMANCE = "Performance";
+        private const string SAVE = "Save";
+        private const string UPDATE = "Update";
         private bool isStartDateSelected = false;
         private bool isEndDateSelected = false;
 
+        public ObservableCollection<string> AvailableTypes { get; set; }
         public string Title { get; set; }
+        public string ButtonTitle { get; set; }
         public string NameAssessment { get; set; }
-        public ObservableCollection<AssessmentType> AvailableTypes { get; }
 
         public Command SaveCommand { get; }
         public ICommand CancelCommand { get; }
@@ -70,70 +74,72 @@ namespace Student_Portal.ViewModels
 
         public AddNewAssessmentViewModel(AssessmentDataService assessmentDS, Assessment assessment, List<Assessment> assessmentList, int courseId)
         {
-            this.assessmentDS = assessmentDS;
-            this.assessment = assessment;
-            this.assessmentList = assessmentList;
-            this.courseId = courseId;
-            AvailableTypes = new ObservableCollection<AssessmentType>();
+            _assessmentDS = assessmentDS;
+            _assessment = assessment;
+            _assessmentList = assessmentList;
+            _courseId = courseId;
+            AvailableTypes = new ObservableCollection<string>();
 
             if (assessment != null)
             {
                 InitData(assessment);
+                ButtonTitle = UPDATE;
             }
             else
             {
                 Title = NEW_ASSESSMENT;
+                ButtonTitle = SAVE;
             }
-
-            InitAssessmentTypeList(assessmentList);
+            InitAvailableTypeList(assessment, assessmentList);
             SaveCommand = new Command(OnSaveClicked, CanOnSaveClicked);
             CancelCommand = new Command(OnCancelClicked);
+        }
+
+        private void InitAvailableTypeList(Assessment assessment, List<Assessment> assessments)
+        {
+            if (assessment != null && assessments.Count == 1)
+            {
+                if (assessments[0].Type == OBJECTIVE)
+                    AvailableTypes.Add(PERFORMANCE);
+                else
+                    AvailableTypes.Add(OBJECTIVE);
+            }
+            else
+            {
+                AvailableTypes.Add(PERFORMANCE);
+                AvailableTypes.Add(OBJECTIVE);
+            }
         }
 
         private void InitData(Assessment assessment)
         {
             Title = MODIFY_ASSESSMENT;
             NameAssessment = assessment.Name;
-            _assessmentTypeSelected = assessment.Type == AssessmentType.Objective ? "Objective" : "Performance";
+            _assessmentTypeSelected = assessment.Type;
             _startDate = assessment.StartDate;
             _endDate = assessment.EndDate;
         }
 
-        private void InitAssessmentTypeList(List<Assessment> assessmentList)
-        {
-
-            switch (assessmentList.Count)
-            {
-                case 0:
-                    AvailableTypes.Add(AssessmentType.Objective);
-                    AvailableTypes.Add(AssessmentType.Performance);
-                    break;
-                case 1:
-                    if (assessmentList[0].Type == AssessmentType.Objective)
-                        AvailableTypes.Add(AssessmentType.Performance);
-                    else
-                        AvailableTypes.Add(AssessmentType.Objective);
-                    break;
-            }
-        }
-
         private async void OnSaveClicked(object obj)
         {
-            var assessment = new Assessment()
+            if (_assessment == null)
             {
-                Name = NameAssessment,
-                Type = AssessmentTypeSelected == "Objective" ? AssessmentType.Objective : AssessmentType.Performance,
-                StartDate = _startDate,
-                EndDate = _endDate,
-                CourseId = courseId
-            };
-            MessagingCenter.Send(assessment, CREATED);
+                _assessment = new Assessment();
+            }
+            _assessment.Name = NameAssessment;
+            _assessment.Type = AssessmentTypeSelected;
+            _assessment.StartDate = _startDate;
+            _assessment.EndDate = _endDate;
+            _assessment.CourseId = _courseId;
+
+            await _assessmentDS.SaveAssessmentAsync(_assessment);
+            MessagingCenter.Send(this, SAVE);
             await Application.Current.MainPage.Navigation.PopAsync();
         }
 
         private bool CanOnSaveClicked(object arg)
         {
-            return !string.IsNullOrWhiteSpace(_assessmentTypeSelected) && isStartDateSelected && isEndDateSelected;
+            return !string.IsNullOrWhiteSpace(NameAssessment) && isStartDateSelected && isEndDateSelected;
         }
 
         private async void OnCancelClicked(object obj)

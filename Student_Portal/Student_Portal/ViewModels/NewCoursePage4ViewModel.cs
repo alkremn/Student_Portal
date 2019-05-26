@@ -19,7 +19,7 @@ namespace Student_Portal.ViewModels
         private const string COUNT_LESS_TWO = "count<2";
         private const string COUNT_EQ_TWO = "count=2";
         private const string NEW_COURSE_SAVED = "new_course_saved";
-        private const string CREATED = "created";
+        private const string SAVE = "Save";
 
         public ObservableCollection<Assessment> Assessments { get; }
         public ICommand AddNewAssessmentCommand { get; }
@@ -50,7 +50,7 @@ namespace Student_Portal.ViewModels
 
             PrevCommand = new Command(OnPrevClicked);
             SaveCommand = new Command(OnSaveClicked);
-            MessagingCenter.Subscribe<Assessment>(this, CREATED, (obj) => OnAssessmentSave(obj));
+            MessagingCenter.Subscribe<AddNewAssessmentViewModel>(this, SAVE, (obj) => OnAssessmentCreate());
 
             if (_course.IsExisting)
                 InitCourseData(course);
@@ -64,10 +64,9 @@ namespace Student_Portal.ViewModels
             CheckAssessmentListCount(Assessments);
         }
 
-        private void OnAssessmentSave(Assessment assessment)
+        private void OnAssessmentCreate()
         {
-            if (assessment != null)
-                Assessments.Add(assessment);
+            InitCourseData(_course);
             CheckAssessmentListCount(Assessments);
         }
 
@@ -106,11 +105,6 @@ namespace Student_Portal.ViewModels
 
             MessagingCenter.Send(_course, NEW_COURSE_SAVED);
             await Application.Current.MainPage.Navigation.PushAsync(new TermDetailPage(new CourseDataService(App.Database), _term));
-        }
-
-        private async void LoadDetailPage(Assessment assessment)
-        {
-            await App.Current.MainPage.Navigation.PushAsync(new AddNewAssessmentPage(_assessmentDS, assessment, Assessments.ToList(), _course.Id));
         }
 
         private void CheckAssessmentListCount(ObservableCollection<Assessment> list)

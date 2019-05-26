@@ -60,7 +60,7 @@
                                         Text="{Binding Name, FallbackValue=Name}" />
                                     <Label
                                         FontAttributes="Italic"
-                                        Text="{Binding Type, Converter={StaticResource AssessmentTypeToString}, FallbackValue=Type}" />
+                                        Text="{Binding Type, FallbackValue=Type}" />
                                 </StackLayout>
                                     
                                 <StackLayout 
