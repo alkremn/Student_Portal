@@ -8,22 +8,13 @@ namespace Student_Portal.ViewModels
 {
     public class CourseDetailPageViewModel : BaseViewModel
     {
-        private Course _selectedCourse;
-        public Course SelectedCourse
-        {
-            get => _selectedCourse;
-            set
-            {
-                _selectedCourse = value;
-                OnPropertyChanged();
-            }
-        }
+        public string Title { get; set; }
 
         public Command BackCommand { get; private set; }
 
         public CourseDetailPageViewModel(Course selectedCourse)
         {
-            SelectedCourse = selectedCourse;
+            Title = selectedCourse.Title;
             BackCommand = new Command(OnBackClicked);
         }
 

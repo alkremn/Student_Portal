@@ -75,7 +75,14 @@ namespace Student_Portal.ViewModels
             _term = term;
 
             if (_course.IsExisting)
+            {
                 InitCourseData(_course);
+            }
+            else
+            {
+                _startDateSelected = DateTime.Today;
+                _endDateSelected = DateTime.Today;
+            }
 
             CancelCommand = new Command(OnCancelClicked);
             NextCommand = new Command(OnNextClicked, CanNextClicked);

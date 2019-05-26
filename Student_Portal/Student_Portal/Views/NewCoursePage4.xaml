@@ -54,7 +54,7 @@
                                 </Grid.ColumnDefinitions>
                                 <StackLayout 
                                         VerticalOptions="Center"
-                                        HorizontalOptions="Center">
+                                        HorizontalOptions="Start">
                                     <Label
                                         FontAttributes="Bold"
                                         Text="{Binding Name, FallbackValue=Name}" />

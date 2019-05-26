@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
 using System.Threading.Tasks;
+using Plugin.LocalNotifications;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -90,14 +91,16 @@ namespace Student_Portal.ViewModels
                 Title = NEW_ASSESSMENT;
                 ButtonTitle = SAVE;
             }
-            InitAvailableTypeList(assessment, assessmentList);
+            InitAvailableTypeList(assessmentList);
+            _startDate = DateTime.Today;
+            _endDate = DateTime.Today;
             SaveCommand = new Command(OnSaveClicked, CanOnSaveClicked);
             CancelCommand = new Command(OnCancelClicked);
         }
 
-        private void InitAvailableTypeList(Assessment assessment, List<Assessment> assessments)
+        private void InitAvailableTypeList(List<Assessment> assessments)
         {
-            if (assessment != null && assessments.Count == 1)
+            if (assessments.Count == 1)
             {
                 if (assessments[0].Type == OBJECTIVE)
                     AvailableTypes.Add(PERFORMANCE);
@@ -131,6 +134,9 @@ namespace Student_Portal.ViewModels
             _assessment.StartDate = _startDate;
             _assessment.EndDate = _endDate;
             _assessment.CourseId = _courseId;
+
+            CrossLocalNotifications.Current.Show($"{_assessment.Type} {_assessment.Name}", "Assessment start", 1, StartDate);
+            CrossLocalNotifications.Current.Show($"{_assessment.Type} {_assessment.Name}", "Assessment end", 2, EndDate);
 
             await _assessmentDS.SaveAssessmentAsync(_assessment);
             MessagingCenter.Send(this, SAVE);

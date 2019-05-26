@@ -69,7 +69,7 @@ namespace Student_Portal.ViewModels
 
         private async void OnBackClicked(object obj)
         {
-            await App.Current.MainPage.Navigation.PopAsync();
+            await App.Current.MainPage.Navigation.PopToRootAsync();
         }
 
         private async Task OnDeleteClicked(object obj)

@@ -51,8 +51,13 @@ namespace Student_Portal.ViewModels
             if (term != null)
             {
                 Title = term.Title;
-                StartDate = term.StartDate;
-                EndDate = term.EndDate;
+                _startDate = term.StartDate;
+                _endDate = term.EndDate;
+            }
+            else
+            {
+                _startDate = DateTime.Today;
+                _endDate = DateTime.Today;
             }
 
             SaveCommand = new Command(async () => await OnNewTermSave());
