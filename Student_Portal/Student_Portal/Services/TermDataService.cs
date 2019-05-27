@@ -36,5 +36,10 @@ namespace Student_Portal.Services
             return database.DeleteAsync(term);
         }
 
+        public Task<Term> GetTermByTitleAsync(string title)
+        {
+            return database.Table<Term>().Where(t => t.Title == title).FirstOrDefaultAsync();
+        }
+
     }
 }

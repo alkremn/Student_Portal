@@ -88,24 +88,37 @@ namespace Student_Portal.ViewModels
                 _startDate = DateTime.Today;
                 _endDate = DateTime.Today;
             }
-            InitAvailableTypeList(assessmentList);
+            InitAvailableTypeList(assessment, assessmentList);
             SaveCommand = new Command(OnSaveClicked, CanOnSaveClicked);
             CancelCommand = new Command(OnCancelClicked);
         }
 
-        private void InitAvailableTypeList(List<Assessment> assessments)
+        private void InitAvailableTypeList(Assessment assessment, List<Assessment> assessments)
         {
-            if (assessments.Count == 1)
+            switch (assessments.Count)
             {
-                if (assessments[0].Type == OBJECTIVE)
+                case 2:
+                    AvailableTypes.Add(assessment.Type);
+                    break;
+                case 1:
+                    if(assessment != null)
+                    {
+                        AvailableTypes.Add(PERFORMANCE);
+                        AvailableTypes.Add(OBJECTIVE);
+                    }
+                    else
+                    {
+                        if (assessments[0].Type == OBJECTIVE)
+                            AvailableTypes.Add(PERFORMANCE);
+                        else
+                            AvailableTypes.Add(OBJECTIVE);
+                    }
+                    break;
+
+                case 0:
                     AvailableTypes.Add(PERFORMANCE);
-                else
                     AvailableTypes.Add(OBJECTIVE);
-            }
-            else if(assessments.Count == 0)
-            {
-                AvailableTypes.Add(PERFORMANCE);
-                AvailableTypes.Add(OBJECTIVE);
+                    break;
             }
         }
 

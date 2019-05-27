@@ -10,14 +10,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Images\DegreeIcon.png" />
     <None Remove="Images\PlusIcon.png" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Images\DegreeIcon.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
     <EmbeddedResource Include="Images\PlusIcon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>

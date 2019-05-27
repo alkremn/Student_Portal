@@ -7,48 +7,12 @@ using System.Runtime.CompilerServices;
 namespace Student_Portal.Models
 {
     [Table("Terms")]
-    public class Term : INotifyPropertyChanged
+    public class Term
     {
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
-        private string _title;
-        private DateTime _startDate;
-        private DateTime _endDate;
-        public string Title
-        {
-            get => _title;
-            set
-            {
-                _title = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public DateTime StartDate
-        {
-            get => _startDate;
-            set
-            {
-                _startDate = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public DateTime EndDate
-        {
-            get => _endDate;
-            set
-            {
-                _endDate = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+        public string Title { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
     }
 }

@@ -1,6 +1,8 @@
 ﻿using Student_Portal.Models;
 using Student_Portal.Services;
 using Student_Portal.Views;
+using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -40,8 +42,7 @@ namespace Student_Portal.ViewModels
             _termData = new TermDataService(App.Database);
             _courseData = new CourseDataService(App.Database);
             _assessmentData = new AssessmentDataService(App.Database);
-            LoadTermData();
-
+            InitTermData();
             AddNewTermCommand = new Command(OnTermCreate);
             RefreshingCommand = new Command(LoadTermData);
             ModifyCommand = new Command(async (obj) => await OnModifyClicked(obj));
@@ -81,6 +82,11 @@ namespace Student_Portal.ViewModels
             await _termData.DeleteTermAsync(term);
             LoadTermData();
         }
+        private async void InitTermData()
+        {
+            await SampleDataRepository.SetMockData(_termData, _courseData, _assessmentData);
+            LoadTermData();
+        }
 
         private async void LoadTermDetailPage(Term selectedTerm)
         {
@@ -103,5 +109,9 @@ namespace Student_Portal.ViewModels
 
             await _courseData.DeleteCoursesByTermIdAsync(termId);
         }
+
+
+
+
     }
 }

@@ -13,6 +13,7 @@ namespace Student_Portal.ViewModels
         private TermDataService _termData;
         private DateTime _startDate;
         private DateTime _endDate;
+
         public string Title { get; set; }
 
         public ICommand SaveCommand { get; private set; }

@@ -60,7 +60,7 @@ namespace Student_Portal.ViewModels
             Assessments = new ObservableCollection<Assessment>();
             GetAllAssessments(selectedCourse.Id);
             ShareNotesCommand = new Command(OnShareNotesClicked);
-            AddAssessmentCommand = new Command(OnAddAssessmentClicked, CanAddAssessmentClicked);
+            AddAssessmentCommand = new Command(OnAddAssessmentClicked);
             ModifyCommand = new Command(OnModifyClicked);
             DeleteCommand = new Command(OnDeleteClicked);
             BackCommand = new Command(OnBackClicked);
@@ -89,11 +89,6 @@ namespace Student_Portal.ViewModels
         {
             await App.Current.MainPage.Navigation.PushAsync(
                 new AddNewAssessmentPage(_assessmentDS, null, Assessments.ToList(), _selectedCourse.Id));
-        }
-
-        private bool CanAddAssessmentClicked(object arg)
-        {
-            return Assessments.Count < 2;
         }
 
         private async void OnModifyClicked(object obj)
