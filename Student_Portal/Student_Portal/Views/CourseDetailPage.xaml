@@ -25,7 +25,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="60"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="60"/>
+            <RowDefinition Height="70"/>
         </Grid.RowDefinitions>
 
         <Label 
@@ -49,19 +49,18 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="30"/>
-                    <RowDefinition Height="30"/>
-                    <RowDefinition Height="30"/>
-                    <RowDefinition Height="30"/>
-                    <RowDefinition Height="30"/>
-                    <RowDefinition Height="30"/>
-                    <RowDefinition Height="30"/>
-                    <RowDefinition Height="30"/>
-                    <RowDefinition Height="30"/>
-                    <RowDefinition Height="60"/>
-                    <RowDefinition Height="30"/>
-                    <RowDefinition Height="70"/>
-                <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="2.5*"/>
                 </Grid.RowDefinitions>
 
             <!--Course Overview-->
@@ -162,11 +161,20 @@
             <!--Notes-->
             <Label
                 Grid.Row="8"
-                Grid.ColumnSpan="2"
                 VerticalOptions="Center"
                 HorizontalOptions="Center"
                 FontAttributes="Bold"
                 Text="Notes:"/>
+            <Button
+                Text="Share"
+                FontSize="Micro"
+                Grid.Row="8"
+                Grid.Column="1"
+                VerticalOptions="Center"
+                HorizontalOptions="Center"
+                BackgroundColor="{StaticResource MainColor}"
+                TextColor="{StaticResource LabelTextColor}"
+                Command="{Binding ShareNotesCommand}"/>
             <Label
                 Grid.Row="9"
                 Grid.ColumnSpan="2"
@@ -177,11 +185,22 @@
 
             <Label
                 Grid.Row="10"
-                Grid.ColumnSpan="2"
                 FontAttributes="Bold"
                 VerticalOptions="Center"
                 HorizontalOptions="Center"
                 Text="Assessments:"/>
+            <Button 
+                x:Name="AddAssessmentButton"
+                Grid.Row="10"
+                Grid.Column="1"
+                VerticalOptions="Center"
+                HorizontalOptions="Center"
+                BackgroundColor="{StaticResource MainColor}"
+                TextColor="{StaticResource LabelTextColor}"
+                Text="Add"
+                FontSize="Micro"
+                Command="{Binding AddAssessmentCommand}"    />
+            
             <ListView 
                 x:Name="AssessmentList"
                 ItemsSource="{Binding Assessments}"
@@ -243,13 +262,13 @@
             <Button 
                 Text="Back"
                 TextColor="{StaticResource LabelTextColor}"
-                Margin="10,0"
+                Margin="10,5"
                 CornerRadius="10"
                 FontSize="Medium"
                 FontAttributes="Bold"
                 BackgroundColor="{StaticResource  GrayColor}"
                 HorizontalOptions="Fill"
-                VerticalOptions="Center"
+                VerticalOptions="Start"
                 Command="{Binding BackCommand}"/>
 
         </Grid>

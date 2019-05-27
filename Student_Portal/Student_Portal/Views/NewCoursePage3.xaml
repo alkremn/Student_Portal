@@ -57,7 +57,7 @@
                 <Button 
                     Grid.Column="1"
                     Margin="10,0"
-                    Text="Next"
+                    Text="Save"
                     TextColor="{StaticResource LabelTextColor}"
                     CornerRadius="10"
                     FontSize="Medium"
@@ -65,7 +65,7 @@
                     BackgroundColor="{StaticResource MainColor}"
                     HorizontalOptions="Fill"
                     VerticalOptions="Center"
-                    Command="{Binding NextCommand}"/>
+                    Command="{Binding SaveCommand}"/>
             </Grid>
         </Grid>
     </ContentPage.Content>

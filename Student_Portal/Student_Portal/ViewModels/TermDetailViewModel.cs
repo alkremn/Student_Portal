@@ -50,21 +50,11 @@ namespace Student_Portal.ViewModels
             ModifyCommand = new Command(async (obj) => await OnModifyClicked(obj));
             DeleteCommand = new Command(async (obj) => await OnDeleteClicked(obj));
             BackCommand = new Command(OnBackClicked);
-            MessagingCenter.Subscribe<Course>(this, NEW_COURSE_SAVED, async (course) => await NewCourseSaved(course));
         }
 
         private async void LoadCourseDetailPage(Course selectedCourse)
         {
             await App.Current.MainPage.Navigation.PushAsync(new CourseDetailPage(selectedCourse, _assessmentDS));
-        }
-
-        private async Task NewCourseSaved(Course course)
-        {
-            if (course == null)
-                return;
-
-            await _courseDS.SaveCourseAsync(course);
-            LoadCourseData();
         }
 
         private async void OnBackClicked(object obj)
