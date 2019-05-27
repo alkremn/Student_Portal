@@ -23,7 +23,6 @@ namespace Student_Portal.ViewModels
         public string Phone { get; }
         public string Email { get; }
         public string Notes { get; }
-        
 
         public ObservableCollection<Assessment> Assessments { get; private set; }
 
@@ -66,13 +65,7 @@ namespace Student_Portal.ViewModels
             DeleteCommand = new Command(OnDeleteClicked);
             BackCommand = new Command(OnBackClicked);
 
-            MessagingCenter.Subscribe<AddNewAssessmentViewModel>(this, SAVE, (obj) => OnAssessmentCreate());
-        }
-
-        private void OnAssessmentCreate()
-        {
-            GetAllAssessments(_selectedCourse.Id);
-            CheckAssessmentListCount(Assessments);
+            MessagingCenter.Subscribe<AddNewAssessmentViewModel>(this, SAVE, (obj) => GetAllAssessments(_selectedCourse.Id));
         }
 
         public async void GetAllAssessments(int courseId)

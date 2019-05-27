@@ -15,7 +15,6 @@ namespace Student_Portal.ViewModels
         private Course _course;
         private Term _term;
 
-        // Intsructor's name
         private string _insName;
         public string InsName
         {
@@ -28,7 +27,6 @@ namespace Student_Portal.ViewModels
             }
         }
 
-        //Instructor's phone number
         private string _phone;
         public string Phone
         {
@@ -41,7 +39,6 @@ namespace Student_Portal.ViewModels
             }
         }
 
-        //Instructor's email address
         private string _email;
         public string Email
         {

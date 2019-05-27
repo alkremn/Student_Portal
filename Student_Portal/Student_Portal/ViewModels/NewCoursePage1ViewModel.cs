@@ -1,15 +1,12 @@
 ﻿using Student_Portal.Views;
 using System;
-using System.Windows.Input;
 using Xamarin.Forms;
-using Plugin.LocalNotifications;
 using Student_Portal.Models;
 
 namespace Student_Portal.ViewModels
 {
     public class NewCoursePage1ViewModel:BaseViewModel
     {
-        private bool IsStartDateSelected = false;
         private bool IsEndDateSelected = false;
         private bool IsStatusSelected = false;
         private Course _course;
@@ -37,7 +34,6 @@ namespace Student_Portal.ViewModels
             set
             {
                 _startDateSelected = value;
-                IsStartDateSelected = true;
                 OnPropertyChanged();
                 NextCommand.ChangeCanExecute();
             }
@@ -95,7 +91,6 @@ namespace Student_Portal.ViewModels
             _endDateSelected = course.EndDate;
             _selectedStatus = course.Status;
 
-            IsStartDateSelected = true;
             IsEndDateSelected = true;
             IsStatusSelected = true;
     }
@@ -104,7 +99,7 @@ namespace Student_Portal.ViewModels
         {
             bool titleIsValid = !string.IsNullOrWhiteSpace(_title);
             
-            return titleIsValid && IsStartDateSelected && IsEndDateSelected && IsStatusSelected;
+            return titleIsValid && IsEndDateSelected && IsStatusSelected;
         }
 
         private async void OnNextClicked(object obj)

@@ -14,6 +14,5 @@ namespace Student_Portal.Models
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public string Type { get; set; }
-        public string Info { get; set; }
     }
 }

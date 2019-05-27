@@ -57,6 +57,7 @@
                     Text="{Binding Phone}">
                     <Entry.Behaviors>
                         <behaviors:IntValidationBehavior />
+                        <behaviors:EmptyValidationBehavior />
                     </Entry.Behaviors>
                 </Entry>
 
@@ -71,6 +72,7 @@
                     Text="{Binding Email}">
                     <Entry.Behaviors>
                         <behaviors:EmailValidationBehavior />
+                        <behaviors:EmptyValidationBehavior />
                     </Entry.Behaviors>
                 </Entry>
 

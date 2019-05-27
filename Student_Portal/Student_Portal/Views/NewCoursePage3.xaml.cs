@@ -19,5 +19,10 @@ namespace Student_Portal.Views
             InitializeComponent();
             BindingContext = new NewCoursePage3ViewModel(course, term);
         }
+
+        protected override bool OnBackButtonPressed()
+        {
+            return true;
+        }
     }
 }

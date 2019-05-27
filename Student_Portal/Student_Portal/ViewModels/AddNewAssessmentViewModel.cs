@@ -3,8 +3,6 @@ using Student_Portal.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Text;
-using System.Threading.Tasks;
 using Plugin.LocalNotifications;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -22,8 +20,6 @@ namespace Student_Portal.ViewModels
         private const string PERFORMANCE = "Performance";
         private const string SAVE = "Save";
         private const string UPDATE = "Update";
-        private bool isStartDateSelected = false;
-        private bool isEndDateSelected = false;
 
         public ObservableCollection<string> AvailableTypes { get; set; }
         public string Title { get; set; }
@@ -55,7 +51,6 @@ namespace Student_Portal.ViewModels
             set
             {
                 _startDate = value;
-                isStartDateSelected = true;
                 OnPropertyChanged();
                 SaveCommand.ChangeCanExecute();
 
@@ -69,7 +64,6 @@ namespace Student_Portal.ViewModels
             set
             {
                 _endDate = value;
-                isEndDateSelected = true;
                 OnPropertyChanged();
                 SaveCommand.ChangeCanExecute();
             }
@@ -81,7 +75,6 @@ namespace Student_Portal.ViewModels
             _assessment = assessment;
             _courseId = courseId;
             AvailableTypes = new ObservableCollection<string>();
-            InitAvailableTypeList(assessmentList);
 
             if (assessment != null)
             {
@@ -95,7 +88,7 @@ namespace Student_Portal.ViewModels
                 _startDate = DateTime.Today;
                 _endDate = DateTime.Today;
             }
-
+            InitAvailableTypeList(assessmentList);
             SaveCommand = new Command(OnSaveClicked, CanOnSaveClicked);
             CancelCommand = new Command(OnCancelClicked);
         }
@@ -109,7 +102,7 @@ namespace Student_Portal.ViewModels
                 else
                     AvailableTypes.Add(OBJECTIVE);
             }
-            else
+            else if(assessments.Count == 0)
             {
                 AvailableTypes.Add(PERFORMANCE);
                 AvailableTypes.Add(OBJECTIVE);
@@ -137,9 +130,11 @@ namespace Student_Portal.ViewModels
             _assessment.EndDate = _endDate;
             _assessment.CourseId = _courseId;
 
+            //Creates Notifications on Start and End Date
             CrossLocalNotifications.Current.Show($"{_assessment.Type} {_assessment.Name}", "Assessment start", 1, StartDate);
             CrossLocalNotifications.Current.Show($"{_assessment.Type} {_assessment.Name}", "Assessment end", 2, EndDate);
 
+            //Saves assessment
             await _assessmentDS.SaveAssessmentAsync(_assessment);
             MessagingCenter.Send(this, SAVE);
             await Application.Current.MainPage.Navigation.PopAsync();
@@ -147,7 +142,7 @@ namespace Student_Portal.ViewModels
 
         private bool CanOnSaveClicked(object arg)
         {
-            return !string.IsNullOrWhiteSpace(NameAssessment) && isStartDateSelected && isEndDateSelected;
+            return !string.IsNullOrWhiteSpace(NameAssessment);
         }
 
         private async void OnCancelClicked(object obj)

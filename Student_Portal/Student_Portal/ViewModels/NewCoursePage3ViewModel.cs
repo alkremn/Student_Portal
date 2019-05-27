@@ -37,7 +37,7 @@ namespace Student_Portal.ViewModels
         private async void OnPrevClicked(object obj)
         {
             
-            await App.Current.MainPage.Navigation.PopAsync();
+            await Application.Current.MainPage.Navigation.PopAsync();
         }
 
         private async void OnSaveClicked(object obj)

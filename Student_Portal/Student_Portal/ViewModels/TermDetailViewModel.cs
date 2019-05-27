@@ -1,7 +1,6 @@
 ﻿using Student_Portal.Models;
 using Student_Portal.Services;
 using Student_Portal.Views;
-using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -15,9 +14,9 @@ namespace Student_Portal.ViewModels
         private CourseDataService _courseDS;
         private Term _term;
         private AssessmentDataService _assessmentDS;
-        private const string NEW_COURSE_SAVED = "new_course_saved";
-
         private Course _selectedCourse;
+
+        public string Title { get; set; }
         public Course SelectedCourse
         {
             get => _selectedCourse;
@@ -31,7 +30,6 @@ namespace Student_Portal.ViewModels
             }
         }
 
-        public string Title { get; set; }
         public ObservableCollection<Course> Courses { get; } 
         public ICommand AddNewCourseCommand { get; }
         public ICommand ModifyCommand { get; }
@@ -54,12 +52,12 @@ namespace Student_Portal.ViewModels
 
         private async void LoadCourseDetailPage(Course selectedCourse)
         {
-            await App.Current.MainPage.Navigation.PushAsync(new CourseDetailPage(selectedCourse, _assessmentDS));
+            await Application.Current.MainPage.Navigation.PushAsync(new CourseDetailPage(selectedCourse, _assessmentDS));
         }
 
         private async void OnBackClicked(object obj)
         {
-            await App.Current.MainPage.Navigation.PopToRootAsync();
+            await Application.Current.MainPage.Navigation.PopToRootAsync();
         }
 
         private async Task OnDeleteClicked(object obj)
@@ -78,7 +76,7 @@ namespace Student_Portal.ViewModels
             if (obj == null)
                 return;
             Course selectedCourse = obj as Course;
-            await App.Current.MainPage.Navigation.PushAsync(new NewCoursePage1(selectedCourse, _term));
+            await Application.Current.MainPage.Navigation.PushAsync(new NewCoursePage1(selectedCourse, _term));
         }
 
         private async void LoadCourseData()
@@ -90,7 +88,7 @@ namespace Student_Portal.ViewModels
 
         private async void OnNewCourseCreate()
         {
-            await App.Current.MainPage.Navigation.PushAsync(new NewCoursePage1(new Course() { TermId = _term.Id }, _term));
+            await Application.Current.MainPage.Navigation.PushAsync(new NewCoursePage1(new Course() { TermId = _term.Id }, _term));
         }
     }
 }

@@ -81,6 +81,7 @@ namespace Student_Portal.ViewModels
             await _termData.DeleteTermAsync(term);
             LoadTermData();
         }
+
         private async void LoadTermDetailPage(Term selectedTerm)
         {
             SelectedTerm = null;
