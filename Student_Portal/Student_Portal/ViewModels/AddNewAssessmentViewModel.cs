@@ -14,7 +14,6 @@ namespace Student_Portal.ViewModels
     public class AddNewAssessmentViewModel : BaseViewModel
     {
         private Assessment _assessment;
-        private List<Assessment> _assessmentList;
         private int _courseId;
         private AssessmentDataService _assessmentDS;
         private const string NEW_ASSESSMENT = "New Assessment";
@@ -77,10 +76,8 @@ namespace Student_Portal.ViewModels
         {
             _assessmentDS = assessmentDS;
             _assessment = assessment;
-            _assessmentList = assessmentList;
             _courseId = courseId;
             AvailableTypes = new ObservableCollection<string>();
-
             if (assessment != null)
             {
                 InitData(assessment);
@@ -90,10 +87,11 @@ namespace Student_Portal.ViewModels
             {
                 Title = NEW_ASSESSMENT;
                 ButtonTitle = SAVE;
+                _startDate = DateTime.Today;
+                _endDate = DateTime.Today;
             }
+
             InitAvailableTypeList(assessmentList);
-            _startDate = DateTime.Today;
-            _endDate = DateTime.Today;
             SaveCommand = new Command(OnSaveClicked, CanOnSaveClicked);
             CancelCommand = new Command(OnCancelClicked);
         }
@@ -119,6 +117,7 @@ namespace Student_Portal.ViewModels
             Title = MODIFY_ASSESSMENT;
             NameAssessment = assessment.Name;
             _assessmentTypeSelected = assessment.Type;
+            OnPropertyChanged(AssessmentTypeSelected);
             _startDate = assessment.StartDate;
             _endDate = assessment.EndDate;
         }

@@ -54,8 +54,7 @@
                     FontSize="Medium" 
                     HeightRequest="50" 
                     SelectedItem="{Binding AssessmentTypeSelected}"
-                    ItemsSource="{Binding AvailableTypes}">
-                </Picker>
+                    ItemsSource="{Binding AvailableTypes}"/>
 
                 <!--Start date label and DatePicker-->
                 <Label Text="Start Date" TextColor="#696969" FontSize="Medium"/>

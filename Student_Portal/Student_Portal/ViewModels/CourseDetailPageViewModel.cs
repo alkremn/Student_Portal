@@ -13,8 +13,6 @@ namespace Student_Portal.ViewModels
     {
         private Course _selectedCourse;
         private AssessmentDataService _assessmentDS;
-        private const string COUNT_LESS_TWO = "count<2";
-        private const string COUNT_EQ_TWO = "count=2";
         private const string SAVE = "Save";
 
         public string Title { get; }
@@ -25,6 +23,7 @@ namespace Student_Portal.ViewModels
         public string Phone { get; }
         public string Email { get; }
         public string Notes { get; }
+        
 
         public ObservableCollection<Assessment> Assessments { get; private set; }
 
@@ -34,6 +33,16 @@ namespace Student_Portal.ViewModels
         public Command DeleteCommand { get; }
         public Command BackCommand { get; }
 
+        private bool _isVisible;
+        public bool IsVisible
+        {
+            get => _isVisible;
+            set
+            {
+                _isVisible = value;
+                OnPropertyChanged();
+            }
+        }
 
         public CourseDetailPageViewModel(Course selectedCourse, AssessmentDataService assessmentDS)
         {
@@ -120,14 +129,7 @@ namespace Student_Portal.ViewModels
 
         private void CheckAssessmentListCount(ObservableCollection<Assessment> list)
         {
-            if (list.Count < 2)
-            {
-                MessagingCenter.Send(this, COUNT_LESS_TWO);
-            }
-            else
-            {
-                MessagingCenter.Send(this, COUNT_EQ_TWO);
-            }
+            IsVisible = list.Count < 2 ? true : false;
         }
     }
 }

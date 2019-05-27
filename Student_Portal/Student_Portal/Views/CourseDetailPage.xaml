@@ -198,6 +198,7 @@
                 BackgroundColor="{StaticResource MainColor}"
                 TextColor="{StaticResource LabelTextColor}"
                 Text="Add"
+                IsVisible="{Binding IsVisible}"
                 FontSize="Micro"
                 Command="{Binding AddAssessmentCommand}"    />
             
