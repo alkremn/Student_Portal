@@ -218,13 +218,20 @@
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="2*" />
                                 </Grid.ColumnDefinitions>
+                                <Label 
+                                    VerticalOptions="Center"
+                                    HorizontalOptions="Center"
+                                    Text="{Binding Name}"/>
                                 <Label
-                                    VerticalTextAlignment="Center"
-                                    HorizontalTextAlignment="Center"
-                                    Text="{Binding Name}" />
-                                <StackLayout 
+                                    VerticalOptions="Center"
+                                    HorizontalOptions="Center"
                                     Grid.Column="1"
+                                    Text="{Binding Type}" />
+
+                                <StackLayout 
+                                    Grid.Column="2"
                                     VerticalOptions="Center"
                                     HorizontalOptions="Center"
                                     Orientation="Horizontal">

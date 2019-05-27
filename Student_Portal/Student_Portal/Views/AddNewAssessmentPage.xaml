@@ -5,16 +5,6 @@
              xmlns:behaviors="clr-namespace:Student_Portal.Behaviors"
              NavigationPage.HasNavigationBar="False"
              x:Class="Student_Portal.Views.AddNewAssessmentPage">
-    
-    <ContentPage.Resources>
-        <ResourceDictionary>
-            <converters:AssessmentTypeListToStringConverter x:Key="AssessmentTypeListToString" />
-            <converters:AssessmentTypeToStringConverter x:Key="AssessmentTypeToString" />
-
-        </ResourceDictionary>
-
-    </ContentPage.Resources>
-    
     <ContentPage.Content>
         <Grid BackgroundColor="#ECF0F1">
             <Grid.RowDefinitions>
@@ -53,7 +43,7 @@
                     Title="Select Type"
                     FontSize="Medium" 
                     HeightRequest="50" 
-                    SelectedItem="{Binding AssessmentTypeSelected}"
+                    SelectedItem="{Binding AssessmentTypeSelected, Mode=TwoWay}"
                     ItemsSource="{Binding AvailableTypes}"/>
 
                 <!--Start date label and DatePicker-->

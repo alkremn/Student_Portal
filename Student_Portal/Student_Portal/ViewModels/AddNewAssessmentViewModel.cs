@@ -39,9 +39,12 @@ namespace Student_Portal.ViewModels
             get => _assessmentTypeSelected;
             set
             {
-                _assessmentTypeSelected = value;
-                OnPropertyChanged();
-                SaveCommand.ChangeCanExecute();
+                if(value != null)
+                {
+                    _assessmentTypeSelected = value;
+                    OnPropertyChanged();
+                    SaveCommand.ChangeCanExecute();
+                }
             }
         }
 
@@ -78,6 +81,8 @@ namespace Student_Portal.ViewModels
             _assessment = assessment;
             _courseId = courseId;
             AvailableTypes = new ObservableCollection<string>();
+            InitAvailableTypeList(assessmentList);
+
             if (assessment != null)
             {
                 InitData(assessment);
@@ -91,7 +96,6 @@ namespace Student_Portal.ViewModels
                 _endDate = DateTime.Today;
             }
 
-            InitAvailableTypeList(assessmentList);
             SaveCommand = new Command(OnSaveClicked, CanOnSaveClicked);
             CancelCommand = new Command(OnCancelClicked);
         }
@@ -117,7 +121,6 @@ namespace Student_Portal.ViewModels
             Title = MODIFY_ASSESSMENT;
             NameAssessment = assessment.Name;
             _assessmentTypeSelected = assessment.Type;
-            OnPropertyChanged(AssessmentTypeSelected);
             _startDate = assessment.StartDate;
             _endDate = assessment.EndDate;
         }

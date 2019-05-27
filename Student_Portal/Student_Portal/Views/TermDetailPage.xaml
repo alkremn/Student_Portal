@@ -44,7 +44,7 @@
 
         <Label
             Grid.Row="1"
-            Text="Courses:"
+            Text="Courses"
              VerticalOptions="FillAndExpand"
             HorizontalOptions="FillAndExpand"
             VerticalTextAlignment="Center"
