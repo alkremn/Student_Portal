@@ -14,8 +14,8 @@ namespace Student_Portal.ViewModels
     {
         private CourseDataService _courseDS;
         private Term _term;
+        private AssessmentDataService _assessmentDS;
         private const string NEW_COURSE_SAVED = "new_course_saved";
-        private AssessmentDataService assessmentDS;
 
         private Course _selectedCourse;
         public Course SelectedCourse
@@ -44,7 +44,7 @@ namespace Student_Portal.ViewModels
             _term = term;
             Title = term.Title;
             Courses = new ObservableCollection<Course>();
-            assessmentDS = new AssessmentDataService(App.Database);
+            _assessmentDS = new AssessmentDataService(App.Database);
             LoadCourseData();
             AddNewCourseCommand = new Command(OnNewCourseCreate);
             ModifyCommand = new Command(async (obj) => await OnModifyClicked(obj));
@@ -55,7 +55,7 @@ namespace Student_Portal.ViewModels
 
         private async void LoadCourseDetailPage(Course selectedCourse)
         {
-            await App.Current.MainPage.Navigation.PushAsync(new CourseDetailPage(selectedCourse));
+            await App.Current.MainPage.Navigation.PushAsync(new CourseDetailPage(selectedCourse, _assessmentDS));
         }
 
         private async Task NewCourseSaved(Course course)
@@ -78,7 +78,7 @@ namespace Student_Portal.ViewModels
                 return;
             Course course = obj as Course;
 
-            await assessmentDS.DeleteAssessmentsByCourseIdAsync(course.Id);
+            await _assessmentDS.DeleteAssessmentsByCourseIdAsync(course.Id);
             await _courseDS.DeleteCourseAsync(course);
             LoadCourseData();
         }
