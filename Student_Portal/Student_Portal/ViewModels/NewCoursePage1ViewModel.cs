@@ -7,7 +7,6 @@ namespace Student_Portal.ViewModels
 {
     public class NewCoursePage1ViewModel:BaseViewModel
     {
-        private bool IsEndDateSelected = false;
         private bool IsStatusSelected = false;
         private Course _course;
         private Term _term;
@@ -27,24 +26,13 @@ namespace Student_Portal.ViewModels
             }
         }
 
-        private bool isStartDateValid;
-        public bool IsStartDateValid
+        private bool isStartEndDateValid;
+        public bool IsStartEndDateValid
         {
-            get => isStartDateValid;
+            get => isStartEndDateValid;
             set
             {
-                isStartDateValid = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private bool isEndDateValid;
-        public bool IsEndDateValid
-        {
-            get => isEndDateValid;
-            set
-            {
-                isEndDateValid = value;
+                isStartEndDateValid = value;
                 OnPropertyChanged();
             }
         }
@@ -61,13 +49,11 @@ namespace Student_Portal.ViewModels
 
                 if (value.Date <= EndDateSelected.Date)
                 {
-                    IsStartDateValid = true;
-                    IsEndDateValid = true;
+                    IsStartEndDateValid = true;
                 }
                 else
                 {
-                    IsStartDateValid = false;
-                    IsEndDateValid = false;
+                    IsStartEndDateValid = false;
                 }
             }
         }
@@ -81,17 +67,14 @@ namespace Student_Portal.ViewModels
                 _endDateSelected = value;
                 OnPropertyChanged();
                 NextCommand.ChangeCanExecute();
-                IsEndDateSelected = true;
 
                 if (value.Date >= StartDateSelected.Date)
                 {
-                    IsEndDateValid = true;
-                    IsStartDateValid = true;
+                    IsStartEndDateValid = true;
                 }
                 else
                 {
-                    IsStartDateValid = false;
-                    IsEndDateValid = false;
+                    IsStartEndDateValid = false;
                 }
             }
         }
@@ -123,6 +106,7 @@ namespace Student_Portal.ViewModels
                 _startDateSelected = DateTime.Today;
                 _endDateSelected = DateTime.Today;
             }
+            IsStartEndDateValid = true;
 
             CancelCommand = new Command(OnCancelClicked);
             NextCommand = new Command(OnNextClicked, CanNextClicked);
@@ -134,16 +118,13 @@ namespace Student_Portal.ViewModels
             _startDateSelected = course.StartDate;
             _endDateSelected = course.EndDate;
             _selectedStatus = course.Status;
-
-            IsEndDateSelected = true;
-            IsStatusSelected = true;
     }
 
         private bool CanNextClicked(object arg)
         {
             bool titleIsValid = !string.IsNullOrWhiteSpace(_title);
             bool StartEndValid = _startDateSelected <= _endDateSelected;   
-            return titleIsValid && StartEndValid && IsEndDateSelected && IsStatusSelected;
+            return titleIsValid && StartEndValid && IsStatusSelected;
         }
 
         private async void OnNextClicked(object obj)

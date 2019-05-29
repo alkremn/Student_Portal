@@ -2,14 +2,12 @@
 using Student_Portal.Services;
 using System;
 using System.Threading.Tasks;
-using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace Student_Portal.ViewModels
 {
     class NewTermViewModel : BaseViewModel
     {
-        private bool isEndDateSelected = false;
         private Term _term;
         private TermDataService _termData;
 
@@ -60,7 +58,6 @@ namespace Student_Portal.ViewModels
                 _endDateSelected = value;
                 OnPropertyChanged();
                 SaveCommand.ChangeCanExecute();
-                isEndDateSelected = true;
 
                 if (value.Date >= StartDateSelected.Date)
                 {
@@ -113,6 +110,8 @@ namespace Student_Portal.ViewModels
                 _startDateSelected = DateTime.Today;
                 _endDateSelected = DateTime.Today;
             }
+            isStartDateValid = true;
+            isEndDateValid = true;
 
             SaveCommand = new Command(OnNewTermSave, CanTermSave);
             CancelCommand = new Command(async () => await OnCancelClicked());
@@ -120,7 +119,8 @@ namespace Student_Portal.ViewModels
 
         private bool CanTermSave()
         {
-            return !string.IsNullOrWhiteSpace(Title) && isEndDateSelected  && isStartDateValid && IsEndDateValid;
+            bool StartEndValid = _startDateSelected <= _endDateSelected;
+            return !string.IsNullOrWhiteSpace(Title) && StartEndValid;
         }
 
         private async void OnNewTermSave()
