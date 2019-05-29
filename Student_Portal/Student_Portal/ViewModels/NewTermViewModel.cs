@@ -9,41 +9,94 @@ namespace Student_Portal.ViewModels
 {
     class NewTermViewModel : BaseViewModel
     {
+        private bool isEndDateSelected = false;
         private Term _term;
         private TermDataService _termData;
-        private DateTime _startDate;
-        private DateTime _endDate;
 
-        public string Title { get; set; }
+        public Command SaveCommand { get; }
+        public Command CancelCommand { get; }
 
-        public ICommand SaveCommand { get; private set; }
-        public ICommand CancelCommand { get; private set; }
-
-        public DateTime StartDate
+        private string _title;
+        public string Title
         {
-            get { return _startDate; }
+            get => _title;
             set
             {
-                if (_startDate != value)
+                _title = value;
+                OnPropertyChanged();
+                SaveCommand.ChangeCanExecute();
+            }
+        }
+
+        private DateTime _startDateSelected;
+        public DateTime StartDateSelected
+        {
+            get => _startDateSelected;
+            set
+            {
+                _startDateSelected = value;
+                OnPropertyChanged();
+                SaveCommand.ChangeCanExecute();
+
+                if (value.Date <= EndDateSelected.Date)
                 {
-                    _startDate = value;
-                    OnPropertyChanged();
+                    IsStartDateValid = true;
+                    IsEndDateValid = true;
+                }
+                else
+                {
+                    IsStartDateValid = false;
+                    IsEndDateValid = false;
                 }
             }
         }
 
-        public DateTime EndDate
+        private DateTime _endDateSelected;
+        public DateTime EndDateSelected
         {
-            get { return _endDate; }
+            get => _endDateSelected;
             set
             {
-                if (_endDate != value)
+                _endDateSelected = value;
+                OnPropertyChanged();
+                SaveCommand.ChangeCanExecute();
+                isEndDateSelected = true;
+
+                if (value.Date >= StartDateSelected.Date)
                 {
-                    _endDate = value;
-                    OnPropertyChanged();
+                    IsEndDateValid = true;
+                    IsStartDateValid = true;
+                }
+                else
+                {
+                    IsStartDateValid = false;
+                    IsEndDateValid = false;
                 }
             }
         }
+
+        private bool isStartDateValid;
+        public bool IsStartDateValid
+        {
+            get => isStartDateValid;
+            set
+            {
+                isStartDateValid = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool isEndDateValid;
+        public bool IsEndDateValid
+        {
+            get => isEndDateValid;
+            set
+            {
+                isEndDateValid = value;
+                OnPropertyChanged();
+            }
+        }
+
 
         public NewTermViewModel(TermDataService termData, Term term)
         {
@@ -52,27 +105,32 @@ namespace Student_Portal.ViewModels
             if (term != null)
             {
                 Title = term.Title;
-                _startDate = term.StartDate;
-                _endDate = term.EndDate;
+                _startDateSelected = term.StartDate;
+                _endDateSelected = term.EndDate;
             }
             else
             {
-                _startDate = DateTime.Today;
-                _endDate = DateTime.Today;
+                _startDateSelected = DateTime.Today;
+                _endDateSelected = DateTime.Today;
             }
 
-            SaveCommand = new Command(async () => await OnNewTermSave());
+            SaveCommand = new Command(OnNewTermSave, CanTermSave);
             CancelCommand = new Command(async () => await OnCancelClicked());
         }
-       
-        private async Task OnNewTermSave()
+
+        private bool CanTermSave()
+        {
+            return !string.IsNullOrWhiteSpace(Title) && isEndDateSelected  && isStartDateValid && IsEndDateValid;
+        }
+
+        private async void OnNewTermSave()
         {
             if(_term == null)
                 _term = new Term();
 
             _term.Title = Title;
-            _term.StartDate = StartDate;
-            _term.EndDate = EndDate;
+            _term.StartDate = _startDateSelected;
+            _term.EndDate = _endDateSelected;
 
             await _termData.SaveTermAsync(_term);
 

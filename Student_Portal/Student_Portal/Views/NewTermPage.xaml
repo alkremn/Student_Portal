@@ -4,9 +4,16 @@
              xmlns:local="clr-namespace:Student_Portal"
              xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core" 
              ios:Page.UseSafeArea="True"
+             xmlns:converters="clr-namespace:Student_Portal.Converters"
              NavigationPage.HasNavigationBar="False"
              x:Class="Student_Portal.Views.NewTermPage">
-   
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:BoolToColorConverter x:Key="BoolToColor" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
     <StackLayout BackgroundColor="#ECF0F1">
         <Label 
             Text="New Term"
@@ -32,19 +39,19 @@
             <Label Text="Start Date" TextColor="#696969" FontSize="Medium"/>
             <DatePicker 
                 MinimumDate="1/1/2016"
-                TextColor="#696969" 
+                TextColor="{Binding IsStartDateValid, Converter={StaticResource BoolToColor}}" 
                 HeightRequest="50" 
-                Date="{Binding StartDate}"
+                Date="{Binding StartDateSelected}"
                 
                 FontSize="Medium" />
 
             <!--End date label and DatePicker-->
             <Label Text="End Date" TextColor="#696969" FontSize="Medium"/>
             <DatePicker 
-                TextColor="#696969" 
+                TextColor="{Binding IsEndDateValid, Converter={StaticResource BoolToColor}}" 
                 HeightRequest="50" 
                 MinimumDate="1/1/2016"
-                Date="{Binding EndDate}"
+                Date="{Binding EndDateSelected}"
                 FontSize="Medium"/>
 
             <Button Text="Save"
