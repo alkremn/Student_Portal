@@ -27,6 +27,28 @@ namespace Student_Portal.ViewModels
             }
         }
 
+        private bool isStartDateValid;
+        public bool IsStartDateValid
+        {
+            get => isStartDateValid;
+            set
+            {
+                isStartDateValid = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool isEndDateValid;
+        public bool IsEndDateValid
+        {
+            get => isEndDateValid;
+            set
+            {
+                isEndDateValid = value;
+                OnPropertyChanged();
+            }
+        }
+
         private DateTime _startDateSelected;
         public DateTime StartDateSelected
         {
@@ -36,6 +58,17 @@ namespace Student_Portal.ViewModels
                 _startDateSelected = value;
                 OnPropertyChanged();
                 NextCommand.ChangeCanExecute();
+
+                if (value.Date <= EndDateSelected.Date)
+                {
+                    IsStartDateValid = true;
+                    IsEndDateValid = true;
+                }
+                else
+                {
+                    IsStartDateValid = false;
+                    IsEndDateValid = false;
+                }
             }
         }
 
@@ -46,9 +79,20 @@ namespace Student_Portal.ViewModels
             set
             {
                 _endDateSelected = value;
-                IsEndDateSelected = true;
                 OnPropertyChanged();
                 NextCommand.ChangeCanExecute();
+                IsEndDateSelected = true;
+
+                if (value.Date >= StartDateSelected.Date)
+                {
+                    IsEndDateValid = true;
+                    IsStartDateValid = true;
+                }
+                else
+                {
+                    IsStartDateValid = false;
+                    IsEndDateValid = false;
+                }
             }
         }
 
@@ -98,8 +142,8 @@ namespace Student_Portal.ViewModels
         private bool CanNextClicked(object arg)
         {
             bool titleIsValid = !string.IsNullOrWhiteSpace(_title);
-            
-            return titleIsValid && IsEndDateSelected && IsStatusSelected;
+            bool StartEndValid = _startDateSelected <= _endDateSelected;   
+            return titleIsValid && StartEndValid && IsEndDateSelected && IsStatusSelected;
         }
 
         private async void OnNextClicked(object obj)

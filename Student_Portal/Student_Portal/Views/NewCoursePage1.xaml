@@ -4,9 +4,15 @@
              x:Class="Student_Portal.Views.NewCoursePage1"
              xmlns:behaviors="clr-namespace:Student_Portal.Behaviors"
              NavigationPage.HasNavigationBar="False"
+             xmlns:converters="clr-namespace:Student_Portal.Converters"
              xmlns:local="clr-namespace:Student_Portal">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:BoolToColorConverter x:Key="BoolToColor" />
+        </ResourceDictionary>
+        
+    </ContentPage.Resources>
     <ContentPage.Content>
-
         <Grid BackgroundColor="#ECF0F1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="60"/>
@@ -45,7 +51,7 @@
                 <Label Text="Start Date" TextColor="#696969" FontSize="Medium"/>
                 <DatePicker 
                     x:Name="StartDate"
-                    TextColor="#696969" 
+                    TextColor="{Binding IsStartDateValid, Converter={StaticResource BoolToColor}}" 
                     HeightRequest="50" 
                     Date="{Binding StartDateSelected}"
                     FontSize="Medium" />
@@ -54,7 +60,7 @@
                 <Label Text="End Date" TextColor="#696969" FontSize="Medium"/>
                 <DatePicker 
                     x:Name="EndDate"
-                    TextColor="#696969" 
+                    TextColor="{Binding IsEndDateValid, Converter={StaticResource BoolToColor}}" 
                     HeightRequest="50" 
                     Date="{Binding EndDateSelected}"
                     FontSize="Medium"/>
