@@ -21,7 +21,7 @@ namespace Student_Portal.ViewModels
         private const string SAVE = "Save";
         private const string UPDATE = "Update";
 
-        public ObservableCollection<string> AvailableTypes { get; set; }
+        public ObservableCollection<string> AvailableTypes { get; }
         public string Title { get; set; }
         public string ButtonTitle { get; set; }
         public string NameAssessment { get; set; }
@@ -98,6 +98,7 @@ namespace Student_Portal.ViewModels
             }
         }
 
+        //Constructor
         public AddNewAssessmentViewModel(AssessmentDataService assessmentDS, Assessment assessment, List<Assessment> assessmentList, int courseId)
         {
             _assessmentDS = assessmentDS;
@@ -123,6 +124,7 @@ namespace Student_Portal.ViewModels
             CancelCommand = new Command(OnCancelClicked);
         }
 
+        //Populates list of Available types
         private void InitAvailableTypeList(Assessment assessment, List<Assessment> assessments)
         {
             switch (assessments.Count)
@@ -144,14 +146,14 @@ namespace Student_Portal.ViewModels
                             AvailableTypes.Add(OBJECTIVE);
                     }
                     break;
-
                 case 0:
                     AvailableTypes.Add(PERFORMANCE);
                     AvailableTypes.Add(OBJECTIVE);
                     break;
             }
         }
-
+        
+        //Initializes data if assessment is not null
         private void InitData(Assessment assessment)
         {
             Title = MODIFY_ASSESSMENT;
@@ -161,6 +163,7 @@ namespace Student_Portal.ViewModels
             _endDateSelected = assessment.EndDate;
         }
 
+        //On Save Method
         private async void OnSaveClicked(object obj)
         {
             if (_assessment == null)
@@ -183,12 +186,14 @@ namespace Student_Portal.ViewModels
             await Application.Current.MainPage.Navigation.PopAsync();
         }
 
+        //Validates information to save
         private bool CanOnSaveClicked(object arg)
         {
             bool StartEndValid = _startDateSelected <= _endDateSelected;
             return !string.IsNullOrWhiteSpace(NameAssessment) && StartEndValid;
         }
 
+        //Returns to previous page
         private async void OnCancelClicked(object obj)
         {
             await App.Current.MainPage.Navigation.PopAsync();

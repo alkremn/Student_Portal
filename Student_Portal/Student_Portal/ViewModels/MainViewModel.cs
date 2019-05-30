@@ -36,6 +36,7 @@ namespace Student_Portal.ViewModels
             }
         }
 
+        //Contsructor
         public MainViewModel()
         {
             Terms = new ObservableCollection<Term>();
@@ -82,18 +83,22 @@ namespace Student_Portal.ViewModels
             await _termData.DeleteTermAsync(term);
             LoadTermData();
         }
+
+        //Initializes data on the page
         private async void InitTermData()
         {
             await SampleDataRepository.SetMockData(_termData, _courseData, _assessmentData);
             LoadTermData();
         }
 
+        //loads term detail page for selected term
         private async void LoadTermDetailPage(Term selectedTerm)
         {
             SelectedTerm = null;
             await Application.Current.MainPage.Navigation.PushAsync(new TermDetailPage(_courseData, selectedTerm));
         }
 
+        //Loads courses from database
         private async void LoadTermData()
         {
             var terms = await _termData.GetTermsAsync();
@@ -101,6 +106,7 @@ namespace Student_Portal.ViewModels
             terms.ToList().ForEach(t => Terms.Add(t));
         }
 
+        //Delete courses and included assessments by term id
         private async void DeleteCoursesByTermId(int termId)
         {
             var courses = await _courseData.GetAllCoursesByTermIdAsync(termId);

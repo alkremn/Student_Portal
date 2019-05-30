@@ -16,6 +16,7 @@ namespace Student_Portal.ViewModels
         public ICommand PrevCommand { get; }
         public ICommand SaveCommand { get; }
 
+        //Constructor
         public NewCoursePage3ViewModel(Course course, Term term)
         {
             _course = course;
@@ -28,6 +29,7 @@ namespace Student_Portal.ViewModels
             SaveCommand = new Command(OnSaveClicked);
         }
 
+        //Initializes the data on the page
         private void InitCourseData(Course course)
         {
             if (course.Notes != null)

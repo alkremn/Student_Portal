@@ -1,17 +1,14 @@
 ﻿using Student_Portal.Models;
 using Student_Portal.Views;
 using System;
-using System.Collections.Generic;
 using System.Net.Mail;
-using System.Text;
-using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace Student_Portal.ViewModels
 {
     public class NewCoursePage2ViewModel : BaseViewModel
     {
-        private const int MAX_PHONE_NUMBER = 10;
+        private const int MAX_PHONE_NUMBER = 11;
         private Course _course;
         private Term _term;
 
@@ -54,6 +51,7 @@ namespace Student_Portal.ViewModels
         public Command PrevCommand { get; }
         public Command NextCommand { get; }
 
+        //Constructor
         public NewCoursePage2ViewModel(Course selectedCourse, Term term)
         {
             _course = selectedCourse;
@@ -66,6 +64,7 @@ namespace Student_Portal.ViewModels
             NextCommand = new Command(OnNextClicked, CanCextClicked);
         }
 
+        //Initializes the data on the page
         private void InitCourseData(Course selectedCourse)
         {
             _insName = selectedCourse.InstructorName;

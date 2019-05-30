@@ -35,7 +35,8 @@ namespace Student_Portal.ViewModels
         public ICommand ModifyCommand { get; }
         public ICommand DeleteCommand { get; }
         public ICommand BackCommand { get; }
-
+        
+        //Constructor
         public TermDetailViewModel(CourseDataService courseDS, Term term)
         {
             _courseDS = courseDS;
@@ -50,6 +51,7 @@ namespace Student_Portal.ViewModels
             BackCommand = new Command(OnBackClicked);
         }
 
+        //Loads course detial page
         private async void LoadCourseDetailPage(Course selectedCourse)
         {
             await Application.Current.MainPage.Navigation.PushAsync(new CourseDetailPage(selectedCourse, _assessmentDS));
@@ -60,6 +62,7 @@ namespace Student_Portal.ViewModels
             await Application.Current.MainPage.Navigation.PopToRootAsync();
         }
 
+        //Deletes course and all its assessments 
         private async Task OnDeleteClicked(object obj)
         {
             if (obj == null)
@@ -71,6 +74,7 @@ namespace Student_Portal.ViewModels
             LoadCourseData();
         }
 
+        //Modifies selected course
         private async Task OnModifyClicked(object obj)
         {
             if (obj == null)
@@ -79,6 +83,7 @@ namespace Student_Portal.ViewModels
             await Application.Current.MainPage.Navigation.PushAsync(new NewCoursePage1(selectedCourse, _term));
         }
 
+        //Loads courses from database
         private async void LoadCourseData()
         {
             var courses =  await _courseDS.GetAllCoursesByTermIdAsync(_term.Id);
@@ -86,6 +91,7 @@ namespace Student_Portal.ViewModels
             courses.ToList().ForEach(c => Courses.Add(c));
         }
 
+        //Loads new course page
         private async void OnNewCourseCreate()
         {
             await Application.Current.MainPage.Navigation.PushAsync(new NewCoursePage1(new Course() { TermId = _term.Id }, _term));

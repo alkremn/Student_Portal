@@ -92,6 +92,7 @@ namespace Student_Portal.ViewModels
             }
         }
 
+        //constructor
         public NewCoursePage1ViewModel(Course selectedCourse, Term term)
         {
             _course = selectedCourse;
@@ -112,13 +113,14 @@ namespace Student_Portal.ViewModels
             NextCommand = new Command(OnNextClicked, CanNextClicked);
         }
 
+        //Initializes the data on the page
         private void InitCourseData(Course course)
         {
             _title = course.Title;
             _startDateSelected = course.StartDate;
             _endDateSelected = course.EndDate;
             _selectedStatus = course.Status;
-    }
+        }
 
         private bool CanNextClicked(object arg)
         {

@@ -36,6 +36,21 @@ namespace Student_Portal.Models
                         Notes = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
                         TermId = term.Id
                     });
+
+                await _courseData.SaveCourseAsync(
+                   new Course()
+                   {
+                       Title = "Math",
+                       StartDate = DateTime.Today + TimeSpan.FromDays(4),
+                       EndDate = DateTime.Today + TimeSpan.FromDays(37),
+                       Status = "In Progress",
+                       InstructorName = "Alex K",
+                       InstructorPhone = "3852218919",
+                       InstructorEmail = "asdf@asdf.com",
+                       IsExisting = true,
+                       Notes = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+                       TermId = term.Id
+                   });
                 var courses = await _courseData.GetAllCoursesByTermIdAsync(term.Id);
 
                 await _assessmentData.SaveAssessmentListAsync(
@@ -56,6 +71,14 @@ namespace Student_Portal.Models
                             EndDate = DateTime.Today + TimeSpan.FromDays(60),
                             Type = "Performance",
                             CourseId = courses[0].Id
+                        },
+                        new Assessment()
+                        {
+                                Name = "English",
+                            StartDate = DateTime.Today + TimeSpan.FromDays(35),
+                            EndDate = DateTime.Today + TimeSpan.FromDays(60),
+                            Type = "Objective",
+                            CourseId = courses[1].Id
                         }
                     });
             }

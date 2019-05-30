@@ -79,6 +79,7 @@ namespace Student_Portal.ViewModels
             }
         }
 
+        //Contsructor
         public NewTermViewModel(TermDataService termData, Term term)
         {
             _term = term;
@@ -100,12 +101,14 @@ namespace Student_Portal.ViewModels
             CancelCommand = new Command(async () => await OnCancelClicked());
         }
 
+        //Checks if button save can be clicked
         private bool CanTermSave()
         {
             bool StartEndValid = _startDateSelected <= _endDateSelected;
             return !string.IsNullOrWhiteSpace(Title) && StartEndValid;
         }
 
+        //Saves Term
         private async void OnNewTermSave()
         {
             if(_term == null)

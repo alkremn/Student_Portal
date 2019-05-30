@@ -24,8 +24,7 @@ namespace Student_Portal.ViewModels
         public string Email { get; }
         public string Notes { get; }
 
-        public ObservableCollection<Assessment> Assessments { get; private set; }
-
+        public ObservableCollection<Assessment> Assessments { get; }
         public Command ShareNotesCommand { get; }
         public Command AddAssessmentCommand { get; }
         public Command ModifyCommand { get; }
@@ -43,6 +42,7 @@ namespace Student_Portal.ViewModels
             }
         }
 
+        //constructor
         public CourseDetailPageViewModel(Course selectedCourse, AssessmentDataService assessmentDS)
         {
             _selectedCourse = selectedCourse;
@@ -68,6 +68,7 @@ namespace Student_Portal.ViewModels
             MessagingCenter.Subscribe<AddNewAssessmentViewModel>(this, SAVE, (obj) => GetAllAssessments(_selectedCourse.Id));
         }
 
+        //Returns all assessments by the given course id
         public async void GetAllAssessments(int courseId)
         {
             var assessmentsById = await _assessmentDS.GetAllAssessmentsByCourseIdAsync(courseId);
@@ -76,6 +77,7 @@ namespace Student_Portal.ViewModels
             CheckAssessmentListCount(Assessments);
         }
 
+        //shares notes
         private void OnShareNotesClicked(object obj)
         {
             Share.RequestAsync(new ShareTextRequest
@@ -100,6 +102,7 @@ namespace Student_Portal.ViewModels
                 new AddNewAssessmentPage(_assessmentDS, assessment, Assessments.ToList(), _selectedCourse.Id));
         }
 
+        //Method that deletes assessment
         private async void OnDeleteClicked(object obj)
         {
             if (obj == null)
@@ -115,6 +118,7 @@ namespace Student_Portal.ViewModels
             await App.Current.MainPage.Navigation.PopAsync();
         }
 
+        //sets add button visibility if list count.
         private void CheckAssessmentListCount(ObservableCollection<Assessment> list)
         {
             IsVisible = list.Count < 2 ? true : false;
