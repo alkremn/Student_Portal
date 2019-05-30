@@ -5,6 +5,11 @@
              xmlns:behaviors="clr-namespace:Student_Portal.Behaviors"
              NavigationPage.HasNavigationBar="False"
              x:Class="Student_Portal.Views.AddNewAssessmentPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:BoolToColorConverter x:Key="BoolToColor" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.Content>
         <Grid BackgroundColor="#ECF0F1">
             <Grid.RowDefinitions>
@@ -50,18 +55,18 @@
                 <Label Text="Start Date" TextColor="#696969" FontSize="Medium"/>
                 <DatePicker 
                     MinimumDate="1/1/2016"
-                    TextColor="#696969" 
+                    TextColor="{Binding IsStartEndDateValid, Converter={StaticResource BoolToColor}}" 
                     HeightRequest="50" 
-                    Date="{Binding StartDate}"
+                    Date="{Binding StartDateSelected}"
                     FontSize="Medium" />
 
                 <!--End date label and DatePicker-->
                 <Label Text="End Date" TextColor="#696969" FontSize="Medium"/>
                 <DatePicker 
-                    TextColor="#696969" 
+                    TextColor="{Binding IsStartEndDateValid, Converter={StaticResource BoolToColor}}" 
                     HeightRequest="50" 
                     MinimumDate="1/1/2016"
-                    Date="{Binding EndDate}"
+                    Date="{Binding EndDateSelected}"
                     FontSize="Medium"/>
 
             </StackLayout>

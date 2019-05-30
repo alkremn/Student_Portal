@@ -39,7 +39,7 @@
             <Label Text="Start Date" TextColor="#696969" FontSize="Medium"/>
             <DatePicker 
                 MinimumDate="1/1/2016"
-                TextColor="{Binding IsStartDateValid, Converter={StaticResource BoolToColor}}" 
+                TextColor="{Binding IsStartEndDateValid, Converter={StaticResource BoolToColor}}" 
                 HeightRequest="50" 
                 Date="{Binding StartDateSelected}"
                 
@@ -48,7 +48,7 @@
             <!--End date label and DatePicker-->
             <Label Text="End Date" TextColor="#696969" FontSize="Medium"/>
             <DatePicker 
-                TextColor="{Binding IsEndDateValid, Converter={StaticResource BoolToColor}}" 
+                TextColor="{Binding IsStartEndDateValid, Converter={StaticResource BoolToColor}}" 
                 HeightRequest="50" 
                 MinimumDate="1/1/2016"
                 Date="{Binding EndDateSelected}"

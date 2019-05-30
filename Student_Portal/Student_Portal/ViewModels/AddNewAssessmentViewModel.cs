@@ -44,28 +44,57 @@ namespace Student_Portal.ViewModels
             }
         }
 
-        private DateTime _startDate;
-        public DateTime StartDate
+        private DateTime _startDateSelected;
+        public DateTime StartDateSelected
         {
-            get => _startDate;
+            get => _startDateSelected;
             set
             {
-                _startDate = value;
+                _startDateSelected = value;
                 OnPropertyChanged();
                 SaveCommand.ChangeCanExecute();
+
+                if (value.Date <= EndDateSelected.Date)
+                {
+                    IsStartEndDateValid = true;
+                }
+                else
+                {
+                    IsStartEndDateValid = false;
+                }
 
             }
         }
 
-        private DateTime _endDate;
-        public DateTime EndDate
+        private DateTime _endDateSelected;
+        public DateTime EndDateSelected
         {
-            get => _endDate;
+            get => _endDateSelected;
             set
             {
-                _endDate = value;
+                _endDateSelected = value;
                 OnPropertyChanged();
                 SaveCommand.ChangeCanExecute();
+
+                if (value.Date >= StartDateSelected.Date)
+                {
+                    IsStartEndDateValid = true;
+                }
+                else
+                {
+                    IsStartEndDateValid = false;
+                }
+            }
+        }
+
+        private bool isStartEndDateValid;
+        public bool IsStartEndDateValid
+        {
+            get => isStartEndDateValid;
+            set
+            {
+                isStartEndDateValid = value;
+                OnPropertyChanged();
             }
         }
 
@@ -85,9 +114,10 @@ namespace Student_Portal.ViewModels
             {
                 Title = NEW_ASSESSMENT;
                 ButtonTitle = SAVE;
-                _startDate = DateTime.Today;
-                _endDate = DateTime.Today;
+                _startDateSelected = DateTime.Today;
+                _endDateSelected = DateTime.Today;
             }
+            IsStartEndDateValid = true;
             InitAvailableTypeList(assessment, assessmentList);
             SaveCommand = new Command(OnSaveClicked, CanOnSaveClicked);
             CancelCommand = new Command(OnCancelClicked);
@@ -127,8 +157,8 @@ namespace Student_Portal.ViewModels
             Title = MODIFY_ASSESSMENT;
             NameAssessment = assessment.Name;
             _assessmentTypeSelected = assessment.Type;
-            _startDate = assessment.StartDate;
-            _endDate = assessment.EndDate;
+            _startDateSelected = assessment.StartDate;
+            _endDateSelected = assessment.EndDate;
         }
 
         private async void OnSaveClicked(object obj)
@@ -139,13 +169,13 @@ namespace Student_Portal.ViewModels
             }
             _assessment.Name = NameAssessment;
             _assessment.Type = AssessmentTypeSelected;
-            _assessment.StartDate = _startDate;
-            _assessment.EndDate = _endDate;
+            _assessment.StartDate = _startDateSelected;
+            _assessment.EndDate = _endDateSelected;
             _assessment.CourseId = _courseId;
 
             //Creates Notifications on Start and End Date
-            CrossLocalNotifications.Current.Show($"{_assessment.Type} {_assessment.Name}", "Assessment start", 1, StartDate);
-            CrossLocalNotifications.Current.Show($"{_assessment.Type} {_assessment.Name}", "Assessment end", 2, EndDate);
+            CrossLocalNotifications.Current.Show($"{_assessment.Type} {_assessment.Name}", "Assessment start", 1, StartDateSelected);
+            CrossLocalNotifications.Current.Show($"{_assessment.Type} {_assessment.Name}", "Assessment end", 2, EndDateSelected);
 
             //Saves assessment
             await _assessmentDS.SaveAssessmentAsync(_assessment);
@@ -155,7 +185,8 @@ namespace Student_Portal.ViewModels
 
         private bool CanOnSaveClicked(object arg)
         {
-            return !string.IsNullOrWhiteSpace(NameAssessment);
+            bool StartEndValid = _startDateSelected <= _endDateSelected;
+            return !string.IsNullOrWhiteSpace(NameAssessment) && StartEndValid;
         }
 
         private async void OnCancelClicked(object obj)
